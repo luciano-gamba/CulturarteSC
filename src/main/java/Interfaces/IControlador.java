@@ -1,5 +1,17 @@
-package Logica;
+package Interfaces;
 
+import DataTypes.DataAporte;
+import DataTypes.DataCategoria;
+import DataTypes.DataColaborador;
+import DataTypes.EnumRetorno;
+import DataTypes.DataComentario;
+import DataTypes.DataProponente;
+import DataTypes.DataPropuesta;
+import DataTypes.DataPropuestaSimple;
+import DataTypes.DataUsuario;
+import Logica.Colaborador;
+import Logica.Proponente;
+import Logica.Usuario;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -59,11 +71,15 @@ public interface IControlador {
     
     int altaPropuesta(String nick, String tipo, String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual, String imagen);
     
+    int cambiarEstadoPropuesta(String titulo, String est);
+    
     int modificarPropuesta(String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, String posibleRetorno, String estado, String imagen, String categoria);
     
     DefaultMutableTreeNode cargarNodoRaizCategorias();
         
     List<String> getPropuestas();
+    
+    List<String> getPropuestasI();
     
     DataPropuesta consultaDePropuesta(String titulo);
     
@@ -72,6 +88,8 @@ public interface IControlador {
     DataPropuestaSimple getDataPropuestaSimple(String titulo);
     
     List<String> getEstados();
+    
+    List<String> getPropXEstado(String estado);
      
     List<String> getPropuestasXColaborador(String nick);
     
@@ -92,7 +110,11 @@ public interface IControlador {
     int verificarUsuario(String usuario, String contraseña);
     
     String getUsuarioPorMail(String nick);
-        
+    
+    void cambiarEstado(String titulo, int n);
+    
+    void eliminarUsuario(String usu);
+    
     boolean esFavorita(String titulo, String nick);
     
     boolean cambiarFavorita(String titulo, String nick);

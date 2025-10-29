@@ -1,5 +1,16 @@
 package Logica;
 
+import Interfaces.IControlador;
+import DataTypes.EnumRetorno;
+import DataTypes.EnumEstado;
+import DataTypes.DataComentario;
+import DataTypes.DataAporte;
+import DataTypes.DataCategoria;
+import DataTypes.DataColaborador;
+import DataTypes.DataProponente;
+import DataTypes.DataPropuesta;
+import DataTypes.DataPropuestaSimple;
+import DataTypes.DataUsuario;
 import Persistencia.ControladoraPersistencia;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -515,6 +526,16 @@ public class Controlador implements IControlador{
         return 1;
     }
    
+    @Override
+    public int cambiarEstadoPropuesta(String titulo, String estado) {
+        Propuesta p = cp.getPropuesta(titulo);
+
+        p.modificarPropuesta(p.getDescripcion(), p.getLugar(), p.getFechaARealizar(), p.getEntrada(), p.getNecesaria(), p.getPosibleRetorno().toString(), estado, p.getImagen(), p.getCategoriaClase());
+        cp.modificarPropuesta(p);
+        cp.editarPropuesta(p);
+
+        return 0;
+    }
     
     @Override
     public int modificarPropuesta(String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, String posibleRetorno, String estado, String imagen, String categoria){
@@ -579,7 +600,19 @@ public class Controlador implements IControlador{
             }
           return listaPropuestas;
     }
-    
+
+    public List<String> getPropuestasI() {
+        List<String> listaPropuestas = new ArrayList<>();
+        String aux;
+        for (Propuesta p : cp.getListaPropuestas()) {
+            if (p.getEstadoActual().getEstado().toString().equals("INGRESADA")) {
+                aux = p.getTitulo();
+                listaPropuestas.add(aux);
+            }
+        }
+        return listaPropuestas;
+    }
+        
     @Override
     public DataPropuesta consultaDePropuesta(String titulo){
         
@@ -786,6 +819,32 @@ public class Controlador implements IControlador{
     return listaEstados;
     }
     
+        @Override
+    public List<String> getPropXEstado(String estado){
+//        List<String> listaPropuestas = new ArrayList<>();
+//        String aux;
+//        for(Propuesta p : misPropuestas){
+//            aux = p.getTitulo();
+//            if(p.getEstadoActual().getEstado().toString().equalsIgnoreCase(estado)){
+//                listaPropuestas.add(aux);
+//            }
+//        }
+//        return listaPropuestas;
+        
+        //PERSISTENCIA
+        
+        List<String> listaPropuestas = new ArrayList<>();
+        String aux;
+        for(Propuesta p : cp.getListaPropuestas()){
+            aux = p.getTitulo();
+            if(p.getEstadoActual().getEstado().toString().equalsIgnoreCase(estado)){
+                listaPropuestas.add(aux);
+            }
+        }
+        return listaPropuestas;
+    }
+    
+    
     @Override
     public List<String> getPropuestasXColaborador(String colab){
         //CON MEMEORIA LOCAL
@@ -973,6 +1032,26 @@ public class Controlador implements IControlador{
         return null;
     }
    
+    @Override
+    public void cambiarEstado(String titulo, int n){
+        Propuesta prop = cp.getPropuesta(titulo);
+        //LocalDate fec = LocalDate.now();
+        EnumEstado est;
+        if (n == 0) {
+            est = EnumEstado.valueOf("PUBLICADA");
+        }else{
+            est = EnumEstado.valueOf("CANCELADA");
+        }
+        
+        prop.actualizarEstadoActual(est);
+        cp.editarPropuesta(prop);
+    }
+        
+    @Override
+    public void eliminarUsuario(String usu){
+        cp.eliminarUsuario(usu);
+    }
+    
     @Override
     public boolean esFavorita(String titulo, String nick){
         Usuario u = cp.buscarUsuario(nick);

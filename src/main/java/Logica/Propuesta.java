@@ -1,5 +1,7 @@
 package Logica;
 
+import DataTypes.EnumRetorno;
+import DataTypes.EnumEstado;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -238,6 +240,10 @@ public class Propuesta implements Serializable {
     }
     public Double getAlcanzada(){
         return this.montoAlcanzada;
+    }
+
+    public void setEstadoActual(Estado estadoActual) {
+        this.estadoActual = estadoActual;
     }
 
     public LocalDateTime getFechaLimit() {

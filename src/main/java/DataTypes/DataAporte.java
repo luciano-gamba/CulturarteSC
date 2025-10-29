@@ -1,4 +1,4 @@
-package Logica;
+package DataTypes;
 
 import java.time.LocalDateTime;
 

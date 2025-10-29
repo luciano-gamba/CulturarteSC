@@ -1,4 +1,4 @@
-package Logica;
+package DataTypes;
 
 public class DataCategoria {
     private String nombre;

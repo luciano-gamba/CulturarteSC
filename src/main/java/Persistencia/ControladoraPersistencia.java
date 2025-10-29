@@ -39,6 +39,13 @@ public class ControladoraPersistencia {
         }
     }
 
+    public void eliminarUsuario(String usu) {
+        try {
+            usuJPA.destroy(usu);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     ProponenteJpaController usuPropJPA = new ProponenteJpaController();
 

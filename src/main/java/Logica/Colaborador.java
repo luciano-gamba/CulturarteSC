@@ -1,5 +1,8 @@
 package Logica;
 
+import DataTypes.EnumRetorno;
+import DataTypes.DataAporte;
+import DataTypes.DataPropuesta;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

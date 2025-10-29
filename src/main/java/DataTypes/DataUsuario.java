@@ -1,4 +1,4 @@
-package Logica;
+package DataTypes;
 
 import java.util.HashMap;
 import java.util.List;

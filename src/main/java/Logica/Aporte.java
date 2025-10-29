@@ -1,5 +1,7 @@
 package Logica;
 
+import DataTypes.DataPropuesta;
+import DataTypes.EnumRetorno;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
@@ -155,5 +157,7 @@ public class Aporte implements Serializable {
     public int getCantidadcolaboradores(){
         return this.miPropuesta.getAportes().size();
     }
+    
+    
     
 }

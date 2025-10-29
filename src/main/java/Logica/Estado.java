@@ -1,5 +1,6 @@
 package Logica;
 
+import DataTypes.EnumEstado;
 import java.io.Serializable;
 import java.time.LocalDate;
 import javax.persistence.Entity;

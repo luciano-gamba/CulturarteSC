@@ -1,5 +1,7 @@
 package Logica;
 
+import DataTypes.DataPropuesta;
+import DataTypes.DataUsuario;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;

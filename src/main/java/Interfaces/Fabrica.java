@@ -1,4 +1,7 @@
-package Logica;
+package Interfaces;
+
+import Interfaces.IControlador;
+import Logica.Controlador;
 
 public class Fabrica {
     private static Fabrica instancia;
