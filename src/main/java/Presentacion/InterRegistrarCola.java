@@ -455,10 +455,10 @@ public class InterRegistrarCola extends javax.swing.JInternalFrame {
             this.txt$alcanzado.setText(DP.getAlcanzada().toString());
             this.txt$necesaria.setText(DP.getNecesaria().toString());
             this.txtCategoria.setText(DP.getCategoria());
-            this.txtDescripcion.setText(DP.getDescripcion());
+            this.txtDescripcion.setText(DP.getDesc());
             this.txtEstado.setText(DP.getEstadoActual().getEstado().toString());
-            this.txtFecha.setText(DP.getFechaARealizar().format(DateTimeFormatter.ISO_DATE));
-            this.txtFechaPubli.setText(DP.getFechaARealizar().format(DateTimeFormatter.ISO_DATE)); //Decia getFechaPubli()
+            this.txtFecha.setText(DP.getFechaPubli().format(DateTimeFormatter.ISO_DATE));
+            this.txtFechaPubli.setText(DP.getFechaPubli().format(DateTimeFormatter.ISO_DATE)); //Decia getFechaPubli()
             this.txtLugar.setText(DP.getLugar());
             this.txtPrecio.setText(DP.getEntrada().toString());
             this.txtTipoRetorno.setText(DP.getRetorno().toString());

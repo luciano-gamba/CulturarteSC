@@ -35,7 +35,9 @@ public class DataPropuesta {
     String nickProponenteDe;
     private int cantidadColaboradores;
     private List<Aporte> misAportes = new ArrayList<>();
-    
+
+    public DataPropuesta() {
+    }
     
     public DataPropuesta(String titulo, String imagen, Estado estadoActual, Proponente p, String descrip, String lugar, double entrada, double necesaria,double alcanzada,LocalDate fecha, LocalDate fechaP, LocalDateTime fechaL , EnumRetorno retorno, String categoria, List<Aporte> misAportes ){
         this.$alcanzada = alcanzada;
@@ -93,10 +95,6 @@ public class DataPropuesta {
         return this.p;
     }
     
-    public String getDescripcion(){
-        return this.desc;
-    }
-    
     public String getLugar(){
         return this.lugar;
     }
@@ -111,10 +109,6 @@ public class DataPropuesta {
     
     public EnumRetorno getRetorno(){
         return this.posibleRetorno;
-    }
-    
-    public LocalDate getFechaARealizar(){
-        return this.fechaPubli;
     }
 
     public String getCategoria() {
@@ -165,6 +159,70 @@ public class DataPropuesta {
 
     public void setNickProponenteDe(String nickProponenteDe) {
         this.nickProponenteDe = nickProponenteDe;
+    }
+
+    public Proponente getP() {
+        return p;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public double get$entrada() {
+        return $entrada;
+    }
+
+    public double get$necesaria() {
+        return $necesaria;
+    }
+
+    public double get$alcanzada() {
+        return $alcanzada;
+    }
+
+    public LocalDate getFechaPubli() {
+        return fechaPubli;
+    }
+
+    public EnumRetorno getPosibleRetorno() {
+        return posibleRetorno;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public void setEstadoActual(Estado estadoActual) {
+        this.estadoActual = estadoActual;
+    }
+
+    public void setP(Proponente p) {
+        this.p = p;
+    }
+
+    public void setLugar(String lugar) {
+        this.lugar = lugar;
+    }
+
+    public void set$entrada(double $entrada) {
+        this.$entrada = $entrada;
+    }
+
+    public void set$necesaria(double $necesaria) {
+        this.$necesaria = $necesaria;
+    }
+
+    public void set$alcanzada(double $alcanzada) {
+        this.$alcanzada = $alcanzada;
+    }
+
+    public void setPosibleRetorno(EnumRetorno posibleRetorno) {
+        this.posibleRetorno = posibleRetorno;
+    }
+
+    public void setMisAportes(List<Aporte> misAportes) {
+        this.misAportes = misAportes;
     }
 
     

@@ -1,10 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package WebServices;
 
 import DataTypes.DataCategoria;
+import DataTypes.DataColaborador;
 import DataTypes.DataComentario;
 import DataTypes.DataPropuesta;
 import DataTypes.DataPropuestaSimple;
@@ -12,7 +9,9 @@ import DataTypes.DataUsuario;
 import DataTypes.EnumRetorno;
 import Interfaces.Fabrica;
 import Interfaces.IControlador;
+import Logica.Proponente;
 import Logica.Usuario;
+import Logica.Aporte;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
@@ -20,9 +19,6 @@ import jakarta.xml.ws.Endpoint;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-//import javax.jws.WebMethod;
-//import javax.jws.WebParam;
-//import javax.jws.WebService;
 
 /**
  *
@@ -59,12 +55,12 @@ public class LogicaWS {
 //    }
     
     @WebMethod(operationName = "añadirUsuarioP")
-    public int añadirUsuario(@WebParam(name = "nick") String nick, @WebParam(name = "nombre") String nombre, @WebParam(name = "apellido") String apellido, @WebParam(name = "correo") String correo, @WebParam(name = "fecNac") LocalDate fecNac, @WebParam(name = "imagen") String imagen, @WebParam(name = "contraseña") String contraseña, @WebParam(name = "direccion") String direccion, @WebParam(name = "bio") String bio, @WebParam(name = "sitioWeb") String sitioWeb, @WebParam(name = "imagenWeb") String imagenWeb){
+    public int añadirUsuarioP(@WebParam(name = "nick") String nick, @WebParam(name = "nombre") String nombre, @WebParam(name = "apellido") String apellido, @WebParam(name = "correo") String correo, @WebParam(name = "fecNac") LocalDate fecNac, @WebParam(name = "imagen") String imagen, @WebParam(name = "contraseña") String contraseña, @WebParam(name = "direccion") String direccion, @WebParam(name = "bio") String bio, @WebParam(name = "sitioWeb") String sitioWeb, @WebParam(name = "imagenWeb") String imagenWeb){
         return ic.añadirUsuario(nick, nombre, apellido, correo, fecNac, imagen, contraseña, direccion, bio, sitioWeb, imagenWeb);
     }
     
     @WebMethod(operationName = "añadirUsuarioC")
-    public int añadirUsuario(@WebParam(name = "nick") String nick, @WebParam(name = "nombre") String nombre, @WebParam(name = "apellido") String apellido, @WebParam(name = "correo") String correo, @WebParam(name = "fecNac") LocalDate fecNac, @WebParam(name = "imagen") String imagen, @WebParam(name = "contraseña") String contraseña, @WebParam(name = "imagenWeb") String imagenWeb){
+    public int añadirUsuarioC(@WebParam(name = "nick") String nick, @WebParam(name = "nombre") String nombre, @WebParam(name = "apellido") String apellido, @WebParam(name = "correo") String correo, @WebParam(name = "fecNac") LocalDate fecNac, @WebParam(name = "imagen") String imagen, @WebParam(name = "contraseña") String contraseña, @WebParam(name = "imagenWeb") String imagenWeb){
         return ic.añadirUsuario(nick, nombre, apellido, correo, fecNac, imagen, contraseña, imagenWeb);
     }
     
@@ -74,7 +70,7 @@ public class LogicaWS {
     }
     
     @WebMethod(operationName = "altaAporteF")
-    public int altaAporte(@WebParam(name = "miColaborador") String miColaborador, @WebParam(name = "miPropuesta") String miPropuesta, @WebParam(name = "$aporte") double $aporte, @WebParam(name = "cantidad") int cantidad, @WebParam(name = "retorno") EnumRetorno retorno, @WebParam(name = "fecAp") LocalDateTime fecAp){
+    public int altaAporteF(@WebParam(name = "miColaborador") String miColaborador, @WebParam(name = "miPropuesta") String miPropuesta, @WebParam(name = "$aporte") double $aporte, @WebParam(name = "cantidad") int cantidad, @WebParam(name = "retorno") EnumRetorno retorno, @WebParam(name = "fecAp") LocalDateTime fecAp){
         return ic.altaAporte(miColaborador, miPropuesta, $aporte, cantidad, retorno, fecAp);
     }
     
@@ -186,5 +182,30 @@ public class LogicaWS {
     @WebMethod(operationName = "comprobarPropuestas")
     public void comprobarPropuestas(){
         ic.comprobarPropuestas();
+    }
+    
+    @WebMethod(operationName = "existeCorreo")
+    public boolean existeCorreo(@WebParam(name = "correo") String correo){
+        return ic.existeCorreo(correo);
+    }
+    
+    @WebMethod(operationName = "verificarUsuario")
+    public int verificarUsuario(@WebParam(name = "usuario") String usuario, @WebParam(name = "contraseña") String contraseña){
+        return ic.verificarUsuario(usuario, contraseña);
+    }
+    
+    @WebMethod(operationName = "esFavorita")
+    public boolean esFavorita(@WebParam(name = "titulo") String titulo, @WebParam(name = "nick") String nick){
+        return ic.esFavorita(titulo, nick);
+    }
+    
+    @WebMethod(operationName = "getProponentes")
+    public List<Proponente> getProponentes(){
+        return ic.getProponentes();
+    }
+    
+    @WebMethod(operationName = "consultaDeColaborador")
+    public DataColaborador consultaDeColaborador(String NickName){
+        return ic.consultaDeColaborador(NickName);
     }
 }

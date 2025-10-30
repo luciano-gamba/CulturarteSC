@@ -10,13 +10,13 @@ import javax.persistence.PrimaryKeyJoinColumn;
 @Entity
 @PrimaryKeyJoinColumn(name = "nickname")
 public class Proponente extends Usuario {
-
     
     String direccion;
     @Column(name="descripcion",length=1000)
     String biografia = "";
     String sitioWeb = "";
     List<Propuesta> misPropuestas;
+    
     public Proponente() {
         
     }

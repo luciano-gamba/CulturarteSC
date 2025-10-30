@@ -417,16 +417,16 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
             this.textoTitulo.setText(DP.getTitulo());
             this.textoCategoria.setText(DP.getCategoria());
             this.textoEstado.setText(DP.getEstadoActual().getEstado().toString());
-            this.textoDescripcion.setText(DP.getDescripcion());
+            this.textoDescripcion.setText(DP.getDesc());
             this.textoLugar.setText(DP.getLugar());
             this.textoMontoEntrada.setText(DP.getEntrada().toString());
             this.textoMontoTotal.setText(DP.getNecesaria().toString());
             this.textoRetorno.setText(retorno);
-            this.textoFecha.setText(DP.getFechaARealizar().toString());
+            this.textoFecha.setText(DP.getFechaPubli().toString());
             this.txtImagen = DP.getImagen();
             
             //fecha ya establecida de la propuesta
-            Date initialDate = Date.from(DP.getFechaARealizar().atStartOfDay(ZoneId.systemDefault()).toInstant());
+            Date initialDate = Date.from(DP.getFechaPubli().atStartOfDay(ZoneId.systemDefault()).toInstant());
             this.spinnerFecha.setValue(initialDate);
             
             //fecha minima de propuesta (hoy)
