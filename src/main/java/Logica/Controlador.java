@@ -46,14 +46,33 @@ public class Controlador implements IControlador{
             if(u.getNickname().equals(nickNuevo)){
                 return 0;
             }
-        }
-        
-        for(Usuario u : listaUsuarios){
             if(u.getEmail().equals(correoNuevo)){
                 return 2;
             }
         }
         
+        Colaborador colaNuevo = new Colaborador(nick, correo, nombre, apellido, fecNac, imagen, contraseña, imagenWeb);
+        misUsuarios.add(colaNuevo);
+        cp.añadirUsuario(colaNuevo);
+        return 1;
+    }
+    
+    @Override //colaborador (fecha con string)
+    public int añadirUsuario(String nick, String nombre, String apellido, String correo, String fecN, String imagen, String contraseña, String imagenWeb){
+        String nickNuevo = nick;
+        String correoNuevo = correo;
+        
+        ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
+        
+        for(Usuario u : listaUsuarios){
+            if(u.getNickname().equals(nickNuevo)){
+                return 0;
+            }
+            if(u.getEmail().equals(correoNuevo)){
+                return 2;
+            }
+        }
+        LocalDate fecNac = LocalDate.parse(fecN);
         Colaborador colaNuevo = new Colaborador(nick, correo, nombre, apellido, fecNac, imagen, contraseña, imagenWeb);
         misUsuarios.add(colaNuevo);
         cp.añadirUsuario(colaNuevo);
@@ -71,9 +90,6 @@ public class Controlador implements IControlador{
             if(u.getNickname().equals(nickNuevo)){
                 return 0;
             }
-        }
-        
-        for(Usuario u : listaUsuarios){
             if(u.getEmail().equals(correoNuevo)){
                 return 2;
             }
@@ -83,6 +99,29 @@ public class Controlador implements IControlador{
         cp.añadirUsuario(propNuevo);
         return 1;
     }
+    
+    @Override //proponente (fecha con string)
+    public int añadirUsuario(String nick, String nombre, String apellido, String correo, String fecN, String imagen, String contraseña, String direccion, String bio, String sitioWeb, String imagenWeb){
+        String nickNuevo = nick;
+        String correoNuevo = correo;
+
+        ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
+        
+        for(Usuario u : listaUsuarios){
+            if(u.getNickname().equals(nickNuevo)){
+                return 0;
+            }
+            if(u.getEmail().equals(correoNuevo)){
+                return 2;
+            }
+        }
+        
+        LocalDate fecNac = LocalDate.parse(fecN);
+        Proponente propNuevo = new Proponente(direccion, bio, sitioWeb, nick, correo, nombre, apellido, fecNac, imagen, contraseña, imagenWeb);
+        cp.añadirUsuario(propNuevo);
+        return 1;
+    }
+    
     @Override
     public int altaCategoria(String nombreCat){
         if(cp.findCategoria(nombreCat) != null){
@@ -201,35 +240,6 @@ public class Controlador implements IControlador{
     
     @Override
     public int altaAporte(String strmiColaborador, String strmiPropuesta,  double $aporte, int cantidad, EnumRetorno retorno){
-        //CON MEMORIA LOCAL
-//        Propuesta miPropuesta = null;
-//        Colaborador miColaborador = null;                
-//        for (Colaborador c : misColaboradores){
-//            if(c.getNickname().equals(strmiColaborador)){
-//                miColaborador = c;
-//                break;
-//            }
-//        }        
-//        for (Propuesta p : misPropuestas) {
-//            if (p.getTitulo_Nickname().equals(strmiPropuesta)) {
-//                miPropuesta = p;
-//                break;        
-//            }
-//        }                
-//        if($aporte > miPropuesta.getmontoNecesaria() || $aporte > miPropuesta.getmontoNecesaria()-miPropuesta.getmontoAlcanzada()){
-//            return -2;//ERROR: Aporte superior a lo permitido
-//        }        
-//        if (miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno) == null) {
-//            return -3;  //Error: El usuario ya colabora con la Propuesta
-//        }         
-//        if (miPropuesta.getPosibleRetorno()!=EnumRetorno.AMBOS && miPropuesta.getPosibleRetorno()!=retorno){
-//            return -4; //Error: Retorno no valido en esta Propuesta
-//        }        
-//        Aporte a = miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno);
-//        miPropuesta.addAporte(a);
-//        return 0; //PROPUESTA AGREGADA CORRECTAMENTE  
-        
-        //CON PERSISTENCIA
         Propuesta miPropuesta = null;
         Colaborador miColaborador = null;                
         for (Colaborador c : cp.getColaboradores()){
@@ -277,7 +287,38 @@ public class Controlador implements IControlador{
         if (miPropuesta.getPosibleRetorno()!=EnumRetorno.AMBOS && miPropuesta.getPosibleRetorno()!=retorno){
             return -4; //Error: Retorno no valido en esta Propuesta
         }        
-        Aporte a = miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno,fecAp);
+        Aporte a = miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno, fecAp);
+        miPropuesta.addAporte(a);
+        miColaborador.añadirAporte(a);
+        cp.añadirAporte(a, miPropuesta, miColaborador);
+        
+        return 0; //PROPUESTA AGREGADA CORRECTAMENTE  
+    }
+    
+    @Override //fecha con string
+    public int altaAporte(String strmiColaborador, String strmiPropuesta,  double $aporte, int cantidad, EnumRetorno retorno, String fecA){
+        Propuesta miPropuesta = null;
+        Colaborador miColaborador = null;                
+        miColaborador = cp.buscarColaborador(strmiColaborador);
+        miPropuesta = cp.getPropuesta(strmiPropuesta);
+        
+//        if($aporte > miPropuesta.getmontoNecesaria() || $aporte > miPropuesta.getmontoNecesaria()-miPropuesta.getmontoAlcanzada()){
+//            return -2;//ERROR: Aporte superior a lo permitido
+//        }        
+        if (miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno) == null) {
+            return -3;  //Error: El usuario ya colabora con la Propuesta
+        }         
+        if (miPropuesta.getPosibleRetorno()!=EnumRetorno.AMBOS && miPropuesta.getPosibleRetorno()!=retorno){
+            return -4; //Error: Retorno no valido en esta Propuesta
+        }
+
+        LocalDateTime fecAp;
+        if(fecA.equals("fechaActual")){
+            fecAp = LocalDateTime.now();
+        }else{
+            fecAp = LocalDateTime.parse(fecA);
+        }
+        Aporte a = miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno, fecAp);
         miPropuesta.addAporte(a);
         miColaborador.añadirAporte(a);
         cp.añadirAporte(a, miPropuesta, miColaborador);
@@ -473,43 +514,6 @@ public class Controlador implements IControlador{
     
     @Override
     public int altaPropuesta(String nick, String tipo, String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual, String imagen){
-        
-//        Proponente prop = null;
-//        
-//        boolean encontrado = false;
-//        for (Proponente p : misProponentes) {
-//            if (p.getNickname().equalsIgnoreCase(nick)) {
-//                encontrado = true;
-//                prop = p;
-//                break;
-//            }
-//        }
-//        
-//        Categoria c = cp.findCategoria(tipo); ESTO NO TENDRIA PORQUE ESTAR ACA xd
-//        //Ya se busca directamente en la BD el arbol categoria no tendra los
-//        //datos
-//        if (c == null) {
-//            // NO SE ENCONTRO LA CATEGORIA o PUSO "CATEGORIA"
-//            return 0;
-//        }
-//        
-//        if(tipo.equals("Categoria")){
-//            return -1;
-//        }
-//        
-//        
-//        if (encontrado) {
-//            
-//            Propuesta nuevaProp = new Propuesta(c, prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual, imagen);
-//            misPropuestas.add(nuevaProp);
-//            //Agregar propuesta a esa categoria directamente lo hare con persistencia antes seria c.agregarPropuesta(nuevaProp);
-//            return 1;
-//        } else {
-//            return 0;
-//        }
-        
-        //PERSISTENCIA
-        
         if (existeTitulo(titulo)) {
             return -1;
         }
@@ -517,6 +521,33 @@ public class Controlador implements IControlador{
         Proponente prop = cp.buscarProponente(nick);
         
         Categoria c  = cp.findCategoria(tipo);
+        
+        Propuesta nuevaProp = new Propuesta(c, prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual, imagen);
+//        misPropuestas.add(nuevaProp);
+          cp.añadirEstado(nuevaProp.getEstadoActual());
+          cp.añadirPropuesta(nuevaProp);
+            //Agregar propuesta a esa categoria directamente lo hare con persistencia antes seria c.agregarPropuesta(nuevaProp);
+        return 1;
+    }
+    
+    @Override //fechas con string
+    public int altaPropuesta(String nick, String tipo, String titulo, String descripcion, String lugar, String fechaP, String montoXentrada, String montoNecesario, EnumRetorno posibleRetorno, String fechaA, String imagen){
+        if (existeTitulo(titulo)) {
+            return -1;
+        }
+        
+        Proponente prop = cp.buscarProponente(nick);
+        
+        Categoria c  = cp.findCategoria(tipo);
+        
+        LocalDate fechaPrev = LocalDate.parse(fechaP);
+        LocalDate fechaActual;
+        if(fechaA.equals("fechaActual")){
+            fechaActual = LocalDate.now();
+        }else{
+            fechaActual = LocalDate.parse(fechaA);
+        }
+        
         
         Propuesta nuevaProp = new Propuesta(c, prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual, imagen);
 //        misPropuestas.add(nuevaProp);
@@ -702,6 +733,11 @@ public class Controlador implements IControlador{
         DCola = new DataColaborador(NickName, c.getNombre(),c.getApellido(),c.getEmail(),c.getFecNac(),c.getImagen(),c.getPropuestas());
         return DCola;
         
+    }
+    
+    @Override
+    public DataColaborador getDataColaborador(String nickname,String nombre, String apellido,String email,String fecNac, String imagen){
+        return new DataColaborador(nickname, nombre, apellido, email, LocalDate.parse(fecNac), imagen);
     }
     
     public List<DataUsuario> getSeguidores(Usuario seguido) {

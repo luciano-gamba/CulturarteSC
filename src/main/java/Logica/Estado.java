@@ -41,5 +41,14 @@ public class Estado implements Serializable {
     public LocalDate getFecha() {
         return fecha;
     }
+
+    public void setEstado(EnumEstado estado) {
+        this.estado = estado;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
+    
     
 }

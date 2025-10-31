@@ -157,6 +157,34 @@ public class Aporte implements Serializable {
     public int getCantidadcolaboradores(){
         return this.miPropuesta.getAportes().size();
     }
+
+    public Propuesta getMiPropuesta() {
+        return miPropuesta;
+    }
+
+    public Colaborador getMiColaborador() {
+        return miColaborador;
+    }
+
+    public void setMiColaborador(Colaborador miColaborador) {
+        this.miColaborador = miColaborador;
+    }
+
+    public void set$aporte(double $aporte) {
+        this.$aporte = $aporte;
+    }
+
+    public void setFechaHora(LocalDateTime fechaHora) {
+        this.fechaHora = fechaHora;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public void setRetorno(EnumRetorno retorno) {
+        this.retorno = retorno;
+    }
     
     
     

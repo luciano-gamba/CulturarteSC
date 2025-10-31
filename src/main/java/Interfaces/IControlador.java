@@ -20,8 +20,10 @@ import javax.swing.tree.DefaultMutableTreeNode;
 public interface IControlador {
     
     int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String contraseña, String direccion, String bio, String sitioWeb, String imagenWeb);
+    int añadirUsuario(String nick, String nombre, String apellido, String correo, String fecNac, String imagen, String contraseña, String direccion, String bio, String sitioWeb, String imagenWeb);
     
     int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String contraseña, String imagenWeb);
+    int añadirUsuario(String nick, String nombre, String apellido, String correo, String fecNac, String imagen, String contraseña, String imagenWeb);
     
     int altaCategoria(String nombreCat);
     
@@ -30,6 +32,7 @@ public interface IControlador {
     int altaAporte(String miColaborador, String miPropuesta, double $aporte, int cantidad, EnumRetorno retorno);
     
     int altaAporte(String miColaborador, String miPropuesta, double $aporte, int cantidad, EnumRetorno retorno,LocalDateTime fecAp);
+    int altaAporte(String strmiColaborador, String strmiPropuesta,  double $aporte, int cantidad, EnumRetorno retorno, String fecA);
         
     List<String> getUsuarios(); 
     
@@ -53,6 +56,8 @@ public interface IControlador {
     
     DataColaborador consultaDeColaborador(String NickName);
     
+    DataColaborador getDataColaborador(String nickname,String nombre, String apellido,String email,String fecNac, String imagen);
+    
     DataUsuario consultaDeColaboradorWeb(String NickName);
     
     List<DataCategoria> cargarCategoriasWeb();
@@ -70,6 +75,7 @@ public interface IControlador {
     int dejarSeguirUsuario(String nick1, String nick2);
     
     int altaPropuesta(String nick, String tipo, String titulo, String descripcion, String lugar, LocalDate fechaPrev, String montoXentrada, String montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual, String imagen);
+    int altaPropuesta(String nick, String tipo, String titulo, String descripcion, String lugar, String fechaP, String montoXentrada, String montoNecesario, EnumRetorno posibleRetorno, String fechaA, String imagen);
     
     int cambiarEstadoPropuesta(String titulo, String est);
     

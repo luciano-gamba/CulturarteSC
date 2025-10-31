@@ -55,12 +55,12 @@ public class LogicaWS {
 //    }
     
     @WebMethod(operationName = "añadirUsuarioP")
-    public int añadirUsuarioP(@WebParam(name = "nick") String nick, @WebParam(name = "nombre") String nombre, @WebParam(name = "apellido") String apellido, @WebParam(name = "correo") String correo, @WebParam(name = "fecNac") LocalDate fecNac, @WebParam(name = "imagen") String imagen, @WebParam(name = "contraseña") String contraseña, @WebParam(name = "direccion") String direccion, @WebParam(name = "bio") String bio, @WebParam(name = "sitioWeb") String sitioWeb, @WebParam(name = "imagenWeb") String imagenWeb){
+    public int añadirUsuarioP(@WebParam(name = "nick") String nick, @WebParam(name = "nombre") String nombre, @WebParam(name = "apellido") String apellido, @WebParam(name = "correo") String correo, @WebParam(name = "fecNac") String fecNac, @WebParam(name = "imagen") String imagen, @WebParam(name = "contraseña") String contraseña, @WebParam(name = "direccion") String direccion, @WebParam(name = "bio") String bio, @WebParam(name = "sitioWeb") String sitioWeb, @WebParam(name = "imagenWeb") String imagenWeb){
         return ic.añadirUsuario(nick, nombre, apellido, correo, fecNac, imagen, contraseña, direccion, bio, sitioWeb, imagenWeb);
     }
     
     @WebMethod(operationName = "añadirUsuarioC")
-    public int añadirUsuarioC(@WebParam(name = "nick") String nick, @WebParam(name = "nombre") String nombre, @WebParam(name = "apellido") String apellido, @WebParam(name = "correo") String correo, @WebParam(name = "fecNac") LocalDate fecNac, @WebParam(name = "imagen") String imagen, @WebParam(name = "contraseña") String contraseña, @WebParam(name = "imagenWeb") String imagenWeb){
+    public int añadirUsuarioC(@WebParam(name = "nick") String nick, @WebParam(name = "nombre") String nombre, @WebParam(name = "apellido") String apellido, @WebParam(name = "correo") String correo, @WebParam(name = "fecNac") String fecNac, @WebParam(name = "imagen") String imagen, @WebParam(name = "contraseña") String contraseña, @WebParam(name = "imagenWeb") String imagenWeb){
         return ic.añadirUsuario(nick, nombre, apellido, correo, fecNac, imagen, contraseña, imagenWeb);
     }
     
@@ -70,7 +70,7 @@ public class LogicaWS {
     }
     
     @WebMethod(operationName = "altaAporteF")
-    public int altaAporteF(@WebParam(name = "miColaborador") String miColaborador, @WebParam(name = "miPropuesta") String miPropuesta, @WebParam(name = "$aporte") double $aporte, @WebParam(name = "cantidad") int cantidad, @WebParam(name = "retorno") EnumRetorno retorno, @WebParam(name = "fecAp") LocalDateTime fecAp){
+    public int altaAporteF(@WebParam(name = "miColaborador") String miColaborador, @WebParam(name = "miPropuesta") String miPropuesta, @WebParam(name = "$aporte") double $aporte, @WebParam(name = "cantidad") int cantidad, @WebParam(name = "retorno") EnumRetorno retorno, @WebParam(name = "fecAp") String fecAp){
         return ic.altaAporte(miColaborador, miPropuesta, $aporte, cantidad, retorno, fecAp);
     }
     
@@ -120,7 +120,7 @@ public class LogicaWS {
     }
     
     @WebMethod(operationName = "altaPropuesta")
-    public int altaPropuesta(@WebParam(name = "nick") String nick, @WebParam(name = "tipo") String tipo, @WebParam(name = "titulo") String titulo, @WebParam(name = "descripcion") String descripcion, @WebParam(name = "lugar") String lugar, @WebParam(name = "fechaPrev") LocalDate fechaPrev, @WebParam(name = "montoXentrada") String montoXentrada, @WebParam(name = "montoNecesario") String montoNecesario, @WebParam(name = "posibleRetorno") EnumRetorno posibleRetorno, @WebParam(name = "fechaActual") LocalDate fechaActual, @WebParam(name = "imagen") String imagen){
+    public int altaPropuesta(@WebParam(name = "nick") String nick, @WebParam(name = "tipo") String tipo, @WebParam(name = "titulo") String titulo, @WebParam(name = "descripcion") String descripcion, @WebParam(name = "lugar") String lugar, @WebParam(name = "fechaPrev") String fechaPrev, @WebParam(name = "montoXentrada") String montoXentrada, @WebParam(name = "montoNecesario") String montoNecesario, @WebParam(name = "posibleRetorno") EnumRetorno posibleRetorno, @WebParam(name = "fechaActual") String fechaActual, @WebParam(name = "imagen") String imagen){
         return ic.altaPropuesta(nick, tipo, titulo, descripcion, lugar, fechaPrev, montoXentrada, montoNecesario, posibleRetorno, fechaActual, imagen);
     }
         
@@ -205,7 +205,12 @@ public class LogicaWS {
     }
     
     @WebMethod(operationName = "consultaDeColaborador")
-    public DataColaborador consultaDeColaborador(String NickName){
+    public DataColaborador consultaDeColaborador(@WebParam(name = "NickName") String NickName){
         return ic.consultaDeColaborador(NickName);
+    }
+    
+    @WebMethod(operationName = "getDataColaborador")
+    public DataColaborador getDataColaborador(@WebParam(name = "nickname") String nickname, @WebParam(name = "nombre") String nombre, @WebParam(name = "apellido") String apellido, @WebParam(name = "email") String email, @WebParam(name = "fecNac") String fecNac, @WebParam(name = "imagen") String imagen){
+        return ic.getDataColaborador(nickname, nombre, apellido, email, fecNac, imagen);
     }
 }

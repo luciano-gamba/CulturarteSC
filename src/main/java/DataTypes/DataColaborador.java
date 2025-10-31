@@ -21,6 +21,11 @@ public class DataColaborador {
     List<DataPropuesta> propuestasColaboradas;
     List<DataUsuario> meSiguen;
     List<DataUsuario> losSigo;
+    
+    public DataColaborador(){
+        
+    }
+    
     public DataColaborador(String nickname,String nombre, String apellido,String email,LocalDate fecNac, String imagen) {
         this.nickname = nickname;
         this.nombre = nombre;
@@ -48,7 +53,7 @@ public class DataColaborador {
         return this.email;
     }
 
-        public String getNombre() {
+    public String getNombre() {
         return this.nombre;
     }
 
@@ -81,5 +86,39 @@ public class DataColaborador {
     public List<DataUsuario> getLosSigo() {
         return losSigo;
     }
+
+    public List<DataPropuesta> getPropuestasColaboradas() {
+        return propuestasColaboradas;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setFecNac(LocalDate fecNac) {
+        this.fecNac = fecNac;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public void setPropuestasColaboradas(List<DataPropuesta> propuestasColaboradas) {
+        this.propuestasColaboradas = propuestasColaboradas;
+    }
+    
+    
     
 }
