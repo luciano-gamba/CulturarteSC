@@ -419,8 +419,8 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
             this.textoEstado.setText(DP.getEstadoActual().getEstado().toString());
             this.textoDescripcion.setText(DP.getDesc());
             this.textoLugar.setText(DP.getLugar());
-            this.textoMontoEntrada.setText(DP.getEntrada().toString());
-            this.textoMontoTotal.setText(DP.getNecesaria().toString());
+            this.textoMontoEntrada.setText(DP.getEntradaa().toString());
+            this.textoMontoTotal.setText(DP.getNecesariaa().toString());
             this.textoRetorno.setText(retorno);
             this.textoFecha.setText(DP.getFechaPubli().toString());
             this.txtImagen = DP.getImagen();

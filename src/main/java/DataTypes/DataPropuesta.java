@@ -24,9 +24,9 @@ public class DataPropuesta {
     Proponente p;
     String desc;
     String lugar;
-    double $entrada;
-    double $necesaria;
-    double $alcanzada;
+    double entrada;
+    double necesaria;
+    double alcanzada;
     LocalDate fecha;
     LocalDate fechaPubli;
     LocalDateTime fechaLimit; 
@@ -40,15 +40,15 @@ public class DataPropuesta {
     }
     
     public DataPropuesta(String titulo, String imagen, Estado estadoActual, Proponente p, String descrip, String lugar, double entrada, double necesaria,double alcanzada,LocalDate fecha, LocalDate fechaP, LocalDateTime fechaL , EnumRetorno retorno, String categoria, List<Aporte> misAportes ){
-        this.$alcanzada = alcanzada;
+        this.alcanzada = alcanzada;
         this.titulo = titulo;
         this.imagen = imagen;
         this.estadoActual = estadoActual;
         this.p = p;
         this.desc = descrip;
         this.lugar = lugar;
-        this.$entrada = entrada;
-        this.$necesaria = necesaria;
+        this.entrada = entrada;
+        this.necesaria = necesaria;
         this.fecha = fecha;
         this.fechaPubli = fechaP;
         this.fechaLimit = fechaL;
@@ -59,13 +59,13 @@ public class DataPropuesta {
     }
     
     public DataPropuesta(double alcanzada, String titulo, Estado estadoActual, String lugar){
-        this.$alcanzada = alcanzada;
+        this.alcanzada = alcanzada;
         this.titulo = titulo;
         this.estadoActual = estadoActual;
         this.lugar = lugar;
     }
     public DataPropuesta(double alcanzada, String titulo, Estado estadoActual, String lugar,String nickProponente){
-        this.$alcanzada = alcanzada;
+        this.alcanzada = alcanzada;
         this.titulo = titulo;
         this.estadoActual = estadoActual;
         this.lugar = lugar;
@@ -75,8 +75,8 @@ public class DataPropuesta {
     public String getNickProponenteDe(){
         return this.nickProponenteDe;
     }
-    public Double getAlcanzada(){
-        return this.$alcanzada;
+    public Double getAlcanzadaa(){
+        return this.alcanzada;
     }
     
     public String getTitulo(){
@@ -99,12 +99,24 @@ public class DataPropuesta {
         return this.lugar;
     }
     
-    public Double getEntrada(){
-        return this.$entrada;
+    public Double getEntradaa(){
+        return this.entrada;
     }
     
-    public Double getNecesaria(){
-        return this.$necesaria;
+    public Double getNecesariaa(){
+        return this.necesaria;
+    }
+    
+    public double getEntrada(){
+        return this.entrada;
+    }
+    
+    public double getNecesaria(){
+        return this.necesaria;
+    }
+    
+    public double getAlcanzada(){
+        return this.alcanzada;
     }
     
     public EnumRetorno getRetorno(){
@@ -169,18 +181,6 @@ public class DataPropuesta {
         return desc;
     }
 
-    public double get$entrada() {
-        return $entrada;
-    }
-
-    public double get$necesaria() {
-        return $necesaria;
-    }
-
-    public double get$alcanzada() {
-        return $alcanzada;
-    }
-
     public LocalDate getFechaPubli() {
         return fechaPubli;
     }
@@ -205,16 +205,16 @@ public class DataPropuesta {
         this.lugar = lugar;
     }
 
-    public void set$entrada(double $entrada) {
-        this.$entrada = $entrada;
+    public void setEntrada(double entrada) {
+        this.entrada = entrada;
     }
 
-    public void set$necesaria(double $necesaria) {
-        this.$necesaria = $necesaria;
+    public void setNecesaria(double necesaria) {
+        this.necesaria = necesaria;
     }
 
-    public void set$alcanzada(double $alcanzada) {
-        this.$alcanzada = $alcanzada;
+    public void setAlcanzada(double alcanzada) {
+        this.alcanzada = alcanzada;
     }
 
     public void setPosibleRetorno(EnumRetorno posibleRetorno) {

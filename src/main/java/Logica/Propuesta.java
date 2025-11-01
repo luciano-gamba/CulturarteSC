@@ -166,7 +166,7 @@ public class Propuesta implements Serializable {
     public void addAporte(Aporte a){
         misAportes.add(a);
         a.setMiPropuesta(this);
-        montoAlcanzada+=a.get$aporte();
+        montoAlcanzada+=a.getAporte();
         if(this.getEstadoActual().getEstado()== EnumEstado.PUBLICADA){
             Estado estado = new Estado(EnumEstado.EN_FINANCIACION, LocalDate.now());
             this.estadoActual = estado;
@@ -175,7 +175,7 @@ public class Propuesta implements Serializable {
     }
     
     public void desvincularAporte(Aporte a){
-        this.montoAlcanzada-=a.get$aporte();
+        this.montoAlcanzada-=a.getAporte();
         this.misAportes.remove(a);
         if(this.getNecesaria()>this.getAlcanzada() && this.estadoActual.getEstado()==EnumEstado.FINANCIADA){
             Estado estado = new Estado(EnumEstado.EN_FINANCIACION , LocalDate.now());

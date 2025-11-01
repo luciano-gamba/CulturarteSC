@@ -369,11 +369,11 @@ public class InterConsultaPropuesta extends javax.swing.JInternalFrame {
            this.txtEstado.setText(DP.getEstadoActual().getEstado().toString());
            this.txtDescrip.setText(DP.getDesc());
            this.txtLugar.setText(DP.getLugar());
-           this.txtEntrada.setText(DP.getEntrada().toString());
-           this.txt$Necesario.setText(DP.getNecesaria().toString());
+           this.txtEntrada.setText(DP.getEntradaa().toString());
+           this.txt$Necesario.setText(DP.getNecesariaa().toString());
            this.txtRetorno.setText(retorno);
            this.txtFechaR.setText(DP.getFechaPubli().toString());
-           this.txtRecaudado.setText(DP.getAlcanzada().toString());
+           this.txtRecaudado.setText(DP.getAlcanzadaa().toString());
            this.txtCategoria.setText(DP.getCategoria());
         }else{
            this.lblFoto.setIcon(null);

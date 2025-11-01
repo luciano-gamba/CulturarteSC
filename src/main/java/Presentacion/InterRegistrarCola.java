@@ -452,23 +452,23 @@ public class InterRegistrarCola extends javax.swing.JInternalFrame {
         if(!this.Propuestas.getSelectedItem().equals("--Seleccionar--")){
             String propu = (String) this.Propuestas.getSelectedItem();
             DataPropuesta DP = ic.getDataPropuesta(propu);
-            this.txt$alcanzado.setText(DP.getAlcanzada().toString());
-            this.txt$necesaria.setText(DP.getNecesaria().toString());
+            this.txt$alcanzado.setText(DP.getAlcanzadaa().toString());
+            this.txt$necesaria.setText(DP.getNecesariaa().toString());
             this.txtCategoria.setText(DP.getCategoria());
             this.txtDescripcion.setText(DP.getDesc());
             this.txtEstado.setText(DP.getEstadoActual().getEstado().toString());
             this.txtFecha.setText(DP.getFechaPubli().format(DateTimeFormatter.ISO_DATE));
             this.txtFechaPubli.setText(DP.getFechaPubli().format(DateTimeFormatter.ISO_DATE)); //Decia getFechaPubli()
             this.txtLugar.setText(DP.getLugar());
-            this.txtPrecio.setText(DP.getEntrada().toString());
+            this.txtPrecio.setText(DP.getEntradaa().toString());
             this.txtTipoRetorno.setText(DP.getRetorno().toString());
             this.txtTitulo.setText(DP.getTitulo());
             this.jProgressBar1.setMinimum(0);
-            this.jProgressBar1.setMaximum(DP.getNecesaria().intValue());
-            if(DP.getAlcanzada().intValue()>=DP.getNecesaria().intValue()){
-                this.jProgressBar1.setValue(DP.getNecesaria().intValue());
+            this.jProgressBar1.setMaximum(DP.getNecesariaa().intValue());
+            if(DP.getAlcanzadaa().intValue()>=DP.getNecesariaa().intValue()){
+                this.jProgressBar1.setValue(DP.getNecesariaa().intValue());
             }else{
-                this.jProgressBar1.setValue(DP.getAlcanzada().intValue());
+                this.jProgressBar1.setValue(DP.getAlcanzadaa().intValue());
             }
             
             

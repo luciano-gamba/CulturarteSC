@@ -29,10 +29,10 @@ public interface IControlador {
     
     int altaCategoria(String nombreCat,String nombrePadreCat);
     
-    int altaAporte(String miColaborador, String miPropuesta, double $aporte, int cantidad, EnumRetorno retorno);
+    int altaAporte(String miColaborador, String miPropuesta, double aporte, int cantidad, EnumRetorno retorno);
     
-    int altaAporte(String miColaborador, String miPropuesta, double $aporte, int cantidad, EnumRetorno retorno,LocalDateTime fecAp);
-    int altaAporte(String strmiColaborador, String strmiPropuesta,  double $aporte, int cantidad, EnumRetorno retorno, String fecA);
+    int altaAporte(String miColaborador, String miPropuesta, double aporte, int cantidad, EnumRetorno retorno,LocalDateTime fecAp);
+    int altaAporte(String strmiColaborador, String strmiPropuesta,  double aporte, int cantidad, EnumRetorno retorno, String fecA);
         
     List<String> getUsuarios(); 
     

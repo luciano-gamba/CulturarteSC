@@ -27,7 +27,7 @@ public class Colaborador extends Usuario {
         this.misAportes = new ArrayList<>();
     }
 
-    public Aporte createAporte(String titulo, double $aporte, int cantidad, EnumRetorno retorno) {
+    public Aporte createAporte(String titulo, double aporte, int cantidad, EnumRetorno retorno) {
 
         if (!misAportes.isEmpty()) {
             for (Aporte mio : misAportes) {
@@ -36,12 +36,12 @@ public class Colaborador extends Usuario {
                 }
             }
         }
-        Aporte a = new Aporte(this, $aporte, cantidad, retorno);
+        Aporte a = new Aporte(this, aporte, cantidad, retorno);
         //misAportes.add(a);
         return a;
     }
 
-    public Aporte createAporte(String titulo, double $aporte, int cantidad, EnumRetorno retorno, LocalDateTime fecAp) {
+    public Aporte createAporte(String titulo, double aporte, int cantidad, EnumRetorno retorno, LocalDateTime fecAp) {
 
         if (!misAportes.isEmpty()) {
             for (Aporte mio : misAportes) {
@@ -50,7 +50,7 @@ public class Colaborador extends Usuario {
                 }
             }
         }
-        Aporte a = new Aporte(this, $aporte, cantidad, retorno, fecAp);
+        Aporte a = new Aporte(this, aporte, cantidad, retorno, fecAp);
         //misAportes.add(a);
         return a;
     }
@@ -81,7 +81,7 @@ public class Colaborador extends Usuario {
     public DataAporte getDataAporte(String tituloNick) {
         for (Aporte a : misAportes) {
             if (tituloNick.equals(a.getTituloNickMiPropuesta())) {
-                return new DataAporte(a.get$aporte(), a.getFechaHora(), a.getCantidad(), a.getRetorno(), a.getNicknameMiColaborador(), a.getTituloMiPropuesta(), a.getImagenMiPropuesta(), a.getNecesaria());
+                return new DataAporte(a.getAporte(), a.getFechaHora(), a.getCantidad(), a.getRetorno(), a.getNicknameMiColaborador(), a.getTituloMiPropuesta(), a.getImagenMiPropuesta(), a.getNecesaria());
             }
         }
         return null;
@@ -119,7 +119,7 @@ public class Colaborador extends Usuario {
     public List<DataAporte> getListaAportes() {
         List<DataAporte> listaAportes = new ArrayList<>();
         for (Aporte a : misAportes) {
-            DataAporte aporteActual = new DataAporte(a.get$aporte(), a.getFechaHora(), a.getTituloMiPropuesta());
+            DataAporte aporteActual = new DataAporte(a.getAporte(), a.getFechaHora(), a.getTituloMiPropuesta());
             listaAportes.add(aporteActual);
         }
         return listaAportes;

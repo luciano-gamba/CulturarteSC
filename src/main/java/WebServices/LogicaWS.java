@@ -65,13 +65,13 @@ public class LogicaWS {
     }
     
     @WebMethod(operationName = "altaAporte")
-    public int altaAporte(@WebParam(name = "miColaborador") String miColaborador, @WebParam(name = "miPropuesta") String miPropuesta, @WebParam(name = "$aporte") double $aporte, @WebParam(name = "cantidad") int cantidad, @WebParam(name = "retorno") EnumRetorno retorno){
-        return ic.altaAporte(miColaborador, miPropuesta, $aporte, cantidad, retorno);
+    public int altaAporte(@WebParam(name = "miColaborador") String miColaborador, @WebParam(name = "miPropuesta") String miPropuesta, @WebParam(name = "aporte") double aporte, @WebParam(name = "cantidad") int cantidad, @WebParam(name = "retorno") EnumRetorno retorno){
+        return ic.altaAporte(miColaborador, miPropuesta, aporte, cantidad, retorno);
     }
     
     @WebMethod(operationName = "altaAporteF")
-    public int altaAporteF(@WebParam(name = "miColaborador") String miColaborador, @WebParam(name = "miPropuesta") String miPropuesta, @WebParam(name = "$aporte") double $aporte, @WebParam(name = "cantidad") int cantidad, @WebParam(name = "retorno") EnumRetorno retorno, @WebParam(name = "fecAp") String fecAp){
-        return ic.altaAporte(miColaborador, miPropuesta, $aporte, cantidad, retorno, fecAp);
+    public int altaAporteF(@WebParam(name = "miColaborador") String miColaborador, @WebParam(name = "miPropuesta") String miPropuesta, @WebParam(name = "aporte") double aporte, @WebParam(name = "cantidad") int cantidad, @WebParam(name = "retorno") EnumRetorno retorno, @WebParam(name = "fecAp") String fecAp){
+        return ic.altaAporte(miColaborador, miPropuesta, aporte, cantidad, retorno, fecAp);
     }
     
     @WebMethod(operationName = "getUsuario")

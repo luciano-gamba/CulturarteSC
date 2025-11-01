@@ -239,7 +239,7 @@ public class Controlador implements IControlador{
     }
     
     @Override
-    public int altaAporte(String strmiColaborador, String strmiPropuesta,  double $aporte, int cantidad, EnumRetorno retorno){
+    public int altaAporte(String strmiColaborador, String strmiPropuesta,  double aporte, int cantidad, EnumRetorno retorno){
         Propuesta miPropuesta = null;
         Colaborador miColaborador = null;                
         for (Colaborador c : cp.getColaboradores()){
@@ -257,13 +257,13 @@ public class Controlador implements IControlador{
         //if($aporte > miPropuesta.getmontoNecesaria() || $aporte > miPropuesta.getmontoNecesaria()-miPropuesta.getmontoAlcanzada()){
         //    return -2;//ERROR: Aporte superior a lo permitido - ESTO HAY QUE SACARLO el monto puede ser infinito, esto no es error
         //}        
-        if (miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno) == null) {
+        if (miColaborador.createAporte(miPropuesta.getTitulo(), aporte, cantidad, retorno) == null) {
             return -3;  //Error: El usuario ya colabora con la Propuesta
         }         
         if (miPropuesta.getPosibleRetorno()!=EnumRetorno.AMBOS && miPropuesta.getPosibleRetorno()!=retorno){
             return -4; //Error: Retorno no valido en esta Propuesta
         }        
-        Aporte a = miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno);
+        Aporte a = miColaborador.createAporte(miPropuesta.getTitulo(), aporte, cantidad, retorno);
         miPropuesta.addAporte(a);
         miColaborador.añadirAporte(a);
         cp.añadirAporte(a, miPropuesta, miColaborador);
@@ -272,7 +272,7 @@ public class Controlador implements IControlador{
     }
     
     @Override
-    public int altaAporte(String strmiColaborador, String strmiPropuesta,  double $aporte, int cantidad, EnumRetorno retorno, LocalDateTime fecAp){
+    public int altaAporte(String strmiColaborador, String strmiPropuesta,  double aporte, int cantidad, EnumRetorno retorno, LocalDateTime fecAp){
         Propuesta miPropuesta = null;
         Colaborador miColaborador = null;                
         miColaborador = cp.buscarColaborador(strmiColaborador);
@@ -281,13 +281,13 @@ public class Controlador implements IControlador{
 //        if($aporte > miPropuesta.getmontoNecesaria() || $aporte > miPropuesta.getmontoNecesaria()-miPropuesta.getmontoAlcanzada()){
 //            return -2;//ERROR: Aporte superior a lo permitido
 //        }        
-        if (miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno) == null) {
+        if (miColaborador.createAporte(miPropuesta.getTitulo(), aporte, cantidad, retorno) == null) {
             return -3;  //Error: El usuario ya colabora con la Propuesta
         }         
         if (miPropuesta.getPosibleRetorno()!=EnumRetorno.AMBOS && miPropuesta.getPosibleRetorno()!=retorno){
             return -4; //Error: Retorno no valido en esta Propuesta
         }        
-        Aporte a = miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno, fecAp);
+        Aporte a = miColaborador.createAporte(miPropuesta.getTitulo(), aporte, cantidad, retorno, fecAp);
         miPropuesta.addAporte(a);
         miColaborador.añadirAporte(a);
         cp.añadirAporte(a, miPropuesta, miColaborador);
@@ -296,7 +296,7 @@ public class Controlador implements IControlador{
     }
     
     @Override //fecha con string
-    public int altaAporte(String strmiColaborador, String strmiPropuesta,  double $aporte, int cantidad, EnumRetorno retorno, String fecA){
+    public int altaAporte(String strmiColaborador, String strmiPropuesta,  double aporte, int cantidad, EnumRetorno retorno, String fecA){
         Propuesta miPropuesta = null;
         Colaborador miColaborador = null;                
         miColaborador = cp.buscarColaborador(strmiColaborador);
@@ -305,7 +305,7 @@ public class Controlador implements IControlador{
 //        if($aporte > miPropuesta.getmontoNecesaria() || $aporte > miPropuesta.getmontoNecesaria()-miPropuesta.getmontoAlcanzada()){
 //            return -2;//ERROR: Aporte superior a lo permitido
 //        }        
-        if (miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno) == null) {
+        if (miColaborador.createAporte(miPropuesta.getTitulo(), aporte, cantidad, retorno) == null) {
             return -3;  //Error: El usuario ya colabora con la Propuesta
         }         
         if (miPropuesta.getPosibleRetorno()!=EnumRetorno.AMBOS && miPropuesta.getPosibleRetorno()!=retorno){
@@ -318,7 +318,7 @@ public class Controlador implements IControlador{
         }else{
             fecAp = LocalDateTime.parse(fecA);
         }
-        Aporte a = miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno, fecAp);
+        Aporte a = miColaborador.createAporte(miPropuesta.getTitulo(), aporte, cantidad, retorno, fecAp);
         miPropuesta.addAporte(a);
         miColaborador.añadirAporte(a);
         cp.añadirAporte(a, miPropuesta, miColaborador);
@@ -1008,15 +1008,15 @@ public class Controlador implements IControlador{
         
         List<String> listaColabProp = new ArrayList<>();
         Propuesta prop = cp.getPropuesta(titulo);
-        double aporte$;
+        double aporte;
         Colaborador c;
         String aporteColab;
         
         for (Aporte a : prop.getAportes()) {
-            aporte$ = a.get$aporte();
+            aporte = a.getAporte();
             c = a.getColaborador();
             
-            aporteColab = c.getNickname() + "\t" + aporte$;
+            aporteColab = c.getNickname() + "\t" + aporte;
             listaColabProp.add(aporteColab);
         }
         

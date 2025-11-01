@@ -25,7 +25,7 @@ public class Aporte implements Serializable {
     @ManyToOne
     @JoinColumn(name = "nickname")
     private Colaborador miColaborador;
-    private double $aporte;
+    private double aporte;
     private LocalDateTime fechaHora;
     private int cantidad;
     private EnumRetorno retorno;
@@ -35,19 +35,19 @@ public class Aporte implements Serializable {
     public Aporte() {
     }
     
-    public Aporte(Colaborador miColaborador, double $aporte, int cantidad, EnumRetorno retorno) {
+    public Aporte(Colaborador miColaborador, double aporte, int cantidad, EnumRetorno retorno) {
             
         this.miColaborador = miColaborador;
-        this.$aporte = $aporte;
+        this.aporte = aporte;
         this.fechaHora = LocalDateTime.now();
         this.cantidad = cantidad;
         this.retorno = retorno;
     }
     
-    public Aporte(Colaborador miColaborador, double $aporte, int cantidad, EnumRetorno retorno, LocalDateTime fecAp) {
+    public Aporte(Colaborador miColaborador, double aporte, int cantidad, EnumRetorno retorno, LocalDateTime fecAp) {
             
         this.miColaborador = miColaborador;
-        this.$aporte = $aporte;
+        this.aporte = aporte;
         this.fechaHora = fecAp;
         this.cantidad = cantidad;
         this.retorno = retorno;
@@ -83,8 +83,8 @@ public class Aporte implements Serializable {
         //miPropuesta=null;
     }
     
-    public double get$aporte() {
-        return $aporte;
+    public double getAporte() {
+        return aporte;
     }
 
     public void setMiPropuesta(Propuesta miPropuesta) {
@@ -170,8 +170,8 @@ public class Aporte implements Serializable {
         this.miColaborador = miColaborador;
     }
 
-    public void set$aporte(double $aporte) {
-        this.$aporte = $aporte;
+    public void setAporte(double aporte) {
+        this.aporte = aporte;
     }
 
     public void setFechaHora(LocalDateTime fechaHora) {
