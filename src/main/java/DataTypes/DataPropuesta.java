@@ -29,7 +29,9 @@ public class DataPropuesta {
     double alcanzada;
     LocalDate fecha;
     LocalDate fechaPubli;
-    LocalDateTime fechaLimit; 
+    String fechaPubliStr;
+    LocalDateTime fechaLimit;
+    String fechaLimitStr;
     EnumRetorno posibleRetorno;
     String categoria;
     String nickProponenteDe;
@@ -51,7 +53,9 @@ public class DataPropuesta {
         this.necesaria = necesaria;
         this.fecha = fecha;
         this.fechaPubli = fechaP;
+        this.fechaPubliStr = fechaP.toString();
         this.fechaLimit = fechaL;
+        this.fechaLimitStr = fechaL.toString();
         this.posibleRetorno = retorno;
         this.categoria = categoria;
         this.misAportes = misAportes;
@@ -223,6 +227,22 @@ public class DataPropuesta {
 
     public void setMisAportes(List<Aporte> misAportes) {
         this.misAportes = misAportes;
+    }
+
+    public String getFechaPubliStr() {
+        return fechaPubliStr;
+    }
+
+    public void setFechaPubliStr(String fechaPubliStr) {
+        this.fechaPubliStr = fechaPubliStr;
+    }
+
+    public String getFechaLimitStr() {
+        return fechaLimitStr;
+    }
+
+    public void setFechaLimitStr(String fechaLimitStr) {
+        this.fechaLimitStr = fechaLimitStr;
     }
 
     
