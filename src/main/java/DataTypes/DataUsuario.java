@@ -10,6 +10,7 @@ public class DataUsuario {
     String nombre;
     String apellido;
     String imagen = "";
+    String imagenWeb = "";
     String tipo;
     String biografia = "";
     String direccion;
@@ -239,6 +240,14 @@ public class DataUsuario {
 
     public void setMisPropuestasFav(List<DataPropuesta> misPropuestasFav) {
         this.misPropuestasFav = misPropuestasFav;
+    }
+
+    public String getImagenWeb() {
+        return imagenWeb;
+    }
+
+    public void setImagenWeb(String imagenWeb) {
+        this.imagenWeb = imagenWeb;
     }
     
     
