@@ -4,14 +4,18 @@ import java.time.LocalDateTime;
 
 public class DataAporte {
 
-    private final Double aporte;
-    private final LocalDateTime fechaHora;
-    private final int cantidad;
-    private final EnumRetorno retorno;
-    private final String imagen;
-    private final String miColaborador;
-    private final String miPropuesta;
-    private final Double necesaria;
+    double aporte;
+    LocalDateTime fechaHora;
+    int cantidad;
+    EnumRetorno retorno;
+    String imagen;
+    String miColaborador;
+    String miPropuesta;
+    Double necesaria;
+    
+    public DataAporte(){
+        
+    }
     
     public DataAporte(double aporte, LocalDateTime fechaHora, int cantidad, EnumRetorno retorno, String miColaborador, String miPropuesta, String imagen, double necesaria) {
         this.aporte = aporte;
@@ -23,7 +27,7 @@ public class DataAporte {
         this.imagen = imagen;
         this.necesaria = necesaria;
     }
-    public DataAporte(Double aporte, LocalDateTime fechaHora, String miPropuesta) {
+    public DataAporte(double aporte, LocalDateTime fechaHora, String miPropuesta) {
         this.aporte = aporte;
         this.fechaHora = fechaHora;
         this.miPropuesta = miPropuesta;
@@ -66,4 +70,37 @@ public class DataAporte {
         return necesaria;
     }
 
+    public void setAporte(double aporte) {
+        this.aporte = aporte;
+    }
+
+    public void setFechaHora(LocalDateTime fechaHora) {
+        this.fechaHora = fechaHora;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public void setRetorno(EnumRetorno retorno) {
+        this.retorno = retorno;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public void setMiColaborador(String miColaborador) {
+        this.miColaborador = miColaborador;
+    }
+
+    public void setMiPropuesta(String miPropuesta) {
+        this.miPropuesta = miPropuesta;
+    }
+
+    public void setNecesaria(Double necesaria) {
+        this.necesaria = necesaria;
+    }
+    
+    
 }

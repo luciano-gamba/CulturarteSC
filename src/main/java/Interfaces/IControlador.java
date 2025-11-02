@@ -136,4 +136,6 @@ public interface IControlador {
     int cancelarPropuesta(String titulo);
     
     void comprobarPropuestas();
+    
+    DataAporte getDataAporte(double aporte, String fechaHora, String miPropuesta);
 }

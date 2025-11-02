@@ -1,5 +1,6 @@
 package WebServices;
 
+import DataTypes.DataAporte;
 import DataTypes.DataCategoria;
 import DataTypes.DataColaborador;
 import DataTypes.DataComentario;
@@ -213,4 +214,10 @@ public class LogicaWS {
     public DataColaborador getDataColaborador(@WebParam(name = "nickname") String nickname, @WebParam(name = "nombre") String nombre, @WebParam(name = "apellido") String apellido, @WebParam(name = "email") String email, @WebParam(name = "fecNac") String fecNac, @WebParam(name = "imagen") String imagen){
         return ic.getDataColaborador(nickname, nombre, apellido, email, fecNac, imagen);
     }
-}
+    
+    @WebMethod(operationName = "getDataAporte")
+    public DataAporte getDataAporte(@WebParam(name = "aporte") double aporte, @WebParam(name = "fechaHora") String fechaHora, @WebParam(name = "miPropuesta") String miPropuesta){
+        return ic.getDataAporte(aporte, fechaHora, miPropuesta);
+    }
+    
+    }

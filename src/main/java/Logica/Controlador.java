@@ -1190,4 +1190,9 @@ public class Controlador implements IControlador{
             }
         }
     }
+    
+    @Override
+    public DataAporte getDataAporte(double aporte, String fechaHora, String miPropuesta){ //NO USAR
+        return new DataAporte(aporte, LocalDateTime.parse(fechaHora), miPropuesta);
+    }
 }    
