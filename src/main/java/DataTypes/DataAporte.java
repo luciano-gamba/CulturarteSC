@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class DataAporte {
 
-    double aporte;
+    Double aporte;
     LocalDateTime fechaHora;
     int cantidad;
     EnumRetorno retorno;
@@ -12,6 +12,8 @@ public class DataAporte {
     String miColaborador;
     String miPropuesta;
     Double necesaria;
+    String fechaStr;
+    
     
     public DataAporte(){
         
@@ -20,6 +22,7 @@ public class DataAporte {
     public DataAporte(double aporte, LocalDateTime fechaHora, int cantidad, EnumRetorno retorno, String miColaborador, String miPropuesta, String imagen, double necesaria) {
         this.aporte = aporte;
         this.fechaHora = fechaHora;
+        this.fechaStr = fechaHora.toString();
         this.cantidad = cantidad;
         this.retorno = retorno;
         this.miColaborador = miColaborador;
@@ -30,6 +33,7 @@ public class DataAporte {
     public DataAporte(double aporte, LocalDateTime fechaHora, String miPropuesta) {
         this.aporte = aporte;
         this.fechaHora = fechaHora;
+        this.fechaStr = fechaHora.toString();
         this.miPropuesta = miPropuesta;
         this.cantidad = 0;
         this.retorno = null;
@@ -41,11 +45,23 @@ public class DataAporte {
     public Double getAporte() {
         return aporte;
     }
+
+    public void setAporte(Double aporte) {
+        this.aporte = aporte;
+    }
  
     public LocalDateTime getFechaHora() {
         return fechaHora;
     }
 
+    public String getFechaStr() {
+        return fechaStr;
+    }
+
+    public void setFechaStr(String fechaStr) {
+        this.fechaStr = fechaStr;
+    }
+   
     public int getCantidad() {
         return cantidad;
     }

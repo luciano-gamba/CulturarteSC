@@ -20,7 +20,7 @@ public class DataUsuario {
     List<DataPropuesta> misPropuestasIngresadas;
     List<DataUsuario> meSiguen;
     List<DataUsuario> losSigo;
-    HashMap<String,DataAporte> ListaAporte;
+    List<DataAporte> ListaAporte;
     
     public DataUsuario() {
     }
@@ -148,15 +148,10 @@ public class DataUsuario {
     }
 
     public void setListaAporte(List<DataAporte> ListaAporte) {
-        HashMap<String, DataAporte> DiccAporte = new HashMap<String, DataAporte>();
-        for (DataAporte aporte : ListaAporte){
-            DiccAporte.put(aporte.getMiPropuesta(), aporte);
-            
-        }
-        this.ListaAporte = DiccAporte;
+        this.ListaAporte = ListaAporte;
     }
 
-    public HashMap<String,DataAporte> getListaAporte() {
+    public List<DataAporte> getListaAporte() {
         return ListaAporte;
     }
 

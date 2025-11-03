@@ -245,7 +245,10 @@ public class DataPropuesta {
         this.fechaLimitStr = fechaLimitStr;
     }
 
-    
+    public void setnecesaria(double necesaria) { //Me faltaba setear Necesaria en los DataPropuesta
+        //por eso no se mostraba correctamente la barra de progreso
+        this.necesaria = necesaria;
+    }
     
    
 }
