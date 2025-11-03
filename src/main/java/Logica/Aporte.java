@@ -113,6 +113,8 @@ public class Aporte implements Serializable {
             dataProp.setImagen(miPropuesta.getImagen());
             dataProp.setFechaPubli(miPropuesta.getFechaARealizar());
             dataProp.setFechaLimit(miPropuesta.getFechaLimit()); //Con esto se arregla lo de mostrar cuantos dias le quedan a las propuestas en perfil de usuario
+            dataProp.setFechaPubliStr(miPropuesta.getFechaARealizar().toString());
+            dataProp.setFechaLimitStr(miPropuesta.getFechaLimit().toString());
             dataProp.setnecesaria(miPropuesta.getNecesaria()); //Sin esto no se mostraba correctamente barra de progreso en perfilUsuario
             dataProp.setCantidadColaboradores(this.getCantidadcolaboradores());
             return dataProp;

@@ -196,6 +196,8 @@ public class Usuario implements Serializable {
             data.setImagen(prop.getImagen());
             data.setFechaPubli(prop.getFechaARealizar());
             data.setFechaLimit(prop.getFechaLimit()); //Necesario setear aca para mostrar bien dias restantes 
+            data.setFechaPubliStr(prop.getFechaARealizar().toString());
+            data.setFechaLimitStr(prop.getFechaLimit().toString());
             data.setnecesaria(prop.getNecesaria()); //Necesario setear aca para mostrar bien barra de progreso
             data.setCantidadColaboradores(prop.getAportes().size()); 
             data.setNickProponenteDe(prop.getProponente().getNickname());

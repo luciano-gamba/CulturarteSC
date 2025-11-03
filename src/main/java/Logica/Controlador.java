@@ -719,6 +719,8 @@ public class Controlador implements IControlador{
                     dataProp.setImagen(prop.getImagen());
                     dataProp.setFechaPubli(prop.getFechaARealizar());
                     dataProp.setFechaLimit(prop.getFechaLimit()); //Sin esto seteado no se muestra correctamente cuantos dias le quedan a la propuesta en PerfilUsuario
+                    dataProp.setFechaPubliStr(prop.getFechaARealizar().toString());
+                    dataProp.setFechaLimitStr(prop.getFechaLimit().toString());
                     dataProp.setnecesaria(prop.getNecesaria()); //Sin esto no se muestra bien barra progreso de perfilUsuario con respecto a las Propuestas
                     dataProp.setCantidadColaboradores(prop.getAportes().size());
                     propuestasDe.add(dataProp);
