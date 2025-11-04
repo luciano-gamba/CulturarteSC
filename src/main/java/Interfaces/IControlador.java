@@ -138,4 +138,6 @@ public interface IControlador {
     void comprobarPropuestas();
     
     DataAporte getDataAporte(double aporte, String fechaHora, String miPropuesta);
+    
+    void eliminarProponente(String nick);
 }

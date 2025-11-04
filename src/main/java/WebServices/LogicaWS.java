@@ -220,4 +220,9 @@ public class LogicaWS {
         return ic.getDataAporte(aporte, fechaHora, miPropuesta);
     }
     
+    @WebMethod(operationName = "eliminarProponente")
+    public void eliminarProponente(@WebParam(name = "nick") String nick){
+        ic.eliminarProponente(nick);
+    } 
+    
     }
