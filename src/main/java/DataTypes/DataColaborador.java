@@ -17,12 +17,24 @@ public class DataColaborador {
     String apellido;
     String email;
     LocalDate fecNac;
+    String fecNacStr;
     String imagen = "";
     List<DataPropuesta> propuestasColaboradas;
     List<DataUsuario> meSiguen;
     List<DataUsuario> losSigo;
     
     public DataColaborador(){
+        
+    }
+    
+    public DataColaborador(String nickname,String nombre, String apellido,String email,String fecNacStr, String imagen) {
+        this.nickname = nickname;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.email = email;
+        this.fecNac = LocalDate.parse(fecNacStr);
+        this.fecNacStr = fecNacStr;
+        this.imagen = imagen;
         
     }
     
@@ -117,6 +129,14 @@ public class DataColaborador {
 
     public void setPropuestasColaboradas(List<DataPropuesta> propuestasColaboradas) {
         this.propuestasColaboradas = propuestasColaboradas;
+    }
+
+    public String getFecNacStr() {
+        return fecNacStr;
+    }
+
+    public void setFecNacStr(String fecNacStr) {
+        this.fecNacStr = fecNacStr;
     }
     
     

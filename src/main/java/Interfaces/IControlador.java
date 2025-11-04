@@ -58,6 +58,8 @@ public interface IControlador {
     
     DataColaborador getDataColaborador(String nickname,String nombre, String apellido,String email,String fecNac, String imagen);
     
+    DataColaborador getDataColaboradorWeb(String nickname,String nombre, String apellido,String email,String fecNac, String imagen);
+    
     DataUsuario consultaDeColaboradorWeb(String NickName);
     
     List<DataCategoria> cargarCategoriasWeb();
