@@ -127,7 +127,11 @@ public class PropuestaJpaController implements Serializable {
     public Propuesta findPropuesta(String id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Propuesta.class, id);
+            Propuesta p = em.find(Propuesta.class, id);
+            if (p != null) {
+                em.refresh(p); // <- esto hace que se traiga los datos actuales de la base
+            }
+            return p;
         } finally {
             em.close();
         }

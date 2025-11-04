@@ -7,6 +7,7 @@ package DataTypes;
 import Logica.Aporte;
 import Logica.Estado;
 import Logica.Proponente;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.List;
  *
  * @author nahud
  */
-public class DataPropuesta {
+public class DataPropuesta implements Serializable {
     
     String titulo;
     String imagen;
