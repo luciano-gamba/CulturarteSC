@@ -215,6 +215,11 @@ public class LogicaWS {
         return ic.getDataColaborador(nickname, nombre, apellido, email, fecNac, imagen);
     }
     
+    @WebMethod(operationName = "getDataColaboradorWeb")
+    public DataColaborador getDataColaboradorWeb(String nickname,String nombre, String apellido,String email,String fecNac, String imagen){
+        return ic.getDataColaboradorWeb(nickname, nombre, apellido, email, fecNac, imagen);
+    }
+    
     @WebMethod(operationName = "getDataAporte")
     public DataAporte getDataAporte(@WebParam(name = "aporte") double aporte, @WebParam(name = "fechaHora") String fechaHora, @WebParam(name = "miPropuesta") String miPropuesta){
         return ic.getDataAporte(aporte, fechaHora, miPropuesta);

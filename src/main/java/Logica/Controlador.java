@@ -744,6 +744,11 @@ public class Controlador implements IControlador{
         return new DataColaborador(nickname, nombre, apellido, email, LocalDate.parse(fecNac), imagen);
     }
     
+    @Override
+    public DataColaborador getDataColaboradorWeb(String nickname,String nombre, String apellido,String email,String fecNac, String imagen){
+        return new DataColaborador(nickname, nombre, apellido, email, fecNac, imagen);
+    }
+    
     public List<DataUsuario> getSeguidores(Usuario seguido) {
         List<DataUsuario> seguidores = new ArrayList<>();
 

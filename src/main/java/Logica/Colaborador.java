@@ -17,6 +17,7 @@ public class Colaborador extends Usuario {
 
     @OneToMany(mappedBy = "miColaborador")
     private List<Aporte> misAportes;
+    private String fecNacStr;
 
     public Colaborador() {
         //this.misAportes = new ArrayList<>();
@@ -24,6 +25,7 @@ public class Colaborador extends Usuario {
 
     public Colaborador(String nickname, String email, String nombre, String apellido, LocalDate fecNac, String imagen, String contraseña, String imagenWeb) {
         super(nickname, email, nombre, apellido, fecNac, imagen, contraseña, imagenWeb);
+        this.fecNacStr = fecNac.toString();
         this.misAportes = new ArrayList<>();
     }
 
@@ -123,6 +125,14 @@ public class Colaborador extends Usuario {
             listaAportes.add(aporteActual);
         }
         return listaAportes;
+    }
+
+    public String getFecNacStr() {
+        return fecNacStr;
+    }
+
+    public void setFecNacStr(String fecNacStr) {
+        this.fecNacStr = fecNacStr;
     }
 
    
