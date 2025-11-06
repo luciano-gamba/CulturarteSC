@@ -2,6 +2,7 @@ package Logica;
 
 import DataTypes.DataPropuesta;
 import DataTypes.DataUsuario;
+import jakarta.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -123,11 +124,11 @@ public class Usuario implements Serializable {
     public void setImagenWeb(String imagenWeb) {
         this.imagenWeb = imagenWeb;
     }
+    
+    @XmlTransient
     public List<Usuario> getMisSeguidos() {
         return misSeguidos;
     }
-    
-    
     
     public int seguirUsuario(Usuario nick){
         for(Usuario u : this.misSeguidos){
@@ -184,6 +185,7 @@ public class Usuario implements Serializable {
         return listaSeguidores;
     }
 
+    @XmlTransient
     public List<Propuesta> getMisFavoritas() {
         return misFavoritas;
     }
@@ -226,6 +228,10 @@ public class Usuario implements Serializable {
     public void eliminarFavorita(Propuesta prop) {
         this.misFavoritas.remove(prop);    
     }
+
+    public void setMisSeguidos(List<Usuario> misSeguidos) {
+        this.misSeguidos = misSeguidos;
+    }
     
-    
+
 }

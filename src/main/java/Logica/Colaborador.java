@@ -3,6 +3,7 @@ package Logica;
 import DataTypes.EnumRetorno;
 import DataTypes.DataAporte;
 import DataTypes.DataPropuesta;
+import jakarta.xml.bind.annotation.XmlTransient;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 public class Colaborador extends Usuario {
 
     @OneToMany(mappedBy = "miColaborador")
-    private List<Aporte> misAportes;
+    private List<Aporte> misAportes = new ArrayList<>();
     private String fecNacStr;
 
     public Colaborador() {
@@ -134,7 +135,18 @@ public class Colaborador extends Usuario {
     public void setFecNacStr(String fecNacStr) {
         this.fecNacStr = fecNacStr;
     }
+    
+    @XmlTransient
+    public List<Aporte> getMisAportes() {
+        if (misAportes == null) {
+            misAportes = new ArrayList<>();
+        }
+        return misAportes;
+    }
 
-   
+    public void setMisAportes(List<Aporte> misAportes) {
+        this.misAportes = misAportes;
+    }
+
 
 }

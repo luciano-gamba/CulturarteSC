@@ -4,9 +4,11 @@ import DataTypes.DataAporte;
 import DataTypes.DataCategoria;
 import DataTypes.DataColaborador;
 import DataTypes.DataComentario;
+import DataTypes.DataProponente;
 import DataTypes.DataPropuesta;
 import DataTypes.DataPropuestaSimple;
 import DataTypes.DataUsuario;
+import DataTypes.DataSugerencias;
 import DataTypes.EnumRetorno;
 import Interfaces.Fabrica;
 import Interfaces.IControlador;
@@ -216,13 +218,23 @@ public class LogicaWS {
     }
     
     @WebMethod(operationName = "getDataColaboradorWeb")
-    public DataColaborador getDataColaboradorWeb(String nickname,String nombre, String apellido,String email,String fecNac, String imagen){
-        return ic.getDataColaboradorWeb(nickname, nombre, apellido, email, fecNac, imagen);
+    public DataColaborador getDataColaboradorWeb(String nickname, String imagen){
+        return ic.getDataColaboradorWeb(nickname, imagen);
     }
     
     @WebMethod(operationName = "getDataAporte")
     public DataAporte getDataAporte(@WebParam(name = "aporte") double aporte, @WebParam(name = "fechaHora") String fechaHora, @WebParam(name = "miPropuesta") String miPropuesta){
         return ic.getDataAporte(aporte, fechaHora, miPropuesta);
+    }
+    
+    @WebMethod(operationName = "getDataSugerencia")
+    public DataSugerencias getDataSugerencia(@WebParam(name = "titulo") String titulo, @WebParam(name = "puntaje") int puntaje) {
+        return ic.getDataSugerencia(titulo, puntaje);
+    }
+    
+    @WebMethod(operationName = "getDataProponente")
+    public DataProponente getDataProponente() {
+        return ic.getDataProponente();
     }
     
     }

@@ -5,6 +5,7 @@
 package DataTypes;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,6 +23,7 @@ public class DataColaborador {
     List<DataPropuesta> propuestasColaboradas;
     List<DataUsuario> meSiguen;
     List<DataUsuario> losSigo;
+    private List<DataAporte> misAportes = new ArrayList<>();
     
     public DataColaborador(){
         
@@ -57,6 +59,12 @@ public class DataColaborador {
         this.imagen = imagen;
         this.propuestasColaboradas = propuestas;
     }
+     
+    public DataColaborador(String nickname, String imagen) {
+        this.nickname = nickname;
+        this.imagen = imagen;
+    } 
+     
     public String getNickname() {
         return this.nickname;
     }
@@ -139,6 +147,16 @@ public class DataColaborador {
         this.fecNacStr = fecNacStr;
     }
     
-    
-    
+    public List<DataAporte> getMisAportes() {
+        if (misAportes == null) {
+            misAportes = new ArrayList<>();
+        }
+        return misAportes;
+    }
+
+    public void setMisAportes(List<DataAporte> misAportes) {
+        this.misAportes = misAportes;
+    }
+
+
 }

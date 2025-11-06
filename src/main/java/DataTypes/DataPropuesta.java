@@ -4,9 +4,7 @@
  */
 package DataTypes;
 
-import Logica.Aporte;
 import Logica.Estado;
-import Logica.Proponente;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -22,7 +20,7 @@ public class DataPropuesta implements Serializable {
     String titulo;
     String imagen;
     Estado estadoActual;
-    Proponente p;
+    DataProponente p;
     String desc;
     String lugar;
     double entrada;
@@ -37,12 +35,13 @@ public class DataPropuesta implements Serializable {
     String categoria;
     String nickProponenteDe;
     private int cantidadColaboradores;
-    private List<Aporte> misAportes = new ArrayList<>();
+    private List<DataAporte> misAportes = new ArrayList<>();
+    private int cantidadFav;
 
     public DataPropuesta() {
     }
     
-    public DataPropuesta(String titulo, String imagen, Estado estadoActual, Proponente p, String descrip, String lugar, double entrada, double necesaria,double alcanzada,LocalDate fecha, LocalDate fechaP, LocalDateTime fechaL , EnumRetorno retorno, String categoria, List<Aporte> misAportes ){
+    public DataPropuesta(String titulo, String imagen, Estado estadoActual, DataProponente p, String descrip, String lugar, double entrada, double necesaria,double alcanzada,LocalDate fecha, LocalDate fechaP, LocalDateTime fechaL , EnumRetorno retorno, String categoria, List<DataAporte> misAportes ){
         this.alcanzada = alcanzada;
         this.titulo = titulo;
         this.imagen = imagen;
@@ -61,6 +60,25 @@ public class DataPropuesta implements Serializable {
         this.categoria = categoria;
         this.misAportes = misAportes;
         this.nickProponenteDe = p.getNickname();
+    }
+    
+    public DataPropuesta(String titulo, String imagen, Estado estadoActual, String descrip, String lugar, double entrada, double necesaria,double alcanzada,LocalDate fecha, LocalDate fechaP, LocalDateTime fechaL , EnumRetorno retorno, String categoria, List<DataAporte> misAportes ){
+        this.alcanzada = alcanzada;
+        this.titulo = titulo;
+        this.imagen = imagen;
+        this.estadoActual = estadoActual;
+        this.desc = descrip;
+        this.lugar = lugar;
+        this.entrada = entrada;
+        this.necesaria = necesaria;
+        this.fecha = fecha;
+        this.fechaPubli = fechaP;
+        this.fechaPubliStr = fechaP.toString();
+        this.fechaLimit = fechaL;
+        this.fechaLimitStr = fechaL.toString();
+        this.posibleRetorno = retorno;
+        this.categoria = categoria;
+        this.misAportes = misAportes;
     }
     
     public DataPropuesta(double alcanzada, String titulo, Estado estadoActual, String lugar){
@@ -94,10 +112,6 @@ public class DataPropuesta implements Serializable {
     
     public Estado getEstadoActual(){
         return this.estadoActual;
-    }
-    
-    public Proponente getProponente(){
-        return this.p;
     }
     
     public String getLugar(){
@@ -139,9 +153,6 @@ public class DataPropuesta implements Serializable {
         this.desc = desc;
     }
 
-    public List<Aporte> getMisAportes() {
-        return misAportes;
-    }
      public void setImagen(String imagen) {
         this.imagen = imagen;
     }
@@ -178,10 +189,6 @@ public class DataPropuesta implements Serializable {
         this.nickProponenteDe = nickProponenteDe;
     }
 
-    public Proponente getP() {
-        return p;
-    }
-
     public String getDesc() {
         return desc;
     }
@@ -201,11 +208,7 @@ public class DataPropuesta implements Serializable {
     public void setEstadoActual(Estado estadoActual) {
         this.estadoActual = estadoActual;
     }
-
-    public void setP(Proponente p) {
-        this.p = p;
-    }
-
+    
     public void setLugar(String lugar) {
         this.lugar = lugar;
     }
@@ -225,11 +228,7 @@ public class DataPropuesta implements Serializable {
     public void setPosibleRetorno(EnumRetorno posibleRetorno) {
         this.posibleRetorno = posibleRetorno;
     }
-
-    public void setMisAportes(List<Aporte> misAportes) {
-        this.misAportes = misAportes;
-    }
-
+    
     public String getFechaPubliStr() {
         return fechaPubliStr;
     }
@@ -250,6 +249,29 @@ public class DataPropuesta implements Serializable {
         //por eso no se mostraba correctamente la barra de progreso
         this.necesaria = necesaria;
     }
+
+    public DataProponente getP() {
+        return p;
+    }
+
+    public void setP(DataProponente p) {
+        this.p = p;
+    }
+
+    public List<DataAporte> getMisAportes() {
+        return misAportes;
+    }
+
+    public void setMisAportes(List<DataAporte> misAportes) {
+        this.misAportes = misAportes;
+    }
+
+    public int getCantidadFav() {
+        return cantidadFav;
+    }
+
+    public void setCantidadFav(int cantidadFav) {
+        this.cantidadFav = cantidadFav;
+    }
     
-   
 }

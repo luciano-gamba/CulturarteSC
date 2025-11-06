@@ -10,6 +10,7 @@ import DataTypes.DataColaborador;
 import DataTypes.DataProponente;
 import DataTypes.DataPropuesta;
 import DataTypes.DataPropuestaSimple;
+import DataTypes.DataSugerencias;
 import DataTypes.DataUsuario;
 import Persistencia.ControladoraPersistencia;
 import java.time.LocalDate;
@@ -661,8 +662,99 @@ public class Controlador implements IControlador{
 
         //persistencia
         Propuesta p = cp.getPropuesta(titulo);
-        return new DataPropuesta(titulo, p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getAlcanzada(),p.getFecha() , p.getFechaARealizar(),p.getFechaLimit(),  p.getRetorno(), p.getCategoria()/*"SIN FUNCIONAR"*/, p.getAportes());
+        Proponente propo = p.getProponente();
+        List<DataAporte> aportesP = new ArrayList<>();
+    for (Aporte a : p.getAportes()) {
+        aportesP.add(new DataAporte(
+            a.getAporte(),
+            a.getFechaHora(),
+            a.getCantidad(),
+            a.getRetorno(),
+            a.getNicknameMiColaborador(),
+            a.getTituloMiPropuesta(),
+            a.getImagenMiPropuesta(),
+            a.getNecesaria()
+        ));
     }
+
+    // ---- Convertir todas las propuestas del proponente ----
+    List<DataPropuesta> propuestasProponente = new ArrayList<>();
+
+    if (propo != null) {
+        for (Propuesta x : propo.getPropuestas()) {
+
+            // lista propia por propuesta
+            List<DataAporte> aportesX = new ArrayList<>();
+            for (Aporte ax : x.getAportes()) {
+                aportesX.add(new DataAporte(
+                    ax.getAporte(),
+                    ax.getFechaHora(),
+                    ax.getCantidad(),
+                    ax.getRetorno(),
+                    ax.getNicknameMiColaborador(),
+                    ax.getTituloMiPropuesta(),
+                    ax.getImagenMiPropuesta(),
+                    ax.getNecesaria()
+                ));
+            }
+
+            propuestasProponente.add(new DataPropuesta(
+                x.getTitulo(),
+                x.getImagen(),
+                x.getEstadoActual(),
+                x.getDescripcion(),
+                x.getLugar(),
+                x.getEntrada(),
+                x.getNecesaria(),
+                x.getAlcanzada(),
+                x.getFecha(),
+                x.getFechaARealizar(),
+                x.getFechaLimit(),
+                x.getRetorno(),
+                x.getCategoria(),
+                aportesX
+            ));
+        }
+    }
+
+    // ---- DataProponente ----
+    DataProponente dp = null;
+    if (propo != null) {
+        dp = new DataProponente(
+            propo.getNickname(),
+            propo.getNombre(),
+            propo.getApellido(),
+            propo.getEmail(),
+            propo.getFecNac(),
+            propo.getImagen(),
+            propo.getDireccion(),
+            propo.getBiografia(),
+            propo.getSitioWeb(),
+            propuestasProponente
+        );
+    }
+
+    // ---- DataPropuesta principal ----
+    DataPropuesta respuesta = new DataPropuesta(
+        p.getTitulo(),
+        p.getImagen(),
+        p.getEstadoActual(),
+        dp,
+        p.getDescripcion(),
+        p.getLugar(),
+        p.getEntrada(),
+        p.getNecesaria(),
+        p.getAlcanzada(),
+        p.getFecha(),
+        p.getFechaARealizar(),
+        p.getFechaLimit(),
+        p.getRetorno(),
+        p.getCategoria(),
+        aportesP
+    );
+    respuesta.setCantidadFav(p.getCantidadFav());
+    return respuesta;
+}
     
     @Override
     public DataPropuesta getDataPropuesta(String titulo_nick){
@@ -680,7 +772,21 @@ public class Controlador implements IControlador{
         DataPropuesta DP = null;
         for (Propuesta p : cp.getListaPropuestas()) {
             if (p.getTitulo_Nickname().equalsIgnoreCase(titulo_nick)) {
-                DP = new DataPropuesta(p.getTitulo(), p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getmontoAlcanzada(),p.getFecha() ,p.getFechaARealizar(),p.getFechaLimit(), p.getRetorno(), p.getCategoria(), p.getAportes());
+                Proponente propo = p.getProponente();
+                List<DataPropuesta> LDP = new ArrayList<>();
+                List<DataAporte> LDA = new ArrayList<>();
+
+                for (Aporte a : p.getAportes()) {
+                    DataAporte da = new DataAporte(a.getAporte(), a.getFechaHora(), a.getCantidad(), a.getRetorno(), a.getNicknameMiColaborador(), a.getTituloMiPropuesta(), a.getImagenMiPropuesta(), a.getNecesaria());
+                    LDA.add(da);
+                }
+
+                for (Propuesta x : propo.getPropuestas()) {
+                    DataPropuesta z = new DataPropuesta(x.getTitulo(), x.getImagen(), x.getEstadoActual(), x.getDescripcion(), x.getLugar(), x.getEntrada(), x.getNecesaria(), x.getAlcanzada(), x.getFecha(), x.getFechaARealizar(), x.getFechaLimit(), x.getRetorno(), x.getCategoria(), LDA);
+                    LDP.add(z);
+                }
+                DataProponente dp = new DataProponente(propo.getNickname(), propo.getNombre(),propo.getApellido(),propo.getEmail(),propo.getFecNac(),propo.getImagen(),propo.getDireccion(),propo.getBiografia(),propo.getSitioWeb(), LDP);
+                DP = new DataPropuesta(p.getTitulo(), p.getImagen(), p.getEstadoActual(), dp, p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getmontoAlcanzada(),p.getFecha() ,p.getFechaARealizar(),p.getFechaLimit(), p.getRetorno(), p.getCategoria(), LDA);
                 return DP;
             }
         }
@@ -735,6 +841,8 @@ public class Controlador implements IControlador{
         DataColaborador DCola = null;
         Colaborador c = cp.buscarColaborador(NickName);
         DCola = new DataColaborador(NickName, c.getNombre(),c.getApellido(),c.getEmail(),c.getFecNac(),c.getImagen(),c.getPropuestas());
+        DCola.setMisAportes(c.getListaAportes());
+        DCola.setLosSigo(c.getDtUSeguidos());
         return DCola;
         
     }
@@ -745,8 +853,8 @@ public class Controlador implements IControlador{
     }
     
     @Override
-    public DataColaborador getDataColaboradorWeb(String nickname,String nombre, String apellido,String email,String fecNac, String imagen){
-        return new DataColaborador(nickname, nombre, apellido, email, fecNac, imagen);
+    public DataColaborador getDataColaboradorWeb(String nickname, String imagen){
+        return new DataColaborador(nickname, imagen);
     }
     
     public List<DataUsuario> getSeguidores(Usuario seguido) {
@@ -1111,11 +1219,13 @@ public class Controlador implements IControlador{
         Propuesta p = cp.getPropuesta(titulo);
         
         if(!(u.esFavorita(p))){
+            p.setCantidadFav(p.getCantidadFav() + 1);
             u.addFavorita(p);
             cp.editarUsuario(u);
             cp.editarPropuesta(p);
             return true;
         }else{
+            p.setCantidadFav(p.getCantidadFav() - 1);
             u.getMisFavoritas().removeIf(prop -> prop.getTitulo().equals(p.getTitulo()));
             cp.editarUsuario(u);
             cp.editarPropuesta(p);
@@ -1204,4 +1314,25 @@ public class Controlador implements IControlador{
     public DataAporte getDataAporte(double aporte, String fechaHora, String miPropuesta){ //NO USAR
         return new DataAporte(aporte, LocalDateTime.parse(fechaHora), miPropuesta);
     }
+    
+    @Override
+    public DataSugerencias getDataSugerencia(String titulo, int puntaje){
+        DataSugerencias DS = new DataSugerencias(titulo, puntaje);
+        return DS;
+    }
+    
+    @Override
+    public DataProponente getDataProponente(){
+        DataProponente DP = new DataProponente();
+        return DP;
+    }
+    
+//    public List<DataAporte> getAportesColab(String nick){
+//        for(Colaborador c: cp.getColaboradores()){
+//            if (c.getNickname().equals(nick)) {
+//                DataColaborador dc = this.consultaDeColaborador(nick);
+//                //return c.getMisAportes();
+//            }
+//        }
+//    }
 }    

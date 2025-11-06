@@ -8,6 +8,7 @@ import DataTypes.DataComentario;
 import DataTypes.DataProponente;
 import DataTypes.DataPropuesta;
 import DataTypes.DataPropuestaSimple;
+import DataTypes.DataSugerencias;
 import DataTypes.DataUsuario;
 import Logica.Colaborador;
 import Logica.Proponente;
@@ -58,7 +59,7 @@ public interface IControlador {
     
     DataColaborador getDataColaborador(String nickname,String nombre, String apellido,String email,String fecNac, String imagen);
     
-    DataColaborador getDataColaboradorWeb(String nickname,String nombre, String apellido,String email,String fecNac, String imagen);
+    DataColaborador getDataColaboradorWeb(String nickname, String imagen);
     
     DataUsuario consultaDeColaboradorWeb(String NickName);
     
@@ -140,4 +141,8 @@ public interface IControlador {
     void comprobarPropuestas();
     
     DataAporte getDataAporte(double aporte, String fechaHora, String miPropuesta);
+    
+    DataSugerencias getDataSugerencia(String titulo, int puntaje);
+    
+    DataProponente getDataProponente();
 }

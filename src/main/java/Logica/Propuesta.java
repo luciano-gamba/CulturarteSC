@@ -2,6 +2,7 @@ package Logica;
 
 import DataTypes.EnumRetorno;
 import DataTypes.EnumEstado;
+import jakarta.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -48,7 +49,7 @@ public class Propuesta implements Serializable {
     @ManyToOne
     @JoinColumn(name = "nombre_Categoria")
     private Categoria categoria;
-
+    private int cantidadFav;
    
     
     public Propuesta(){
@@ -260,6 +261,40 @@ public class Propuesta implements Serializable {
         this.misEstados.add(e);
     }
     
+    public List<Aporte> getMisAportes() {
+        return misAportes;
+    }
+    
+    public void setMisAportes(List<Aporte> misAportes) {
+        this.misAportes = misAportes;
+    }
+
+    public double getMontoNecesaria() {
+        return montoNecesaria;
+    }
+
+    public void setMontoNecesaria(double montoNecesaria) {
+        this.montoNecesaria = montoNecesaria;
+    }
+
+    public double getMontoAlcanzada() {
+        return montoAlcanzada;
+    }
+
+    public void setMontoAlcanzada(double montoAlcanzada) {
+        this.montoAlcanzada = montoAlcanzada;
+    }
+
+    public int getCantidadFav() {
+        return cantidadFav;
+    }
+
+    public void setCantidadFav(int cantidadFav) {
+        this.cantidadFav = cantidadFav;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+    
 }
-
-

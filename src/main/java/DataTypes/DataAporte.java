@@ -1,8 +1,9 @@
 package DataTypes;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class DataAporte {
+public class DataAporte implements Serializable {
 
     Double aporte;
     LocalDateTime fechaHora;
