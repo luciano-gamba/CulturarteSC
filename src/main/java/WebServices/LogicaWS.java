@@ -227,6 +227,10 @@ public class LogicaWS {
         return ic.getDataAporte(aporte, fechaHora, miPropuesta);
     }
     
+    @WebMethod(operationName = "eliminarProponente")
+    public void eliminarProponente(@WebParam(name = "nick") String nick){
+        ic.eliminarProponente(nick);
+    } 
     @WebMethod(operationName = "getDataSugerencia")
     public DataSugerencias getDataSugerencia(@WebParam(name = "titulo") String titulo, @WebParam(name = "puntaje") int puntaje) {
         return ic.getDataSugerencia(titulo, puntaje);

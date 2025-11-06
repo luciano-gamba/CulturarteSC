@@ -1314,6 +1314,12 @@ public class Controlador implements IControlador{
     public DataAporte getDataAporte(double aporte, String fechaHora, String miPropuesta){ //NO USAR
         return new DataAporte(aporte, LocalDateTime.parse(fechaHora), miPropuesta);
     }
+
+    @Override
+    public void eliminarProponente(String nick) {
+        
+    }
+    
     
     @Override
     public DataSugerencias getDataSugerencia(String titulo, int puntaje){

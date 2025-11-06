@@ -142,6 +142,7 @@ public interface IControlador {
     
     DataAporte getDataAporte(double aporte, String fechaHora, String miPropuesta);
     
+    void eliminarProponente(String nick);
     DataSugerencias getDataSugerencia(String titulo, int puntaje);
     
     DataProponente getDataProponente();
