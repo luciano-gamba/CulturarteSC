@@ -50,6 +50,8 @@ public class Propuesta implements Serializable {
     @JoinColumn(name = "nombre_Categoria")
     private Categoria categoria;
     private int cantidadFav;
+    @Column(name = "ProponenteActivo", nullable = false)
+    private boolean ProponenteActivo = true;
    
     
     public Propuesta(){
@@ -295,6 +297,14 @@ public class Propuesta implements Serializable {
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
+    }
+
+    public boolean isProponenteActivo() {
+        return ProponenteActivo;
+    }
+
+    public void setProponenteActivo(boolean ProponenteActivo) {
+        this.ProponenteActivo = ProponenteActivo;
     }
     
 }

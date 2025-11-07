@@ -460,8 +460,10 @@ public class Controlador implements IControlador{
         ArrayList<Proponente> listaProponentes = cp.getListaProponentes();
         String aux;
         for(Proponente p : listaProponentes){
-            aux = p.getNickname();
-            listaNombres.add(aux);
+            if(p.isActivo()){
+                aux = p.getNickname();
+                listaNombres.add(aux);
+            }
         }
         //Lo podemos dejar como prefieran pero yo siento que queda mejor si directamente le pedimos los name al controlador  de 
         //persistencia y funcionaria igual sin tener que hacer que el controlador reciba en este punto los Proponentes
@@ -807,17 +809,6 @@ public class Controlador implements IControlador{
         return new DataPropuestaSimple(p.getTitulo(),p.getDescripcion(),p.getLugar(),p.getEstadoActual().getEstado());
     }
     
-    @Override
-    public List<DataPropuesta> getPropuestasPorCategoria(String Categoria){
-        Categoria cat = cp.findCategoria(Categoria);
-        List<DataPropuesta> ListaPropuestasCat = new ArrayList<>();
-        DataPropuesta dataProp;
-        for (Propuesta prop : cat.getPropuestas()) {
-            dataProp = new DataPropuesta(prop.getAlcanzada(), prop.getTitulo(), prop.getEstadoActual(), prop.getLugar());
-            ListaPropuestasCat.add(dataProp);
-        }
-        return ListaPropuestasCat;
-    }
     
     @Override
     public DataProponente consultaDeProponente(String NickName){
@@ -1324,7 +1315,13 @@ public class Controlador implements IControlador{
 
     @Override
     public void eliminarProponente(String nick) {
-        
+        Proponente propo = cp.buscarProponente(nick);
+        propo.setActivo(false);
+        for(Propuesta prop : propo.getPropuestas()){
+            prop.setProponenteActivo(false);
+            cp.editarPropuesta(prop);
+        }
+        cp.editarProponente(propo);
     }
     
     

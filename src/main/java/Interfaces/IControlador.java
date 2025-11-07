@@ -47,7 +47,6 @@ public interface IControlador {
     
     List<String> getUsuariosProponentes();
     
-    List<DataPropuesta> getPropuestasPorCategoria(String Categoria);
     
     List<Proponente> getProponentes();
     
