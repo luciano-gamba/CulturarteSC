@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.tree.DefaultMutableTreeNode;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -376,6 +377,7 @@ public class Controlador implements IControlador{
           data.setNombre(u.getNombre());
           data.setApellido(u.getApellido());
           data.setImagen(u.getImagenWeb());
+          data.setMeSiguen(this.getSeguidores(u));
           
           if (u instanceof Proponente){
               Proponente p = (Proponente) u;
@@ -392,6 +394,11 @@ public class Controlador implements IControlador{
           ListaDTUsuario.add(data);
         }
         return ListaDTUsuario;
+    }
+    
+    @Override
+    public List<DataUsuario> ordenarDTUporSeguidores(List<DataUsuario> listaDTU){
+        return listaDTU.stream().filter(u -> u.getMeSiguen() != null && !u.getMeSiguen().isEmpty()).sorted((u1, u2) -> Integer.compare(u2.getMeSiguen().size(), u1.getMeSiguen().size())).collect(Collectors.toList());
     }
     
     @Override

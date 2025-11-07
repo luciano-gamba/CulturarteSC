@@ -241,4 +241,9 @@ public class LogicaWS {
         return ic.getDataProponente();
     }
     
+    @WebMethod(operationName = "ordenarDTUporSeguidores")
+    public List<DataUsuario> ordenarDTUporSeguidores(@WebParam(name = "listaDTU") List<DataUsuario> listaDTU){
+        return ic.ordenarDTUporSeguidores(listaDTU);
+    }
+    
     }

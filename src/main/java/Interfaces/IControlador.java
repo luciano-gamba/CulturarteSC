@@ -41,6 +41,8 @@ public interface IControlador {
     
     List<DataUsuario> getDataUsuarios();
     
+    List<DataUsuario> ordenarDTUporSeguidores(List<DataUsuario> listaDTU);
+    
     DataUsuario getDataUsuarioWeb(String nick);
     
     List<String> getUsuariosProponentes();
