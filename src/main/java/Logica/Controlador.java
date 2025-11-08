@@ -369,6 +369,7 @@ public class Controlador implements IControlador{
      public List<DataUsuario> getDataUsuarios(){
         ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
         List<DataUsuario> ListaDTUsuario = new ArrayList<>(); 
+        boolean SeMuestra = false;
         for(Usuario u : listaUsuarios){
           
           DataUsuario data = new DataUsuario();
@@ -383,15 +384,18 @@ public class Controlador implements IControlador{
               Proponente p = (Proponente) u;
               data.setBiografia(p.getBiografia());
               data.setTipo("Proponente");
+              SeMuestra = p.isActivo(); //Si el proponente no esta activo no lo agrego
           }else if (u instanceof Colaborador){
               Colaborador c = (Colaborador) u;
               data.setTipo("Colaborador");
               data.setBiografia(null);
+              SeMuestra = true;
           }else {
               System.out.println("ERROR usuario sin tipo asignado?");
           }
-          
-          ListaDTUsuario.add(data);
+          if(SeMuestra){
+            ListaDTUsuario.add(data);
+          }
         }
         return ListaDTUsuario;
     }
@@ -637,7 +641,9 @@ public class Controlador implements IControlador{
           String aux;
           for (Propuesta p : cp.getListaPropuestas()) {
               aux = p.getTitulo();
-              listaPropuestas.add(aux); 
+              if(p.isProponenteActivo()){
+                listaPropuestas.add(aux); 
+              }
             }
           return listaPropuestas;
     }
@@ -762,6 +768,7 @@ public class Controlador implements IControlador{
         aportesP
     );
     respuesta.setCantidadFav(p.getCantidadFav());
+    respuesta.setProponenteActivo(propo.isActivo());
     return respuesta;
 }
     
@@ -796,6 +803,7 @@ public class Controlador implements IControlador{
                 }
                 DataProponente dp = new DataProponente(propo.getNickname(), propo.getNombre(),propo.getApellido(),propo.getEmail(),propo.getFecNac(),propo.getImagen(),propo.getDireccion(),propo.getBiografia(),propo.getSitioWeb(), LDP);
                 DP = new DataPropuesta(p.getTitulo(), p.getImagen(), p.getEstadoActual(), dp, p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getmontoAlcanzada(),p.getFecha() ,p.getFechaARealizar(),p.getFechaLimit(), p.getRetorno(), p.getCategoria(), LDA);
+                DP.setProponenteActivo(propo.isActivo());
                 return DP;
             }
         }
@@ -1159,11 +1167,23 @@ public class Controlador implements IControlador{
             for(Usuario u : listaUsuarios){
                 if(usuario.equals(u.getNickname())){
                     if(BCrypt.checkpw(contraseña, u.getContraseña())){
+                        if(u instanceof Proponente ){
+                            Proponente p = (Proponente)u;
+                            if(!p.isActivo()){
+                                return -1;
+                            }
+                        }
                         return 1;
                     }
                 }
                 if(usuario.equals(u.getEmail())){
                     if(BCrypt.checkpw(contraseña, u.getContraseña())){
+                        if(u instanceof Proponente ){
+                            Proponente p = (Proponente)u;
+                            if(!p.isActivo()){
+                                return -1;
+                            }
+                        }
                         return 2;
                     }
                 }

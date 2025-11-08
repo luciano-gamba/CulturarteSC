@@ -66,7 +66,8 @@ public class Colaborador extends Usuario {
         List<DataPropuesta> listaPropuestasColas = new ArrayList<>();
         for (Aporte a : misAportes) {
             DataPropuesta DP = a.getPropuesta();
-            if (DP != null) {
+            if (DP != null && a.getPropuestaP().isProponenteActivo()) { //Gracias a lo de después del && ya no se muestran propuestas que no tienen proponente activo 
+                                                                        //en el getPropuestas
                 listaPropuestasColas.add(a.getPropuesta());
             }
         }
