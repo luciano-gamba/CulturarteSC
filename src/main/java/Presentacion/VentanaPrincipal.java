@@ -389,7 +389,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
 
-        String rutaEstacion = "C:\\Users\\mafiu\\Documents\\NetBeansProjects\\CulturarteOnline\\CulturarteWeb\\src\\main\\webapp\\fotos" + File.separator;
+        String rutaEstacion = System.getProperty("user.dir") + File.separator + "fotos" + File.separator;
+        System.out.println(rutaEstacion);
         String rutaWeb = "fotos" + File.separator;
         
         //PROPONENTES
