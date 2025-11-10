@@ -56,7 +56,10 @@ public class ControladoraPersistencia {
             Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    public void eliminarSeguidosDeProponente(String nickProponente) {
+        usuJPA.eliminarSeguidosDeProponente(nickProponente);
+    }
+    
     public Proponente buscarProponente(String nick) {
         return usuPropJPA.findProponente(nick);
     }
@@ -222,6 +225,6 @@ public class ControladoraPersistencia {
     
     public List<Aporte> getAportes(){
         return aporteJPA.findAporteEntities();
-    }
-    
+    } 
+   
 }

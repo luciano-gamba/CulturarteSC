@@ -155,4 +155,21 @@ public class UsuarioJpaController implements Serializable {
         }
     }
     
+    //Funcion que usa query personalizados porque si no no podia hacer que el proponente eliminado se borrara todas sus instancias en la tabla de usuariosSeguidos
+    public void eliminarSeguidosDeProponente(String nickProponente) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+
+            // Usamos native query porque usuarioseguidos es tabla intermedia sin entidad JPA
+            Query q = em.createNativeQuery("DELETE FROM usuarioseguidos WHERE nickSeguido = ? OR nickSeguidor = ?");
+            q.setParameter(1, nickProponente);
+            q.setParameter(2, nickProponente);
+            q.executeUpdate();
+
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) em.close();
+        }
+    }
 }

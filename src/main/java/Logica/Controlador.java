@@ -342,9 +342,18 @@ public class Controlador implements IControlador{
 //        si fuera con persistencia
         ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
         String aux;
+        boolean seMuestra = false;
         for(Usuario u : listaUsuarios){
-            aux = u.getNickname();
-            listaNombres.add(aux);
+            if(u instanceof Proponente){
+                Proponente p = (Proponente) u;
+                seMuestra = p.isActivo();
+            }else{
+                seMuestra = true;
+            }
+            if(seMuestra){
+                aux = u.getNickname();
+                listaNombres.add(aux);
+            }
         }
         
         return listaNombres;
@@ -446,7 +455,9 @@ public class Controlador implements IControlador{
         //CON PERSISTENCIA 
         List<String> lista = new ArrayList<>();
         for(Propuesta p : cp.getListaPropuestas()){
-            lista.add(p.getTitulo_Nickname());
+            if(p.isProponenteActivo()){
+                lista.add(p.getTitulo_Nickname());
+            }
         }
         return lista;
     }
@@ -652,7 +663,7 @@ public class Controlador implements IControlador{
         List<String> listaPropuestas = new ArrayList<>();
         String aux;
         for (Propuesta p : cp.getListaPropuestas()) {
-            if (p.getEstadoActual().getEstado().toString().equals("INGRESADA")) {
+            if (p.getEstadoActual().getEstado().toString().equals("INGRESADA") && p.isProponenteActivo()) {
                 aux = p.getTitulo();
                 listaPropuestas.add(aux);
             }
@@ -996,7 +1007,7 @@ public class Controlador implements IControlador{
         String aux;
         for(Propuesta p : cp.getListaPropuestas()){
             aux = p.getTitulo();
-            if(p.getEstadoActual().getEstado().toString().equalsIgnoreCase(estado)){
+            if(p.getEstadoActual().getEstado().toString().equalsIgnoreCase(estado) && p.isProponenteActivo()){
                 listaPropuestas.add(aux);
             }
         }
@@ -1341,6 +1352,20 @@ public class Controlador implements IControlador{
             prop.setProponenteActivo(false);
             cp.editarPropuesta(prop);
         }
+        // Borro todas las relaciones de seguidores/seguidos en usuarioseguidos usando un query
+        cp.eliminarSeguidosDeProponente(nick);
+        /*
+        for(Usuario usu : propo.getMisSeguidos()){ Probo hacerlo de esta manera pero no funciona del todo y no es tan eficiente como usar un query 
+            propo.dejarDeSeguir(usu); 
+            cp.editarUsuario(usu); 
+        } 
+        Usuario seguidor; 
+        for (DataUsuario dataU : this.getSeguidores(propo)){ 
+            seguidor = cp.buscarUsuario(dataU.getNickname()); 
+            seguidor.dejarDeSeguir(propo); 
+            cp.editarUsuario(seguidor); 
+        }*/
+        
         cp.editarProponente(propo);
     }
     

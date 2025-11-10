@@ -77,7 +77,9 @@ public class Colaborador extends Usuario {
     public List<String> getTituloPropuestas() {
         List<String> listaPropuestas = new ArrayList<>();
         for (Aporte a : this.misAportes) {
-            listaPropuestas.add(a.getTituloNickMiPropuesta());
+            if(a.getPropuestaP().isProponenteActivo()){
+                listaPropuestas.add(a.getTituloNickMiPropuesta());
+            }
         }
         return listaPropuestas;
     }
