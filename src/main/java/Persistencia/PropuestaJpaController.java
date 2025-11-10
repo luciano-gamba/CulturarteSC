@@ -118,7 +118,14 @@ public class PropuestaJpaController implements Serializable {
                 q.setMaxResults(maxResults);
                 q.setFirstResult(firstResult);
             }
-            return q.getResultList();
+            List<Propuesta> resultados = q.getResultList();
+
+            for (Propuesta p : resultados) {
+                em.refresh(p); //Esto si vemos que hace que vaya bastante más lento de lo normal lo quito es cosa de que 
+                //cuando probe a poner las propuestas seteando su ProponenteActivo a 1 nuevamente no se actualizaba en la web
+            }
+
+            return resultados;
         } finally {
             em.close();
         }

@@ -7,6 +7,7 @@ import DataTypes.DataComentario;
 import DataTypes.DataAporte;
 import DataTypes.DataCategoria;
 import DataTypes.DataColaborador;
+import DataTypes.DataPago;
 import DataTypes.DataProponente;
 import DataTypes.DataPropuesta;
 import DataTypes.DataPropuestaSimple;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.tree.DefaultMutableTreeNode;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -343,9 +345,18 @@ public class Controlador implements IControlador{
 //        si fuera con persistencia
         ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
         String aux;
+        boolean seMuestra = false;
         for(Usuario u : listaUsuarios){
-            aux = u.getNickname();
-            listaNombres.add(aux);
+            if(u instanceof Proponente){
+                Proponente p = (Proponente) u;
+                seMuestra = p.isActivo();
+            }else{
+                seMuestra = true;
+            }
+            if(seMuestra){
+                aux = u.getNickname();
+                listaNombres.add(aux);
+            }
         }
         
         return listaNombres;
@@ -370,6 +381,7 @@ public class Controlador implements IControlador{
      public List<DataUsuario> getDataUsuarios(){
         ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
         List<DataUsuario> ListaDTUsuario = new ArrayList<>(); 
+        boolean SeMuestra = false;
         for(Usuario u : listaUsuarios){
           
           DataUsuario data = new DataUsuario();
@@ -378,22 +390,31 @@ public class Controlador implements IControlador{
           data.setNombre(u.getNombre());
           data.setApellido(u.getApellido());
           data.setImagen(u.getImagenWeb());
+          data.setMeSiguen(this.getSeguidores(u));
           
           if (u instanceof Proponente){
               Proponente p = (Proponente) u;
               data.setBiografia(p.getBiografia());
               data.setTipo("Proponente");
+              SeMuestra = p.isActivo(); //Si el proponente no esta activo no lo agrego
           }else if (u instanceof Colaborador){
               Colaborador c = (Colaborador) u;
               data.setTipo("Colaborador");
               data.setBiografia(null);
+              SeMuestra = true;
           }else {
               System.out.println("ERROR usuario sin tipo asignado?");
           }
-          
-          ListaDTUsuario.add(data);
+          if(SeMuestra){
+            ListaDTUsuario.add(data);
+          }
         }
         return ListaDTUsuario;
+    }
+    
+    @Override
+    public List<DataUsuario> ordenarDTUporSeguidores(List<DataUsuario> listaDTU){
+        return listaDTU.stream().filter(u -> u.getMeSiguen() != null && !u.getMeSiguen().isEmpty()).sorted((u1, u2) -> Integer.compare(u2.getMeSiguen().size(), u1.getMeSiguen().size())).collect(Collectors.toList());
     }
     
     @Override
@@ -437,7 +458,9 @@ public class Controlador implements IControlador{
         //CON PERSISTENCIA 
         List<String> lista = new ArrayList<>();
         for(Propuesta p : cp.getListaPropuestas()){
-            lista.add(p.getTitulo_Nickname());
+            if(p.isProponenteActivo()){
+                lista.add(p.getTitulo_Nickname());
+            }
         }
         return lista;
     }
@@ -455,8 +478,10 @@ public class Controlador implements IControlador{
         ArrayList<Proponente> listaProponentes = cp.getListaProponentes();
         String aux;
         for(Proponente p : listaProponentes){
-            aux = p.getNickname();
-            listaNombres.add(aux);
+            if(p.isActivo()){
+                aux = p.getNickname();
+                listaNombres.add(aux);
+            }
         }
         //Lo podemos dejar como prefieran pero yo siento que queda mejor si directamente le pedimos los name al controlador  de 
         //persistencia y funcionaria igual sin tener que hacer que el controlador reciba en este punto los Proponentes
@@ -630,7 +655,9 @@ public class Controlador implements IControlador{
           String aux;
           for (Propuesta p : cp.getListaPropuestas()) {
               aux = p.getTitulo();
-              listaPropuestas.add(aux); 
+              if(p.isProponenteActivo()){
+                listaPropuestas.add(aux); 
+              }
             }
           return listaPropuestas;
     }
@@ -639,7 +666,7 @@ public class Controlador implements IControlador{
         List<String> listaPropuestas = new ArrayList<>();
         String aux;
         for (Propuesta p : cp.getListaPropuestas()) {
-            if (p.getEstadoActual().getEstado().toString().equals("INGRESADA")) {
+            if (p.getEstadoActual().getEstado().toString().equals("INGRESADA") && p.isProponenteActivo()) {
                 aux = p.getTitulo();
                 listaPropuestas.add(aux);
             }
@@ -755,6 +782,7 @@ public class Controlador implements IControlador{
         aportesP
     );
     respuesta.setCantidadFav(p.getCantidadFav());
+    respuesta.setProponenteActivo(propo.isActivo());
     return respuesta;
 }
     
@@ -789,6 +817,7 @@ public class Controlador implements IControlador{
                 }
                 DataProponente dp = new DataProponente(propo.getNickname(), propo.getNombre(),propo.getApellido(),propo.getEmail(),propo.getFecNac(),propo.getImagen(),propo.getDireccion(),propo.getBiografia(),propo.getSitioWeb(), LDP);
                 DP = new DataPropuesta(p.getTitulo(), p.getImagen(), p.getEstadoActual(), dp, p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getmontoAlcanzada(),p.getFecha() ,p.getFechaARealizar(),p.getFechaLimit(), p.getRetorno(), p.getCategoria(), LDA);
+                DP.setProponenteActivo(propo.isActivo());
                 return DP;
             }
         }
@@ -802,17 +831,6 @@ public class Controlador implements IControlador{
         return new DataPropuestaSimple(p.getTitulo(),p.getDescripcion(),p.getLugar(),p.getEstadoActual().getEstado());
     }
     
-    @Override
-    public List<DataPropuesta> getPropuestasPorCategoria(String Categoria){
-        Categoria cat = cp.findCategoria(Categoria);
-        List<DataPropuesta> ListaPropuestasCat = new ArrayList<>();
-        DataPropuesta dataProp;
-        for (Propuesta prop : cat.getPropuestas()) {
-            dataProp = new DataPropuesta(prop.getAlcanzada(), prop.getTitulo(), prop.getEstadoActual(), prop.getLugar());
-            ListaPropuestasCat.add(dataProp);
-        }
-        return ListaPropuestasCat;
-    }
     
     @Override
     public DataProponente consultaDeProponente(String NickName){
@@ -992,7 +1010,7 @@ public class Controlador implements IControlador{
         String aux;
         for(Propuesta p : cp.getListaPropuestas()){
             aux = p.getTitulo();
-            if(p.getEstadoActual().getEstado().toString().equalsIgnoreCase(estado)){
+            if(p.getEstadoActual().getEstado().toString().equalsIgnoreCase(estado) && p.isProponenteActivo()){
                 listaPropuestas.add(aux);
             }
         }
@@ -1163,11 +1181,23 @@ public class Controlador implements IControlador{
             for(Usuario u : listaUsuarios){
                 if(usuario.equals(u.getNickname())){
                     if(BCrypt.checkpw(contraseña, u.getContraseña())){
+                        if(u instanceof Proponente ){
+                            Proponente p = (Proponente)u;
+                            if(!p.isActivo()){
+                                return -1;
+                            }
+                        }
                         return 1;
                     }
                 }
                 if(usuario.equals(u.getEmail())){
                     if(BCrypt.checkpw(contraseña, u.getContraseña())){
+                        if(u instanceof Proponente ){
+                            Proponente p = (Proponente)u;
+                            if(!p.isActivo()){
+                                return -1;
+                            }
+                        }
                         return 2;
                     }
                 }
@@ -1319,7 +1349,27 @@ public class Controlador implements IControlador{
 
     @Override
     public void eliminarProponente(String nick) {
+        Proponente propo = cp.buscarProponente(nick);
+        propo.setActivo(false);
+        for(Propuesta prop : propo.getPropuestas()){
+            prop.setProponenteActivo(false);
+            cp.editarPropuesta(prop);
+        }
+        // Borro todas las relaciones de seguidores/seguidos en usuarioseguidos usando un query
+        cp.eliminarSeguidosDeProponente(nick);
+        /*
+        for(Usuario usu : propo.getMisSeguidos()){ Probo hacerlo de esta manera pero no funciona del todo y no es tan eficiente como usar un query 
+            propo.dejarDeSeguir(usu); 
+            cp.editarUsuario(usu); 
+        } 
+        Usuario seguidor; 
+        for (DataUsuario dataU : this.getSeguidores(propo)){ 
+            seguidor = cp.buscarUsuario(dataU.getNickname()); 
+            seguidor.dejarDeSeguir(propo); 
+            cp.editarUsuario(seguidor); 
+        }*/
         
+        cp.editarProponente(propo);
     }
     
     
@@ -1347,31 +1397,41 @@ public class Controlador implements IControlador{
 
     @Override
     public void setPagoT(String titular, String nick, String titulo,String numeroT, String fechaT, String CVC, EnumTarjeta enumTarjeta) {
-        Pago DP = new Pago(titular,EnumPago.TARJETA);
-        DP.setPagoT(numeroT, fechaT, CVC, enumTarjeta);
+        Pago P = new Pago(titular,EnumPago.TARJETA);
+        P.setPagoT(numeroT, fechaT, CVC, enumTarjeta);
         Colaborador c = cp.buscarColaborador(nick);
         Aporte a = c.getAporteXtitulo(titulo);
-        a.setDataPago(DP);
-        cp.añadirPago(DP, a);
+        a.setPago(P);
+        cp.añadirPago(P, a);
     }
 
     @Override
     public void setPagoB(String titular, String nick, String titulo,String nombreB, String numeroB) {
-        Pago DP = new Pago(titular,EnumPago.BANCO);
-        DP.setPagoB(nombreB, numeroB);
+        Pago P = new Pago(titular,EnumPago.BANCO);
+        P.setPagoB(nombreB, numeroB);
         Colaborador c = cp.buscarColaborador(nick);
         Aporte a = c.getAporteXtitulo(titulo);
-        a.setDataPago(DP);
-        cp.añadirPago(DP, a);
+        a.setPago(P);
+        cp.añadirPago(P, a);
     }
 
     @Override
     public void setPagoP(String titular, String nick, String titulo,String numeroP){
-        Pago DP = new Pago(titular,EnumPago.PAYPAL);
-        DP.setPagoP(numeroP);
+        Pago P = new Pago(titular,EnumPago.PAYPAL);
+        P.setPagoP(numeroP);
         Colaborador c = cp.buscarColaborador(nick);
         Aporte a = c.getAporteXtitulo(titulo);
-        a.setDataPago(DP);
-        cp.añadirPago(DP, a);
+        a.setPago(P);
+        cp.añadirPago(P, a);
+    }
+    
+    @Override
+    public DataPago getDataPago(String nick, String titulo){
+        Colaborador c = cp.buscarColaborador(nick);
+        Aporte a = c.getAporteXtitulo(titulo);
+        if(a!=null){
+            return a.getDataPago();
+        }
+        return null;
     }
 }    

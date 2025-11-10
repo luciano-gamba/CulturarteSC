@@ -5,6 +5,7 @@ import DataTypes.DataCategoria;
 import DataTypes.DataColaborador;
 import DataTypes.EnumRetorno;
 import DataTypes.DataComentario;
+import DataTypes.DataPago;
 import DataTypes.DataProponente;
 import DataTypes.DataPropuesta;
 import DataTypes.DataPropuestaSimple;
@@ -43,11 +44,12 @@ public interface IControlador {
     
     List<DataUsuario> getDataUsuarios();
     
+    List<DataUsuario> ordenarDTUporSeguidores(List<DataUsuario> listaDTU);
+    
     DataUsuario getDataUsuarioWeb(String nick);
     
     List<String> getUsuariosProponentes();
     
-    List<DataPropuesta> getPropuestasPorCategoria(String Categoria);
     
     List<Proponente> getProponentes();
     
@@ -155,5 +157,7 @@ public interface IControlador {
     void setPagoB(String titular,String nick, String titulo,String nombreB, String numeroB);
     
     void setPagoP(String titular,String nick, String titulo,String numeroP);
+    
+    DataPago getDataPago(String nick, String titulo);
     
 }

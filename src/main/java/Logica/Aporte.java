@@ -1,6 +1,8 @@
 package Logica;
 
+import DataTypes.DataPago;
 import DataTypes.DataPropuesta;
+import DataTypes.EnumPago;
 import DataTypes.EnumRetorno;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -13,12 +15,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
-
 @Entity
-@Table(name="Aporte")
+@Table(name = "Aporte")
 public class Aporte implements Serializable {
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @ManyToOne
     @JoinColumn(name = "titulo")
@@ -37,55 +39,55 @@ public class Aporte implements Serializable {
 
     public Aporte() {
     }
-    
+
     public Aporte(Colaborador miColaborador, double aporte, int cantidad, EnumRetorno retorno) {
-            
+
         this.miColaborador = miColaborador;
         this.aporte = aporte;
         this.fechaHora = LocalDateTime.now();
         this.cantidad = cantidad;
         this.retorno = retorno;
     }
-    
+
     public Aporte(Colaborador miColaborador, double aporte, int cantidad, EnumRetorno retorno, LocalDateTime fecAp) {
-            
+
         this.miColaborador = miColaborador;
         this.aporte = aporte;
         this.fechaHora = fecAp;
         this.cantidad = cantidad;
         this.retorno = retorno;
     }
-    
-    public String getTituloNickMiPropuesta(){
-        if(this.miPropuesta != null){
+
+    public String getTituloNickMiPropuesta() {
+        if (this.miPropuesta != null) {
             return this.miPropuesta.getTitulo_Nickname();
-        }else{
+        } else {
             return null;
-        }        
+        }
     }
-    
-    public String getTituloMiPropuesta(){
-        if(this.miPropuesta != null){
+
+    public String getTituloMiPropuesta() {
+        if (this.miPropuesta != null) {
             return this.miPropuesta.getTitulo();
-        }else{
+        } else {
             return null;
-        }        
+        }
     }
-    
-    public String getNicknameMiColaborador(){
-        if(this.miColaborador != null){
+
+    public String getNicknameMiColaborador() {
+        if (this.miColaborador != null) {
             return this.miColaborador.getNickname();
-        }else{
+        } else {
             return null;
-        }        
+        }
     }
-    
-    public void desvincular(){
+
+    public void desvincular() {
         this.miPropuesta.desvincularAporte(this);
         //miColaborador=null;
         //miPropuesta=null;
     }
-    
+
     public double getAporte() {
         return aporte;
     }
@@ -105,13 +107,14 @@ public class Aporte implements Serializable {
     public EnumRetorno getRetorno() {
         return retorno;
     }
-    
-    public Colaborador getColaborador(){
+
+    public Colaborador getColaborador() {
         return miColaborador;
     }
-    public DataPropuesta getPropuesta(){
-        if(miPropuesta!=null){
-            DataPropuesta dataProp = new DataPropuesta(miPropuesta.getAlcanzada() ,miPropuesta.getTitulo(), miPropuesta.getEstadoActual(),miPropuesta.getLugar(),miPropuesta.getProponente().getNickname());
+
+    public DataPropuesta getPropuesta() {
+        if (miPropuesta != null) {
+            DataPropuesta dataProp = new DataPropuesta(miPropuesta.getAlcanzada(), miPropuesta.getTitulo(), miPropuesta.getEstadoActual(), miPropuesta.getLugar(), miPropuesta.getProponente().getNickname());
             dataProp.setDesc(miPropuesta.getDescripcion());
             dataProp.setImagen(miPropuesta.getImagen());
             dataProp.setFechaPubli(miPropuesta.getFechaARealizar());
@@ -132,8 +135,8 @@ public class Aporte implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
-    
-    public String getImagenMiPropuesta(){
+
+    public String getImagenMiPropuesta() {
         return this.miPropuesta.getImagen();
     }
 
@@ -156,12 +159,12 @@ public class Aporte implements Serializable {
     public void setFecComentario(LocalDateTime fecComentario) {
         this.fecComentario = fecComentario;
     }
-    
-    public Propuesta getPropuestaP(){
+
+    public Propuesta getPropuestaP() {
         return this.miPropuesta;
     }
-    
-    public int getCantidadcolaboradores(){
+
+    public int getCantidadcolaboradores() {
         return this.miPropuesta.getAportes().size();
     }
 
@@ -192,12 +195,21 @@ public class Aporte implements Serializable {
     public void setRetorno(EnumRetorno retorno) {
         this.retorno = retorno;
     }
-    
-    public Pago getDataPago() {
+
+    public Pago getPago() {
         return pago;
     }
 
-    public void setDataPago(Pago dataPago) {
+    public void setPago(Pago dataPago) {
         this.pago = dataPago;
-    }   
+    }
+
+    public DataPago getDataPago() {
+        if (this.pago == null) {
+            return null;
+        } else {
+            return this.pago.getDataPago();
+        }
+    }
+
 }

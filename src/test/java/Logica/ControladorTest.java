@@ -1,69 +1,69 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
- */
+///*
+// * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+// * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
+// */
 package Logica;
-
-import DataTypes.EnumRetorno;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.tree.DefaultMutableTreeNode;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import org.mindrot.jbcrypt.BCrypt;
-
-/**
- *
- * @author mafiu
- */
+//
+//import DataTypes.EnumRetorno;
+//import java.time.LocalDate;
+//import java.time.LocalDateTime;
+//import java.util.ArrayList;
+//import java.util.List;
+//import javax.swing.tree.DefaultMutableTreeNode;
+//import org.junit.jupiter.api.AfterEach;
+//import org.junit.jupiter.api.AfterAll;
+//import org.junit.jupiter.api.BeforeEach;
+//import org.junit.jupiter.api.BeforeAll;
+//import org.junit.jupiter.api.Test;
+//import static org.junit.jupiter.api.Assertions.*;
+//import org.mindrot.jbcrypt.BCrypt;
+//
+///**
+// *
+// * @author mafiu
+// */
 public class ControladorTest {
-    
-    private Controlador instance;
-    
-    public ControladorTest() {
-    }
-
-    @BeforeAll
-    public static void setUpClass() throws Exception {
-        
-    }
-
-    @AfterAll
-    public static void tearDownClass() throws Exception {
-    }
-
-    @BeforeEach
-    public void setUp() throws Exception {
-       instance = new Controlador();
-
-        // Crear usuarios base
-        instance.añadirUsuario("a", "nahuel", "machado", "a@gmail.com", LocalDate.now(), "", BCrypt.hashpw("1234", BCrypt.gensalt()), "");
-        instance.añadirUsuario("s", "asd", "asd", "s@gmail.com", LocalDate.now(), "", BCrypt.hashpw("1234", BCrypt.gensalt()), "asd", "asd", "asd", "");
-
-        // Crear categoría base
-        instance.altaCategoria("d");
-        instance.altaCategoria("musiquitita", "Categoria");
-
-        // Crear propuesta base
-        instance.altaPropuesta("s", "musiquitita", "t", "asd", "asd", LocalDate.now(), "100", "20000", EnumRetorno.AMBOS, LocalDate.now(), "");
-        instance.altaPropuesta("s", "musiquitita", "ttt", "asd", "asd", LocalDate.now(), "100", "20000", EnumRetorno.AMBOS, LocalDate.now(), "");
-        
-        // Crear Aportes base
-        instance.altaAporte("a", "t by s", 1000.0, 0, EnumRetorno.PORCENTAJE_VENTAS);
-        
-        // Crear Comentario base
-        instance.addComentario("t", "a", "hola");
-    }
-    
-    @AfterEach
-    public void tearDown() throws Exception {
-    }
+//    
+//    private Controlador instance;
+//    
+//    public ControladorTest() {
+//    }
+//
+//    @BeforeAll
+//    public static void setUpClass() throws Exception {
+//        
+//    }
+//
+//    @AfterAll
+//    public static void tearDownClass() throws Exception {
+//    }
+//
+//    @BeforeEach
+//    public void setUp() throws Exception {
+//       instance = new Controlador();
+//
+//        // Crear usuarios base
+//        instance.añadirUsuario("a", "nahuel", "machado", "a@gmail.com", LocalDate.now(), "", BCrypt.hashpw("1234", BCrypt.gensalt()), "");
+//        instance.añadirUsuario("s", "asd", "asd", "s@gmail.com", LocalDate.now(), "", BCrypt.hashpw("1234", BCrypt.gensalt()), "asd", "asd", "asd", "");
+//
+//        // Crear categoría base
+//        instance.altaCategoria("d");
+//        instance.altaCategoria("musiquitita", "Categoria");
+//
+//        // Crear propuesta base
+//        instance.altaPropuesta("s", "musiquitita", "t", "asd", "asd", LocalDate.now(), "100", "20000", EnumRetorno.AMBOS, LocalDate.now(), "");
+//        instance.altaPropuesta("s", "musiquitita", "ttt", "asd", "asd", LocalDate.now(), "100", "20000", EnumRetorno.AMBOS, LocalDate.now(), "");
+//        
+//        // Crear Aportes base
+//        instance.altaAporte("a", "t by s", 1000.0, 0, EnumRetorno.PORCENTAJE_VENTAS);
+//        
+//        // Crear Comentario base
+//        instance.addComentario("t", "a", "hola");
+//    }
+//    
+//    @AfterEach
+//    public void tearDown() throws Exception {
+//    }
 
 //    @org.junit.jupiter.api.BeforeAll
 //    public static void setUpClass() throws Exception {

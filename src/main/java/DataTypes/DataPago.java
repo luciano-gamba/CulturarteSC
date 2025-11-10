@@ -1,6 +1,6 @@
-package Logica;
+package DataTypes;
 
-import DataTypes.DataPago;
+
 import DataTypes.EnumPago;
 import DataTypes.EnumTarjeta;
 import java.io.Serializable;
@@ -14,13 +14,7 @@ import javax.persistence.Table;
  *
  * @author Luiano
  */
-@Entity
-@Table(name = "Pago")
-public class Pago implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+public class DataPago implements Serializable {
     private String titular;
     private EnumPago enumPago;
     //TARJETA
@@ -34,38 +28,30 @@ public class Pago implements Serializable {
     //PAYPAL
     private String numeroP;
 
-    public Pago() {
+    public DataPago() {
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Pago(String titular, EnumPago enumPago) {
+    
+    public DataPago(String titular, EnumPago enumPago) {
         this.titular = titular;
         this.enumPago = enumPago;
     }
 
-    public void setPagoT(String numeroT, String fechaT, String CVC, EnumTarjeta enumTarjeta) {
+    public void setDataPagoT(String numeroT, String fechaT, String CVC, EnumTarjeta enumTarjeta) {
         this.numeroT = numeroT;
         this.fechaT = fechaT;
         this.CVC = CVC;
         this.enumTarjeta = enumTarjeta;
     }
 
-    public void setPagoB(String nombreB, String numeroB) {
+    public void setDataPagoB(String nombreB, String numeroB) {
         this.nombreB = nombreB;
         this.numeroB = numeroB;
     }
 
-    public void setPagoP(String numeroP) {
+    public void setDataPagoP(String numeroP){
         this.numeroP = numeroP;
     }
-
+    
     public String getTitular() {
         return titular;
     }
@@ -138,22 +124,6 @@ public class Pago implements Serializable {
         this.numeroP = numeroP;
     }
 
-    public DataPago getDataPago() {
-
-        if (EnumPago.TARJETA == this.enumPago) {
-            DataPago P = new DataPago(titular, EnumPago.TARJETA);
-            P.setDataPagoT(numeroT, fechaT, CVC, enumTarjeta);
-            return P;
-        } else if (EnumPago.BANCO == this.enumPago) {
-            DataPago P = new DataPago(titular, EnumPago.BANCO);
-            P.setDataPagoB(nombreB, numeroB);
-            return P;
-        } else if (EnumPago.PAYPAL == this.enumPago) {
-            DataPago P = new DataPago(titular, EnumPago.PAYPAL);
-            P.setDataPagoP(numeroP);
-            return P;
-        }
-        return null;
-    }
-
+    
+    
 }

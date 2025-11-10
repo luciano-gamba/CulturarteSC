@@ -4,6 +4,7 @@ import DataTypes.DataAporte;
 import DataTypes.DataCategoria;
 import DataTypes.DataColaborador;
 import DataTypes.DataComentario;
+import DataTypes.DataPago;
 import DataTypes.DataProponente;
 import DataTypes.DataPropuesta;
 import DataTypes.DataPropuestaSimple;
@@ -41,8 +42,7 @@ public class LogicaWS {
 
     @WebMethod(exclude = true)
     public void publicar() {
-        this.endpoint
-                = Endpoint.publish("http://localhost:9128/logicaWS", this);
+        this.endpoint = Endpoint.publish("http://localhost:9128/logicaWS", this);
         //this.endpoint = Endpoint.publish("../service", this);
         System.out.println("Servicio publicado en " + this.endpoint.toString());
         System.out.println("Servicio publicado en " + this.endpoint.getEndpointReference().toString());
@@ -241,10 +241,15 @@ public class LogicaWS {
     public DataSugerencias getDataSugerencia(@WebParam(name = "titulo") String titulo, @WebParam(name = "puntaje") int puntaje) {
         return ic.getDataSugerencia(titulo, puntaje);
     }
-
+ 
     @WebMethod(operationName = "getDataProponente")
     public DataProponente getDataProponente() {
         return ic.getDataProponente();
+    }
+    
+    @WebMethod(operationName = "ordenarDTUporSeguidores")
+    public List<DataUsuario> ordenarDTUporSeguidores(@WebParam(name = "listaDTU") List<DataUsuario> listaDTU){
+        return ic.ordenarDTUporSeguidores(listaDTU);
     }
 
     @WebMethod(operationName = "setPagoT")
@@ -262,4 +267,9 @@ public class LogicaWS {
         ic.setPagoP(titular, nick, titulo, numeroP);
     }
 
+    @WebMethod(operationName = "getDataPago")
+    public DataPago getDataPago(@WebParam(name = "nick") String nick, @WebParam(name = "titulo") String titulo) {
+        return ic.getDataPago( nick, titulo);
+    }
+    
 }

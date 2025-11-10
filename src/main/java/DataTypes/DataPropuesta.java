@@ -37,7 +37,8 @@ public class DataPropuesta implements Serializable {
     private int cantidadColaboradores;
     private List<DataAporte> misAportes = new ArrayList<>();
     private int cantidadFav;
-
+    private boolean ProponenteActivo = true;
+    
     public DataPropuesta() {
     }
     
@@ -272,6 +273,14 @@ public class DataPropuesta implements Serializable {
 
     public void setCantidadFav(int cantidadFav) {
         this.cantidadFav = cantidadFav;
+    }
+
+    public boolean isProponenteActivo() {
+        return ProponenteActivo;
+    }
+
+    public void setProponenteActivo(boolean ProponenteActivo) {
+        this.ProponenteActivo = ProponenteActivo;
     }
     
 }

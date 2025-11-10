@@ -56,7 +56,10 @@ public class ControladoraPersistencia {
             Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    public void eliminarSeguidosDeProponente(String nickProponente) {
+        usuJPA.eliminarSeguidosDeProponente(nickProponente);
+    }
+    
     public Proponente buscarProponente(String nick) {
         return usuPropJPA.findProponente(nick);
     }
@@ -183,7 +186,13 @@ public class ControladoraPersistencia {
             Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    public void editarProponente(Proponente propo){
+        try {
+            usuPropJPA.edit(propo);
+        } catch (Exception ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     AporteJpaController aporteJPA = new AporteJpaController();
 
     public void añadirAporte(Aporte a, Propuesta p, Colaborador c) {

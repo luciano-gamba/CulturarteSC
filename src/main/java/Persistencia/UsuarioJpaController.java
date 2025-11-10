@@ -5,6 +5,8 @@ import Persistencia.exceptions.NonexistentEntityException;
 import Persistencia.exceptions.PreexistingEntityException;
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CacheRetrieveMode;
+import javax.persistence.CacheStoreMode;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
@@ -107,9 +109,15 @@ public class UsuarioJpaController implements Serializable {
     private List<Usuario> findUsuarioEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
+            em.getEntityManagerFactory().getCache().evict(Usuario.class);
+            
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
             cq.select(cq.from(Usuario.class));
             Query q = em.createQuery(cq);
+            
+            q.setHint("javax.persistence.cache.retrieveMode", CacheRetrieveMode.BYPASS);
+            q.setHint(("javax.persistence.cache.storeMode"), CacheStoreMode.REFRESH);
+            
             if (!all) {
                 q.setMaxResults(maxResults);
                 q.setFirstResult(firstResult);
@@ -123,7 +131,12 @@ public class UsuarioJpaController implements Serializable {
     public Usuario findUsuario(String id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Usuario.class, id);
+//            return em.find(Usuario.class, id);
+            Usuario u = em.find(Usuario.class, id);
+            if(u != null){
+                em.refresh(u);
+            }
+            return u;
         } finally {
             em.close();
         }
@@ -142,4 +155,21 @@ public class UsuarioJpaController implements Serializable {
         }
     }
     
+    //Funcion que usa query personalizados porque si no no podia hacer que el proponente eliminado se borrara todas sus instancias en la tabla de usuariosSeguidos
+    public void eliminarSeguidosDeProponente(String nickProponente) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+
+            // Usamos native query porque usuarioseguidos es tabla intermedia sin entidad JPA
+            Query q = em.createNativeQuery("DELETE FROM usuarioseguidos WHERE nickSeguido = ? OR nickSeguidor = ?");
+            q.setParameter(1, nickProponente);
+            q.setParameter(2, nickProponente);
+            q.executeUpdate();
+
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) em.close();
+        }
+    }
 }

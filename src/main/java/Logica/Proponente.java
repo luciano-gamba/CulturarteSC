@@ -16,7 +16,9 @@ public class Proponente extends Usuario {
     String biografia = "";
     String sitioWeb = "";
     List<Propuesta> misPropuestas;
-    
+    @Column(name = "activo", nullable = false)
+    private boolean activo = true;
+
     public Proponente() {
         
     }
@@ -58,4 +60,13 @@ public class Proponente extends Usuario {
     public List<Propuesta> getPropuestas(){
         return this.misPropuestas;
     }   
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
 }

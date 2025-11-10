@@ -203,7 +203,9 @@ public class Usuario implements Serializable {
             data.setnecesaria(prop.getNecesaria()); //Necesario setear aca para mostrar bien barra de progreso
             data.setCantidadColaboradores(prop.getAportes().size()); 
             data.setNickProponenteDe(prop.getProponente().getNickname());
-            DataPropFav.add(data);
+            if(prop.getProponente().isActivo()){
+                DataPropFav.add(data);
+            }
         }
         return DataPropFav;
     }
