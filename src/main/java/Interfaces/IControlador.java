@@ -8,7 +8,10 @@ import DataTypes.DataComentario;
 import DataTypes.DataProponente;
 import DataTypes.DataPropuesta;
 import DataTypes.DataPropuestaSimple;
+import DataTypes.DataSugerencias;
 import DataTypes.DataUsuario;
+import DataTypes.EnumPago;
+import DataTypes.EnumTarjeta;
 import Logica.Colaborador;
 import Logica.Proponente;
 import Logica.Usuario;
@@ -57,6 +60,8 @@ public interface IControlador {
     DataColaborador consultaDeColaborador(String NickName);
     
     DataColaborador getDataColaborador(String nickname,String nombre, String apellido,String email,String fecNac, String imagen);
+    
+    DataColaborador getDataColaboradorWeb(String nickname, String imagen);
     
     DataUsuario consultaDeColaboradorWeb(String NickName);
     
@@ -138,4 +143,17 @@ public interface IControlador {
     void comprobarPropuestas();
     
     DataAporte getDataAporte(double aporte, String fechaHora, String miPropuesta);
+    
+    void eliminarProponente(String nick);
+    
+    DataSugerencias getDataSugerencia(String titulo, int puntaje);
+    
+    DataProponente getDataProponente();
+        
+    void setPagoT(String titular,String nick, String titulo,String numeroT, String fechaT, String CVC, EnumTarjeta enumTarjeta);
+    
+    void setPagoB(String titular,String nick, String titulo,String nombreB, String numeroB);
+    
+    void setPagoP(String titular,String nick, String titulo,String numeroP);
+    
 }

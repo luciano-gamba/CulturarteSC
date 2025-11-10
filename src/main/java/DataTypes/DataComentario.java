@@ -8,14 +8,17 @@ import java.time.LocalDateTime;
 
 public class DataComentario {
     
-    private final String comentario;
-    private final LocalDateTime fecComentario;
-    private final String nickColaborador;
-    private final String tituloPropuesta;
+    private String comentario;
+    private String fecComentario;
+    private String nickColaborador;
+    private String tituloPropuesta;
+    
+    public DataComentario(){
+    }
 
     public DataComentario(String comentario, LocalDateTime fecComentario, String nickColaborador, String tituloPropuesta) {
         this.comentario = comentario;
-        this.fecComentario = fecComentario;
+        this.fecComentario = (fecComentario != null) ? fecComentario.toString() : null;
         this.nickColaborador = nickColaborador;
         this.tituloPropuesta = tituloPropuesta;
     }
@@ -24,7 +27,7 @@ public class DataComentario {
         return comentario;
     }
 
-    public LocalDateTime getFecComentario() {
+    public String getFecComentario() {
         return fecComentario;
     }
 
@@ -34,6 +37,22 @@ public class DataComentario {
 
     public String getTituloPropuesta() {
         return tituloPropuesta;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public void setFecComentario(String fecComentario) {
+        this.fecComentario = fecComentario;
+    }
+
+    public void setNickColaborador(String nickColaborador) {
+        this.nickColaborador = nickColaborador;
+    }
+
+    public void setTituloPropuesta(String tituloPropuesta) {
+        this.tituloPropuesta = tituloPropuesta;
     }
     
     

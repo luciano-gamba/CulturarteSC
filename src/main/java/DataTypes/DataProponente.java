@@ -24,6 +24,10 @@ public class DataProponente {
     List<DataPropuesta> misPropuestas;
     List<DataUsuario> meSiguen;
     List<DataUsuario> losSigo;
+    
+    public DataProponente(){
+    }
+    
 //    public DataProponente(String nickname,String nombre, String apellido,String email,LocalDate fecNac, String imagen,String direccion, String biografia, String sitioWeb) {
 //        this.nickname = nickname;
 //        this.nombre = nombre;
@@ -35,6 +39,7 @@ public class DataProponente {
 //        this.biografia = biografia;
 //        this.sitioWeb = sitioWeb;
 //    }
+    
      public DataProponente(String nickname,String nombre, String apellido,String email,LocalDate fecNac, String imagen,String direccion, String biografia, String sitioWeb,List<DataPropuesta> propuestas) {
         this.nickname = nickname;
         this.nombre = nombre;
@@ -55,7 +60,7 @@ public class DataProponente {
         return this.email;
     }
 
-        public String getNombre() {
+    public String getNombre() {
         return this.nombre;
     }
 
@@ -102,6 +107,46 @@ public class DataProponente {
 
     public List<DataUsuario> getLosSigo() {
         return losSigo;
+    }
+
+    public List<DataPropuesta> getMisPropuestas() {
+        return misPropuestas;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setFecNac(LocalDate fecNac) {
+        this.fecNac = fecNac;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public void setBiografia(String biografia) {
+        this.biografia = biografia;
+    }
+
+    public void setSitioWeb(String sitioWeb) {
+        this.sitioWeb = sitioWeb;
     }
     
 }

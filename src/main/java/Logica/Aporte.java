@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -31,6 +32,8 @@ public class Aporte implements Serializable {
     private EnumRetorno retorno;
     private String comentario;
     private LocalDateTime fecComentario;
+    @OneToOne
+    private Pago pago;
 
     public Aporte() {
     }
@@ -112,6 +115,10 @@ public class Aporte implements Serializable {
             dataProp.setDesc(miPropuesta.getDescripcion());
             dataProp.setImagen(miPropuesta.getImagen());
             dataProp.setFechaPubli(miPropuesta.getFechaARealizar());
+            dataProp.setFechaLimit(miPropuesta.getFechaLimit()); //Con esto se arregla lo de mostrar cuantos dias le quedan a las propuestas en perfil de usuario
+            dataProp.setFechaPubliStr(miPropuesta.getFechaARealizar().toString());
+            dataProp.setFechaLimitStr(miPropuesta.getFechaLimit().toString());
+            dataProp.setnecesaria(miPropuesta.getNecesaria()); //Sin esto no se mostraba correctamente barra de progreso en perfilUsuario
             dataProp.setCantidadColaboradores(this.getCantidadcolaboradores());
             return dataProp;
         }
@@ -186,6 +193,11 @@ public class Aporte implements Serializable {
         this.retorno = retorno;
     }
     
-    
-    
+    public Pago getDataPago() {
+        return pago;
+    }
+
+    public void setDataPago(Pago dataPago) {
+        this.pago = dataPago;
+    }   
 }

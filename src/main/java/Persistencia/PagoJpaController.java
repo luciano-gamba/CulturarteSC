@@ -4,30 +4,29 @@
  */
 package Persistencia;
 
-import Logica.Propuesta;
+import Logica.Pago;
 import Persistencia.exceptions.NonexistentEntityException;
-import Persistencia.exceptions.PreexistingEntityException;
-import java.io.Serializable;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
-import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.List;
+import javax.persistence.Persistence;
 
 /**
  *
- * @author nahud
+ * @author Luiano
  */
-public class PropuestaJpaController implements Serializable {
+public class PagoJpaController implements Serializable {
 
-    public PropuestaJpaController(EntityManagerFactory emf) {
+    public PagoJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     
-    public PropuestaJpaController(){
+    public PagoJpaController() {
         this.emf = Persistence.createEntityManagerFactory("CulturartePU");
     }
     
@@ -37,18 +36,13 @@ public class PropuestaJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Propuesta propuesta) throws PreexistingEntityException, Exception {
+    public void create(Pago pago) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(propuesta);
+            em.persist(pago);
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findPropuesta(propuesta.getTitulo()) != null) {
-                throw new PreexistingEntityException("Propuesta " + propuesta + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();
@@ -56,19 +50,19 @@ public class PropuestaJpaController implements Serializable {
         }
     }
 
-    public void edit(Propuesta propuesta) throws NonexistentEntityException, Exception {
+    public void edit(Pago pago) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            propuesta = em.merge(propuesta);
+            pago = em.merge(pago);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                String id = propuesta.getTitulo();
-                if (findPropuesta(id) == null) {
-                    throw new NonexistentEntityException("The propuesta with id " + id + " no longer exists.");
+                int id = pago.getId();
+                if (findPago(id) == null) {
+                    throw new NonexistentEntityException("The pago with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -79,19 +73,19 @@ public class PropuestaJpaController implements Serializable {
         }
     }
 
-    public void destroy(String id) throws NonexistentEntityException {
+    public void destroy(int id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Propuesta propuesta;
+            Pago pago;
             try {
-                propuesta = em.getReference(Propuesta.class, id);
-                propuesta.getTitulo();
+                pago = em.getReference(Pago.class, id);
+                pago.getId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The propuesta with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The pago with id " + id + " no longer exists.", enfe);
             }
-            em.remove(propuesta);
+            em.remove(pago);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -100,19 +94,19 @@ public class PropuestaJpaController implements Serializable {
         }
     }
 
-    public List<Propuesta> findPropuestaEntities() {
-        return findPropuestaEntities(true, -1, -1);
+    public List<Pago> findPagoEntities() {
+        return findPagoEntities(true, -1, -1);
     }
 
-    public List<Propuesta> findPropuestaEntities(int maxResults, int firstResult) {
-        return findPropuestaEntities(false, maxResults, firstResult);
+    public List<Pago> findPagoEntities(int maxResults, int firstResult) {
+        return findPagoEntities(false, maxResults, firstResult);
     }
 
-    private List<Propuesta> findPropuestaEntities(boolean all, int maxResults, int firstResult) {
+    private List<Pago> findPagoEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Propuesta.class));
+            cq.select(cq.from(Pago.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -124,37 +118,26 @@ public class PropuestaJpaController implements Serializable {
         }
     }
 
-    public Propuesta findPropuesta(String id) {
+    public Pago findPago(int id) {
         EntityManager em = getEntityManager();
         try {
-            Propuesta p = em.find(Propuesta.class, id);
-            if (p != null) {
-                em.refresh(p); // <- esto hace que se traiga los datos actuales de la base
-            }
-            return p;
+            return em.find(Pago.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getPropuestaCount() {
+    public int getPagoCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Propuesta> rt = cq.from(Propuesta.class);
+            Root<Pago> rt = cq.from(Pago.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
         } finally {
             em.close();
         }
-    }    
-    public List<String> getPropuestaByProponente(){
-        
-        //INUTIL E IMPOSIBLE
-        
-        EntityManager em = getEntityManager();
-        Query query = em.createQuery("SELECT CONCAT(p.titulo , ' by ' ,p.miProponente) AS lista from Propuesta p");
-        return query.getResultList();               
     }
+    
 }

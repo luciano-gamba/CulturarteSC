@@ -5,6 +5,7 @@
 package DataTypes;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,12 +18,25 @@ public class DataColaborador {
     String apellido;
     String email;
     LocalDate fecNac;
+    String fecNacStr;
     String imagen = "";
     List<DataPropuesta> propuestasColaboradas;
     List<DataUsuario> meSiguen;
     List<DataUsuario> losSigo;
+    private List<DataAporte> misAportes = new ArrayList<>();
     
     public DataColaborador(){
+        
+    }
+    
+    public DataColaborador(String nickname,String nombre, String apellido,String email,String fecNacStr, String imagen) {
+        this.nickname = nickname;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.email = email;
+        this.fecNac = LocalDate.parse(fecNacStr);
+        this.fecNacStr = fecNacStr;
+        this.imagen = imagen;
         
     }
     
@@ -45,6 +59,12 @@ public class DataColaborador {
         this.imagen = imagen;
         this.propuestasColaboradas = propuestas;
     }
+     
+    public DataColaborador(String nickname, String imagen) {
+        this.nickname = nickname;
+        this.imagen = imagen;
+    } 
+     
     public String getNickname() {
         return this.nickname;
     }
@@ -118,7 +138,25 @@ public class DataColaborador {
     public void setPropuestasColaboradas(List<DataPropuesta> propuestasColaboradas) {
         this.propuestasColaboradas = propuestasColaboradas;
     }
+
+    public String getFecNacStr() {
+        return fecNacStr;
+    }
+
+    public void setFecNacStr(String fecNacStr) {
+        this.fecNacStr = fecNacStr;
+    }
     
-    
-    
+    public List<DataAporte> getMisAportes() {
+        if (misAportes == null) {
+            misAportes = new ArrayList<>();
+        }
+        return misAportes;
+    }
+
+    public void setMisAportes(List<DataAporte> misAportes) {
+        this.misAportes = misAportes;
+    }
+
+
 }
