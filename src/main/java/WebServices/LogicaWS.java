@@ -212,6 +212,11 @@ public class LogicaWS {
     public DataColaborador consultaDeColaborador(@WebParam(name = "NickName") String NickName) {
         return ic.consultaDeColaborador(NickName);
     }
+    
+    @WebMethod(operationName = "consultaDeProponente")
+    public DataProponente consultaDeProponente(@WebParam(name = "NickName") String NickName){
+        return ic.consultaDeProponente(NickName);
+    }
 
     @WebMethod(operationName = "getDataColaborador")
     public DataColaborador getDataColaborador(@WebParam(name = "nickname") String nickname, @WebParam(name = "nombre") String nombre, @WebParam(name = "apellido") String apellido, @WebParam(name = "email") String email, @WebParam(name = "fecNac") String fecNac, @WebParam(name = "imagen") String imagen) {
