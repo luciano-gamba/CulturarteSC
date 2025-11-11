@@ -4,6 +4,7 @@ import DataTypes.DataPago;
 import DataTypes.EnumPago;
 import DataTypes.EnumTarjeta;
 import java.io.Serializable;
+import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,6 +24,7 @@ public class Pago implements Serializable {
     private int id;
     private String titular;
     private EnumPago enumPago;
+    private LocalDate fechaPago; 
     //TARJETA
     private String numeroT;
     private String fechaT;
@@ -48,6 +50,7 @@ public class Pago implements Serializable {
     public Pago(String titular, EnumPago enumPago) {
         this.titular = titular;
         this.enumPago = enumPago;
+        this.fechaPago = LocalDate.now();
     }
 
     public void setPagoT(String numeroT, String fechaT, String CVC, EnumTarjeta enumTarjeta) {
@@ -138,18 +141,28 @@ public class Pago implements Serializable {
         this.numeroP = numeroP;
     }
 
+    public LocalDate getFechaPago() {
+        return fechaPago;
+    }
+
+    public void setFechaPago(LocalDate fechaPago) {
+        this.fechaPago = fechaPago;
+    }
+    
+    
+
     public DataPago getDataPago() {
 
         if (EnumPago.TARJETA == this.enumPago) {
-            DataPago P = new DataPago(titular, EnumPago.TARJETA);
+            DataPago P = new DataPago(titular, EnumPago.TARJETA,fechaPago);
             P.setDataPagoT(numeroT, fechaT, CVC, enumTarjeta);
             return P;
         } else if (EnumPago.BANCO == this.enumPago) {
-            DataPago P = new DataPago(titular, EnumPago.BANCO);
+            DataPago P = new DataPago(titular, EnumPago.BANCO,fechaPago);
             P.setDataPagoB(nombreB, numeroB);
             return P;
         } else if (EnumPago.PAYPAL == this.enumPago) {
-            DataPago P = new DataPago(titular, EnumPago.PAYPAL);
+            DataPago P = new DataPago(titular, EnumPago.PAYPAL,fechaPago);
             P.setDataPagoP(numeroP);
             return P;
         }

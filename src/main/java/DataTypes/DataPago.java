@@ -1,22 +1,20 @@
 package DataTypes;
 
-
 import DataTypes.EnumPago;
 import DataTypes.EnumTarjeta;
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.time.LocalDate;
 
 /**
  *
  * @author Luiano
  */
 public class DataPago implements Serializable {
+
     private String titular;
     private EnumPago enumPago;
+    private LocalDate fechaPago;
+    private String fechaPagoStr;
     //TARJETA
     private String numeroT;
     private String fechaT;
@@ -30,10 +28,11 @@ public class DataPago implements Serializable {
 
     public DataPago() {
     }
-    
-    public DataPago(String titular, EnumPago enumPago) {
+
+    public DataPago(String titular, EnumPago enumPago, LocalDate fechaPago) {
         this.titular = titular;
         this.enumPago = enumPago;
+        this.fechaPago = fechaPago;
     }
 
     public void setDataPagoT(String numeroT, String fechaT, String CVC, EnumTarjeta enumTarjeta) {
@@ -48,10 +47,10 @@ public class DataPago implements Serializable {
         this.numeroB = numeroB;
     }
 
-    public void setDataPagoP(String numeroP){
+    public void setDataPagoP(String numeroP) {
         this.numeroP = numeroP;
     }
-    
+
     public String getTitular() {
         return titular;
     }
@@ -124,6 +123,21 @@ public class DataPago implements Serializable {
         this.numeroP = numeroP;
     }
 
+    public LocalDate getFechaPago() {
+        return fechaPago;
+    }
+
+    public void setFechaPago(LocalDate fechaPago) {
+        this.fechaPago = fechaPago;
+    }
+
+    public String getFechaPagoStr() {
+        this.fechaPagoStr = this.fechaPago.toString();
+        return fechaPagoStr;
+    }
     
-    
+        public void setFechaPagoStr(String fechaPagoStr) {
+        this.fechaPagoStr = fechaPagoStr;
+    }
+
 }
