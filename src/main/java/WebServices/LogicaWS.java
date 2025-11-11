@@ -8,6 +8,7 @@ import DataTypes.DataPago;
 import DataTypes.DataProponente;
 import DataTypes.DataPropuesta;
 import DataTypes.DataPropuestaSimple;
+import DataTypes.DataRegistro;
 import DataTypes.DataUsuario;
 import DataTypes.DataSugerencias;
 import DataTypes.EnumRetorno;
@@ -260,8 +261,10 @@ public class LogicaWS {
     @WebMethod(operationName = "setPagoT")
     public void setPagoT(@WebParam(name = "titular") String titular, @WebParam(name = "nick") String nick, @WebParam(name = "titulo") String titulo, @WebParam(name = "numeroT") String numeroT, @WebParam(name = "fechaT") String fechaT, @WebParam(name = "CVC") String CVC, @WebParam(name = "enumTarjeta") EnumTarjeta enumTarjeta) {
         ic.setPagoT(titular, nick, titulo, numeroT, fechaT, CVC, enumTarjeta);
-    }
 
+    
+    }
+	
     @WebMethod(operationName = "setPagoB")
     public void setPagoB(@WebParam(name = "titular") String titular, @WebParam(name = "nick") String nick, @WebParam(name = "titulo") String titulo, @WebParam(name = "numeroB") String numeroB, @WebParam(name = "nombreB") String nombreB) {
         ic.setPagoB(titular, nick, titulo, nombreB, numeroB);
@@ -276,5 +279,9 @@ public class LogicaWS {
     public DataPago getDataPago(@WebParam(name = "nick") String nick, @WebParam(name = "titulo") String titulo) {
         return ic.getDataPago( nick, titulo);
     }
-    
+
+    @WebMethod(operationName = "registrarSesion")
+    public void RegistrarSesion(@WebParam(name = "dataSesion") DataRegistro dataSesion){
+        ic.registrarSesion(dataSesion);
+    }
 }

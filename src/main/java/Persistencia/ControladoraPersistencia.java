@@ -7,6 +7,7 @@ import Logica.Estado;
 import Logica.Pago;
 import Logica.Proponente;
 import Logica.Propuesta;
+import Logica.RegistroSesion;
 import Logica.Usuario;
 import Persistencia.exceptions.NonexistentEntityException;
 import java.util.ArrayList;
@@ -225,6 +226,7 @@ public class ControladoraPersistencia {
 
     public List<Aporte> getAportes() {
         return aporteJPA.findAporteEntities();
+
     }
 
     PagoJpaController pagoJPA = new PagoJpaController();
@@ -236,8 +238,8 @@ public class ControladoraPersistencia {
         } catch (Exception ex) {
             Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
+    } 
+	
     public void editarPago(Pago p) {
         try {
             pagoJPA.edit(p);
@@ -246,4 +248,18 @@ public class ControladoraPersistencia {
         }
     }
 
+    RegistroSesionJpaController registrosesionJPA = new RegistroSesionJpaController();
+    
+    public void añadirRegistrosesion(RegistroSesion registro){
+        try {
+            registrosesionJPA.create(registro);
+            registrosesionJPA.limpiarRegistrosAntiguos();
+        } catch (Exception ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public List<RegistroSesion> getRegistrosSesionClase(){
+        return registrosesionJPA.findRegistroSesionEntities();
+    }
 }

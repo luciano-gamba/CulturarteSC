@@ -11,6 +11,7 @@ import DataTypes.DataPago;
 import DataTypes.DataProponente;
 import DataTypes.DataPropuesta;
 import DataTypes.DataPropuestaSimple;
+import DataTypes.DataRegistro;
 import DataTypes.DataSugerencias;
 import DataTypes.DataUsuario;
 import DataTypes.EnumPago;
@@ -488,7 +489,19 @@ public class Controlador implements IControlador{
         //return cp.getNickProponente();
         return listaNombres;
     }
-    
+    @Override
+    public  List<String> getUsuariosProponentesEliminados(){
+        List<String> listaNombres = new ArrayList<>();
+        ArrayList<Proponente> listaProponentes = cp.getListaProponentes();
+        String aux;
+        for(Proponente p : listaProponentes){
+            if(!p.isActivo()){
+                aux = p.getNickname();
+                listaNombres.add(aux);
+            }
+        }
+        return listaNombres;
+    }
     @Override
     public List<String> getSeguidos(String seguidor) {
 //        List<String> listaNombres = new ArrayList<>();
@@ -1433,5 +1446,27 @@ public class Controlador implements IControlador{
             return a.getDataPago();
         }
         return null;
+    }
+    @Override
+    public void registrarSesion(DataRegistro data){
+        RegistroSesion registro = new RegistroSesion(data.getIP(),data.getURL(),data.getNavegador(),data.getSO());
+        cp.añadirRegistrosesion(registro);
+    }
+    
+    public List<DataRegistro> getRegistroSesion(){
+        List<DataRegistro> registros = new ArrayList<>();
+        DataRegistro data;
+        for(RegistroSesion r : cp.getRegistrosSesionClase()){
+            data = new DataRegistro();
+            data.setIP(r.getIP());
+            data.setNavegador(r.getNavegador());
+            data.setSO(r.getSO());
+            data.setURL(r.getURL());
+            data.setId(r.getId());
+            data.setFechaRegistro(r.getFechaRegistro());
+            registros.add(data);
+        }
+        return registros;
+
     }
 }    

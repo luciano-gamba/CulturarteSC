@@ -41,6 +41,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         subMenuConsultaPerfil = new javax.swing.JMenu();
         menuConsultaProponente = new javax.swing.JMenuItem();
         menuConsultaCola = new javax.swing.JMenuItem();
+        menuConsultaPropoElim = new javax.swing.JMenuItem();
         menuBajaUsuario = new javax.swing.JMenuItem();
         menuPropuestas = new javax.swing.JMenu();
         menuAltaProp = new javax.swing.JMenuItem();
@@ -55,6 +56,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuCancelarCola = new javax.swing.JMenuItem();
         menuDatos = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        MenuConsultaSesion = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -119,6 +121,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         subMenuConsultaPerfil.add(menuConsultaCola);
+
+        menuConsultaPropoElim.setText("Consulta proponente Eliminado");
+        menuConsultaPropoElim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuConsultaPropoElimActionPerformed(evt);
+            }
+        });
+        subMenuConsultaPerfil.add(menuConsultaPropoElim);
 
         menuPerfil.add(subMenuConsultaPerfil);
 
@@ -222,6 +232,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         menuDatos.add(jMenuItem2);
 
+        MenuConsultaSesion.setText("Consulta Registro Sesión");
+        MenuConsultaSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuConsultaSesionActionPerformed(evt);
+            }
+        });
+        menuDatos.add(MenuConsultaSesion);
+
         jMenuBar1.add(menuDatos);
 
         setJMenuBar(jMenuBar1);
@@ -249,7 +267,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             ICPP = new InterConsultaPerfilProponente(this.ic);
             this.Desktop.add(ICPP);
             ICPP.show();
-
+            int x = (this.getWidth() - ICPP.getWidth()) / 2;
+            int y = (this.getHeight() - ICPP.getHeight()) / 2;
+            ICPP.setLocation(x, y - 50);
         }
     }//GEN-LAST:event_menuConsultaProponenteActionPerformed
 
@@ -384,6 +404,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             ICPC = new InterConsultaPerfilColaborador(this.ic);
             this.Desktop.add(ICPC);
             ICPC.show();
+            int x = (this.getWidth() - ICPC.getWidth()) / 2;
+            int y = (this.getHeight() - ICPC.getHeight()) / 2;
+            ICPC.setLocation(x, y - 50);
         }
     }//GEN-LAST:event_menuConsultaColaActionPerformed
 
@@ -605,6 +628,30 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_menuBajaUsuarioActionPerformed
 
+    private void menuConsultaPropoElimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultaPropoElimActionPerformed
+        // TODO add your handling code here:
+        if (this.IPE == null || IPE.isClosed()) {
+            IPE = new InterConsultaProponenteEliminado(this.ic);
+            this.Desktop.add(IPE);
+            IPE.show();
+            int x = (this.getWidth() - IPE.getWidth()) / 2;
+            int y = (this.getHeight() - IPE.getHeight()) / 2;
+            IPE.setLocation(x, y - 50);
+        }
+    }//GEN-LAST:event_menuConsultaPropoElimActionPerformed
+
+    private void MenuConsultaSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuConsultaSesionActionPerformed
+        // TODO add your handling code here:
+        if (this.ICS == null || ICS.isClosed()) {
+            ICS = new InterConsultaSesion(this.ic);
+            this.Desktop.add(ICS);
+            ICS.show();
+            int x = (this.getWidth() - ICS.getWidth()) / 2;
+            int y = (this.getHeight() - ICS.getHeight()) / 2;
+            ICS.setLocation(x, y - 50);
+        }
+    }//GEN-LAST:event_MenuConsultaSesionActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -653,9 +700,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private InterModificarPropuesta IMP;
     private InterEvaluarPropuesta IEP;
     private InterBajaUsuario IBU;
-
+    private InterConsultaProponenteEliminado IPE; 
+    private InterConsultaSesion ICS; 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane Desktop;
+    private javax.swing.JMenuItem MenuConsultaSesion;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
@@ -667,6 +717,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuBajaUsuario;
     private javax.swing.JMenuItem menuCancelarCola;
     private javax.swing.JMenuItem menuConsultaCola;
+    private javax.swing.JMenuItem menuConsultaPropoElim;
     private javax.swing.JMenuItem menuConsultaProponente;
     private javax.swing.JMenuItem menuConsultaPropu;
     private javax.swing.JMenuItem menuConsultaPropuEst;

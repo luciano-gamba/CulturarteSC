@@ -9,6 +9,7 @@ import DataTypes.DataPago;
 import DataTypes.DataProponente;
 import DataTypes.DataPropuesta;
 import DataTypes.DataPropuestaSimple;
+import DataTypes.DataRegistro;
 import DataTypes.DataSugerencias;
 import DataTypes.DataUsuario;
 import DataTypes.EnumPago;
@@ -50,6 +51,7 @@ public interface IControlador {
     
     List<String> getUsuariosProponentes();
     
+    List<String> getUsuariosProponentesEliminados();
     
     List<Proponente> getProponentes();
     
@@ -151,7 +153,7 @@ public interface IControlador {
     DataSugerencias getDataSugerencia(String titulo, int puntaje);
     
     DataProponente getDataProponente();
-        
+       
     void setPagoT(String titular,String nick, String titulo,String numeroT, String fechaT, String CVC, EnumTarjeta enumTarjeta);
     
     void setPagoB(String titular,String nick, String titulo,String nombreB, String numeroB);
@@ -159,5 +161,8 @@ public interface IControlador {
     void setPagoP(String titular,String nick, String titulo,String numeroP);
     
     DataPago getDataPago(String nick, String titulo);
+        
+    void registrarSesion(DataRegistro data);
     
+    List<DataRegistro> getRegistroSesion();
 }
