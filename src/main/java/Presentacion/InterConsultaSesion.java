@@ -6,11 +6,14 @@ package Presentacion;
 
 import DataTypes.DataRegistro;
 import Interfaces.IControlador;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Font;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -28,14 +31,44 @@ public class InterConsultaSesion extends javax.swing.JInternalFrame {
     private final IControlador ic;
     private DefaultTableModel modeloTabla;
     private List<DataRegistro> registros;
+    private JPanel panelContenedor;
+    private final String CARD_TABLA = "tabla";
+    private final String CARD_VACIO = "vacio";
+
     public InterConsultaSesion(IControlador ic) {
         this.ic = ic;
         this.setTitle("Registro de Acceso a Culturarte Web");
         initComponents();
+
+        // Crear el panel contenedor con CardLayout
+        panelContenedor = new JPanel(new CardLayout());
+        getContentPane().setLayout(new BorderLayout()); 
+        getContentPane().add(panelContenedor, BorderLayout.CENTER);
+
+        // Panel que contiene todo lo generado por NetBeans
+        JPanel panelTabla = new JPanel(new BorderLayout());
+        JPanel topPanel = new JPanel(new BorderLayout());
+        topPanel.add(JTitulo, BorderLayout.NORTH);
+        topPanel.add(Separador, BorderLayout.SOUTH);
+        panelTabla.add(topPanel, BorderLayout.NORTH);
+        panelTabla.add(jScrollPane1, BorderLayout.CENTER);
+
+        // Panel para el mensaje vacío
+        JLabel mensajeVacio = new JLabel("Nadie ha ingresado a la Página actualmente", SwingConstants.CENTER);
+        mensajeVacio.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        JPanel panelVacio = new JPanel(new BorderLayout());
+        panelVacio.add(mensajeVacio, BorderLayout.CENTER);
+
+        // Agregar ambos paneles al CardLayout
+        panelContenedor.add(panelTabla, CARD_TABLA);
+        panelContenedor.add(panelVacio, CARD_VACIO);
+
+        // Inicializar tabla y datos
         inicializarTablas();
         registros = ic.getRegistroSesion();
-        registros.sort(Comparator.comparing((DataRegistro data)-> data.getFechaRegistro()).reversed());
-        //Con la linea de arriba ordeno los registros por fecha
+        registros.sort(Comparator.comparing((DataRegistro data) -> data.getFechaRegistro()).reversed());
+
+        // Llenar formulario según haya datos o no
         llenarFormulario();
     }
 
@@ -136,23 +169,27 @@ public class InterConsultaSesion extends javax.swing.JInternalFrame {
     }
     
     private void llenarFormulario(){ //Esta sera la funcion principal de este internalFrame donde lleno el formulario con las cosas ingresadas
-        if(registros != null && !registros.isEmpty()){
-        Object[] fila;
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        for (DataRegistro data : registros){
-            fila = new Object[6];
-            fila[0] = data.getId(); 
-            fila[1] = data.getIP();
-            fila[2] = data.getURL();
-            fila[3] = data.getNavegador();
-            fila[4] = data.getSO();
-            fila[5] = data.getFechaRegistro().format(formato);
-            modeloTabla.addRow(fila);
+        CardLayout cl = (CardLayout) panelContenedor.getLayout();
+        if (registros != null && !registros.isEmpty()) {
+            cl.show(panelContenedor, CARD_TABLA);
+            Object[] fila;
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            for (DataRegistro data : registros){
+                fila = new Object[6];
+                fila[0] = data.getId(); 
+                fila[1] = data.getIP();
+                fila[2] = data.getURL();
+                fila[3] = data.getNavegador();
+                fila[4] = data.getSO();
+                fila[5] = data.getFechaRegistro().format(formato);
+                modeloTabla.addRow(fila);
+            }
+        }else{
+            cl.show(panelContenedor,CARD_VACIO);
         }
-     }
         
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel JTitulo;
     private javax.swing.JSeparator Separador;
