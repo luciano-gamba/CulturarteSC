@@ -14,11 +14,37 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.EntityManagerFactory;
 
 public class ControladoraPersistencia {
+    
+    UsuarioJpaController usuJPA;
+    //ColaboradorJpaController usuColaJPA; //Lo voy a quitar ya que no tiene sentido tener dos Controladores para los Colaboradores
+    ProponenteJpaController usuPropJPA;
+    CategoriaJpaController catJPA;
+    PropuestaJpaController propJPA;
+    EstadoJpaController estadoJPA;
+    ColaboradorJpaController colaJPA;
+    AporteJpaController aporteJPA;
+    PagoJpaController pagoJPA;
+    RegistroSesionJpaController registrosesionJPA;
+     
+    public ControladoraPersistencia() {
+        EntityManagerFactory emf = ConexionJPA.getEMF();
 
-    UsuarioJpaController usuJPA = new UsuarioJpaController();
-    private CategoriaJpaController catJPA = new CategoriaJpaController();
+        usuJPA = new UsuarioJpaController(emf);
+        usuPropJPA = new ProponenteJpaController(emf);
+        propJPA = new PropuestaJpaController(emf);
+        catJPA = new CategoriaJpaController(emf);
+        aporteJPA = new AporteJpaController(emf);
+        estadoJPA = new EstadoJpaController(emf);
+        colaJPA = new ColaboradorJpaController(emf);
+        pagoJPA = new PagoJpaController(emf);
+        registrosesionJPA = new RegistroSesionJpaController(emf);
+    }
+    
+    //UsuarioJpaController usuJPA = new UsuarioJpaController();
+    //private CategoriaJpaController catJPA = new CategoriaJpaController();
 
     public Usuario buscarUsuario(String nick) {
         return usuJPA.findUsuario(nick);
@@ -48,7 +74,7 @@ public class ControladoraPersistencia {
         }
     }
 
-    ProponenteJpaController usuPropJPA = new ProponenteJpaController();
+    //ProponenteJpaController usuPropJPA = new ProponenteJpaController();
 
     public void añadirUsuario(Proponente usu) {
         try {
@@ -77,7 +103,7 @@ public class ControladoraPersistencia {
         return usuPropJPA.getListaNick();
     }
 
-    ColaboradorJpaController usuColaJPA = new ColaboradorJpaController();
+    //ColaboradorJpaController usuColaJPA = new ColaboradorJpaController();
 
     public void añadirUsuario(Colaborador usu) {
         try {
@@ -88,10 +114,10 @@ public class ControladoraPersistencia {
     }
 
     public List<Colaborador> getColaboradores() {
-        return usuColaJPA.findColaboradorEntities();
+        return colaJPA.findColaboradorEntities();
     }
 
-    PropuestaJpaController propJPA = new PropuestaJpaController();
+    //PropuestaJpaController propJPA = new PropuestaJpaController();
 
     public void añadirPropuesta(Propuesta p) {
         try {
@@ -136,7 +162,7 @@ public class ControladoraPersistencia {
         }
     }
 
-    EstadoJpaController estadoJPA = new EstadoJpaController();
+    //EstadoJpaController estadoJPA = new EstadoJpaController();
 
     public void añadirEstado(Estado e) {
         try {
@@ -170,7 +196,7 @@ public class ControladoraPersistencia {
         }
     }
 
-    ColaboradorJpaController colaJPA = new ColaboradorJpaController();
+    //ColaboradorJpaController colaJPA = new ColaboradorJpaController();
 
     public List<String> getNickColaboradores() {
         return colaJPA.getListaNick();
@@ -194,7 +220,7 @@ public class ControladoraPersistencia {
             Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    AporteJpaController aporteJPA = new AporteJpaController();
+    //AporteJpaController aporteJPA = new AporteJpaController();
 
     public void añadirAporte(Aporte a, Propuesta p, Colaborador c) {
         try {
@@ -229,7 +255,7 @@ public class ControladoraPersistencia {
 
     }
 
-    PagoJpaController pagoJPA = new PagoJpaController();
+//    PagoJpaController pagoJPA = new PagoJpaController();
 
     public void añadirPago(Pago p, Aporte a) {
         try {
@@ -248,7 +274,7 @@ public class ControladoraPersistencia {
         }
     }
 
-    RegistroSesionJpaController registrosesionJPA = new RegistroSesionJpaController();
+    //RegistroSesionJpaController registrosesionJPA = new RegistroSesionJpaController();
     
     public void añadirRegistrosesion(RegistroSesion registro){
         try {
