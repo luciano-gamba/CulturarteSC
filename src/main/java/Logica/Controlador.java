@@ -1469,4 +1469,13 @@ public class Controlador implements IControlador{
         return registros;
 
     }
+    
+    @Override
+    public List<String> getTrello(){
+        List<String> lista = new ArrayList<>();
+        lista.add(ConfigManager.getTrelloKey());
+        lista.add(ConfigManager.getTrelloToken());
+        lista.add(ConfigManager.getTrelloBase());
+        return lista;
+    }
 }    

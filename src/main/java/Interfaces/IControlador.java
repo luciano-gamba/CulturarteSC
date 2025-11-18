@@ -165,4 +165,6 @@ public interface IControlador {
     void registrarSesion(DataRegistro data);
     
     List<DataRegistro> getRegistroSesion();
+    
+    public List<String> getTrello();
 }

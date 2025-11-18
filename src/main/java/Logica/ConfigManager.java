@@ -6,11 +6,11 @@ import java.util.Properties;
 
 public class ConfigManager {
     
-    private static final String CONFIG_DIR = System.getProperty("user.home") + "/.Culturarte";
+    private static final String CONFIG_DIR = System.getProperty("user.home") + "/CulturarteConfig";
     private static final String CONFIG_FILE = CONFIG_DIR + "/config.properties";
     
     private static Properties props = new Properties();
-
+    
     static {
         try {
             inicializarConfig();
@@ -22,10 +22,11 @@ public class ConfigManager {
     // ============================
     //   INICIALIZACIÓN
     // ============================
-    private static void inicializarConfig() throws IOException {
+    public static void inicializarConfig() throws IOException {
         Path dirPath = Paths.get(CONFIG_DIR);
         Path filePath = Paths.get(CONFIG_FILE);
-
+        
+        System.out.println(dirPath.toString());
         // Crear carpeta si no existe
         if (!Files.exists(dirPath)) {
             Files.createDirectories(dirPath);
@@ -53,7 +54,11 @@ public class ConfigManager {
         defaultProps.setProperty("jdbc.url", "jdbc:mysql://localhost:3306/culturarte?zeroDateTimeBehavior=CONVERT_TO_NULL");
         defaultProps.setProperty("jdbc.user", "tecnologo");
         defaultProps.setProperty("jdbc.password", "tecnologo");
-        defaultProps.setProperty("media.path", "/home/" + System.getProperty("user.name") + "/CulturarteMedia");
+        defaultProps.setProperty("trello.key", "");
+        defaultProps.setProperty("trello.token", "");
+        defaultProps.setProperty("trello.api_base", "");
+
+
 
         try (OutputStream output = new FileOutputStream(filePath.toFile())) {
             defaultProps.store(output, "Archivo de configuración de Culturarte");
@@ -79,7 +84,15 @@ public class ConfigManager {
         return props.getProperty("jdbc.password");
     }
 
-    public static String getMediaPath() {
-        return props.getProperty("media.path");
+    public static String getTrelloKey() {
+        return props.getProperty("trello.key");
+    }
+    
+    public static String getTrelloToken() {
+        return props.getProperty("trello.token");
+    }
+    
+    public static String getTrelloBase() {
+        return props.getProperty("trello.api_base");
     }
 }

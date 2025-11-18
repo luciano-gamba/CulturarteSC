@@ -284,4 +284,9 @@ public class LogicaWS {
     public void RegistrarSesion(@WebParam(name = "dataSesion") DataRegistro dataSesion){
         ic.registrarSesion(dataSesion);
     }
+    
+    @WebMethod(operationName = "getTrello")
+    public List<String> getTrello(){
+        return ic.getTrello();
+    }
 }

@@ -2,11 +2,13 @@ package Presentacion;
 
 import Interfaces.Fabrica;
 import Interfaces.IControlador;
+import Logica.ConfigManager;
 import WebServices.LogicaWS;
 
 public class Culturarte {
 
     public static void main(String[] args) {
+        ConfigManager.getJdbcUrl();
         
         //descomentar y eliminar Publicador.java cuando pasemos al cure
         LogicaWS ws = new LogicaWS();
