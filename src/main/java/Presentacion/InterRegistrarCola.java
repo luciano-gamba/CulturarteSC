@@ -472,7 +472,7 @@ public class InterRegistrarCola extends javax.swing.JInternalFrame {
             }
             
             
-            ImageIcon icon = new ImageIcon(DP.getImagen());
+            ImageIcon icon = new ImageIcon(DP.getImagenLocal());
             Image imagenEscalada = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
             this.lblFoto.setIcon(new ImageIcon(imagenEscalada));
         }else{

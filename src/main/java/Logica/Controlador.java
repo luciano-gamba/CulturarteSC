@@ -17,6 +17,7 @@ import DataTypes.DataUsuario;
 import DataTypes.EnumPago;
 import DataTypes.EnumTarjeta;
 import Persistencia.ControladoraPersistencia;
+import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -564,7 +565,8 @@ public class Controlador implements IControlador{
         Categoria c  = cp.findCategoria(tipo);
         
         Propuesta nuevaProp = new Propuesta(c, prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual, imagen);
-//        misPropuestas.add(nuevaProp);
+        nuevaProp.setImagenLocal(System.getProperty("user.dir") + File.separator + imagen);
+            misPropuestas.add(nuevaProp);
           cp.añadirEstado(nuevaProp.getEstadoActual());
           cp.añadirPropuesta(nuevaProp);
             //Agregar propuesta a esa categoria directamente lo hare con persistencia antes seria c.agregarPropuesta(nuevaProp);
@@ -717,6 +719,7 @@ public class Controlador implements IControlador{
             a.getImagenMiPropuesta(),
             a.getNecesaria()
         ));
+        
     }
 
     // ---- Convertir todas las propuestas del proponente ----
@@ -796,6 +799,7 @@ public class Controlador implements IControlador{
     );
     respuesta.setCantidadFav(p.getCantidadFav());
     respuesta.setProponenteActivo(propo.isActivo());
+    respuesta.setImagenLocal(p.getImagenLocal());
     return respuesta;
 }
     
@@ -831,6 +835,7 @@ public class Controlador implements IControlador{
                 DataProponente dp = new DataProponente(propo.getNickname(), propo.getNombre(),propo.getApellido(),propo.getEmail(),propo.getFecNac(),propo.getImagen(),propo.getDireccion(),propo.getBiografia(),propo.getSitioWeb(), LDP);
                 DP = new DataPropuesta(p.getTitulo(), p.getImagen(), p.getEstadoActual(), dp, p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getmontoAlcanzada(),p.getFecha() ,p.getFechaARealizar(),p.getFechaLimit(), p.getRetorno(), p.getCategoria(), LDA);
                 DP.setProponenteActivo(propo.isActivo());
+                DP.setImagenLocal(p.getImagenLocal());
                 return DP;
             }
         }

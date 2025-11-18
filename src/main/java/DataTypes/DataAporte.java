@@ -1,5 +1,6 @@
 package DataTypes;
 
+import java.io.File;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -10,6 +11,7 @@ public class DataAporte implements Serializable {
     int cantidad;
     EnumRetorno retorno;
     String imagen;
+    String imagenLocal;
     String miColaborador;
     String miPropuesta;
     Double necesaria;
@@ -30,6 +32,7 @@ public class DataAporte implements Serializable {
         this.miPropuesta = miPropuesta;
         this.imagen = imagen;
         this.necesaria = necesaria;
+        this.imagenLocal = System.getProperty("user.dir") + File.separator + imagen;
     }
     public DataAporte(double aporte, LocalDateTime fechaHora, String miPropuesta) {
         this.aporte = aporte;
@@ -117,6 +120,14 @@ public class DataAporte implements Serializable {
 
     public void setNecesaria(Double necesaria) {
         this.necesaria = necesaria;
+    }
+
+    public String getImagenLocal() {
+        return imagenLocal;
+    }
+
+    public void setImagenLocal(String imagenLocal) {
+        this.imagenLocal = imagenLocal;
     }
     
     

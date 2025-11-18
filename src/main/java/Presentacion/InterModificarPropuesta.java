@@ -397,9 +397,9 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
             this.botonEditar.setEnabled(true);
             DP = ic.consultaDePropuesta(titulo);
 
-            ImageIcon icon = new ImageIcon(DP.getImagen());
+            ImageIcon icon = new ImageIcon(DP.getImagenLocal());
 
-            if(!"".equals(DP.getImagen())){
+            if(!"".equals(DP.getImagenLocal())){
                 Image imagenEscalada = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
                 labelFoto.setIcon(new ImageIcon(imagenEscalada));
             }
@@ -423,7 +423,7 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
             this.textoMontoTotal.setText(DP.getNecesariaa().toString());
             this.textoRetorno.setText(retorno);
             this.textoFecha.setText(DP.getFechaPubli().toString());
-            this.txtImagen = DP.getImagen();
+            this.txtImagen = DP.getImagenLocal();
             
             //fecha ya establecida de la propuesta
             Date initialDate = Date.from(DP.getFechaPubli().atStartOfDay(ZoneId.systemDefault()).toInstant());

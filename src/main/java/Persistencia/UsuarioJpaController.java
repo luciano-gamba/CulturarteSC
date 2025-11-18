@@ -162,7 +162,7 @@ public class UsuarioJpaController implements Serializable {
             em.getTransaction().begin();
 
             // Usamos native query porque usuarioseguidos es tabla intermedia sin entidad JPA
-            Query q = em.createNativeQuery("DELETE FROM usuarioseguidos WHERE nickSeguido = ? OR nickSeguidor = ?");
+            Query q = em.createNativeQuery("DELETE FROM UsuarioSeguidos WHERE nickSeguido = ? OR nickSeguidor = ?");
             q.setParameter(1, nickProponente);
             q.setParameter(2, nickProponente);
             q.executeUpdate();

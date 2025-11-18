@@ -19,6 +19,7 @@ public class DataPropuesta implements Serializable {
     
     String titulo;
     String imagen;
+    String imagenLocal;
     Estado estadoActual;
     DataProponente p;
     String desc;
@@ -281,6 +282,14 @@ public class DataPropuesta implements Serializable {
 
     public void setProponenteActivo(boolean ProponenteActivo) {
         this.ProponenteActivo = ProponenteActivo;
+    }
+
+    public String getImagenLocal() {
+        return imagenLocal;
+    }
+
+    public void setImagenLocal(String imagenLocal) {
+        this.imagenLocal = imagenLocal;
     }
     
 }

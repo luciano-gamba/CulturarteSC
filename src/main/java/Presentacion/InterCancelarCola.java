@@ -251,7 +251,7 @@ public class InterCancelarCola extends javax.swing.JInternalFrame {
             this.txtFecha.setText(DA.getFechaHora().format(DateTimeFormatter.ISO_DATE));
             this.txtRetorno.setText(DA.getRetorno().toString());
             
-            ImageIcon icon = new ImageIcon(DA.getImagen());
+            ImageIcon icon = new ImageIcon(DA.getImagenLocal());
             Image imagenEscalada = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
             this.txtImagen.setIcon(new ImageIcon(imagenEscalada));
             this.jProgressBar1.setMinimum(0);

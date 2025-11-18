@@ -6,7 +6,7 @@ import java.util.Properties;
 
 public class ConfigManager {
     
-    private static final String CONFIG_DIR = System.getProperty("user.home") + "/CulturarteConfig";
+    private static final String CONFIG_DIR = System.getProperty("user.dir") + "/CulturarteConfig";
     private static final String CONFIG_FILE = CONFIG_DIR + "/config.properties";
     
     private static Properties props = new Properties();
