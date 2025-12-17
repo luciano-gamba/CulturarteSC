@@ -18,12 +18,20 @@ import DataTypes.EnumPago;
 import DataTypes.EnumTarjeta;
 import Persistencia.ControladoraPersistencia;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.tree.DefaultMutableTreeNode;
 import org.mindrot.jbcrypt.BCrypt;
@@ -43,7 +51,7 @@ public class Controlador implements IControlador{
     ControladoraPersistencia cp = new ControladoraPersistencia();
     
     @Override //colaborador
-    public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String contraseña, String imagenWeb){
+    public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String contraseña){
         String nickNuevo = nick;
         String correoNuevo = correo;
         
@@ -58,14 +66,14 @@ public class Controlador implements IControlador{
             }
         }
         
-        Colaborador colaNuevo = new Colaborador(nick, correo, nombre, apellido, fecNac, imagen, contraseña, imagenWeb);
+        Colaborador colaNuevo = new Colaborador(nick, correo, nombre, apellido, fecNac, imagen, contraseña);
         misUsuarios.add(colaNuevo);
         cp.añadirUsuario(colaNuevo);
         return 1;
     }
     
     @Override //colaborador (fecha con string)
-    public int añadirUsuario(String nick, String nombre, String apellido, String correo, String fecN, String imagen, String contraseña, String imagenWeb){
+    public int añadirUsuario(String nick, String nombre, String apellido, String correo, String fecN, String imagen, String contraseña){
         String nickNuevo = nick;
         String correoNuevo = correo;
         
@@ -80,14 +88,14 @@ public class Controlador implements IControlador{
             }
         }
         LocalDate fecNac = LocalDate.parse(fecN);
-        Colaborador colaNuevo = new Colaborador(nick, correo, nombre, apellido, fecNac, imagen, contraseña, imagenWeb);
+        Colaborador colaNuevo = new Colaborador(nick, correo, nombre, apellido, fecNac, imagen, contraseña);
         misUsuarios.add(colaNuevo);
         cp.añadirUsuario(colaNuevo);
         return 1;
     }
     
     @Override //proponente
-    public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String contraseña, String direccion, String bio, String sitioWeb, String imagenWeb){
+    public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String contraseña, String direccion, String bio, String sitioWeb){
         String nickNuevo = nick;
         String correoNuevo = correo;
 
@@ -102,13 +110,13 @@ public class Controlador implements IControlador{
             }
         }
         
-        Proponente propNuevo = new Proponente(direccion, bio, sitioWeb, nick, correo, nombre, apellido, fecNac, imagen, contraseña, imagenWeb);
+        Proponente propNuevo = new Proponente(direccion, bio, sitioWeb, nick, correo, nombre, apellido, fecNac, imagen, contraseña);
         cp.añadirUsuario(propNuevo);
         return 1;
     }
     
     @Override //proponente (fecha con string)
-    public int añadirUsuario(String nick, String nombre, String apellido, String correo, String fecN, String imagen, String contraseña, String direccion, String bio, String sitioWeb, String imagenWeb){
+    public int añadirUsuario(String nick, String nombre, String apellido, String correo, String fecN, String imagen, String contraseña, String direccion, String bio, String sitioWeb){
         String nickNuevo = nick;
         String correoNuevo = correo;
 
@@ -124,7 +132,7 @@ public class Controlador implements IControlador{
         }
         
         LocalDate fecNac = LocalDate.parse(fecN);
-        Proponente propNuevo = new Proponente(direccion, bio, sitioWeb, nick, correo, nombre, apellido, fecNac, imagen, contraseña, imagenWeb);
+        Proponente propNuevo = new Proponente(direccion, bio, sitioWeb, nick, correo, nombre, apellido, fecNac, imagen, contraseña);
         cp.añadirUsuario(propNuevo);
         return 1;
     }
@@ -391,7 +399,7 @@ public class Controlador implements IControlador{
           data.setNickname(u.getNickname());
           data.setNombre(u.getNombre());
           data.setApellido(u.getApellido());
-          data.setImagen(u.getImagenWeb());
+          data.setImagen(u.getImagen());
           data.setMeSiguen(this.getSeguidores(u));
           
           if (u instanceof Proponente){
@@ -424,7 +432,7 @@ public class Controlador implements IControlador{
         Usuario usu = cp.buscarUsuario(nick);
         DataUsuario data = new DataUsuario();
         data.setNickname(usu.getNickname());
-        data.setImagen(usu.getImagenWeb());
+        data.setImagen(usu.getImagen());
         
         if (usu instanceof Proponente){
             data.setTipo("Proponente");
@@ -565,7 +573,7 @@ public class Controlador implements IControlador{
         Categoria c  = cp.findCategoria(tipo);
         
         Propuesta nuevaProp = new Propuesta(c, prop, titulo, descripcion, lugar, fechaPrev, Double.parseDouble(montoXentrada), Double.parseDouble(montoNecesario), posibleRetorno, fechaActual, imagen);
-        nuevaProp.setImagenLocal(System.getProperty("user.dir") + File.separator + imagen);
+        //nuevaProp.setImagenLocal(System.getProperty("user.dir") + File.separator + imagen);
             misPropuestas.add(nuevaProp);
           cp.añadirEstado(nuevaProp.getEstadoActual());
           cp.añadirPropuesta(nuevaProp);
@@ -799,7 +807,7 @@ public class Controlador implements IControlador{
     );
     respuesta.setCantidadFav(p.getCantidadFav());
     respuesta.setProponenteActivo(propo.isActivo());
-    respuesta.setImagenLocal(p.getImagenLocal());
+    respuesta.setImagenLocal(p.getImagen());
     return respuesta;
 }
     
@@ -835,7 +843,7 @@ public class Controlador implements IControlador{
                 DataProponente dp = new DataProponente(propo.getNickname(), propo.getNombre(),propo.getApellido(),propo.getEmail(),propo.getFecNac(),propo.getImagen(),propo.getDireccion(),propo.getBiografia(),propo.getSitioWeb(), LDP);
                 DP = new DataPropuesta(p.getTitulo(), p.getImagen(), p.getEstadoActual(), dp, p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getmontoAlcanzada(),p.getFecha() ,p.getFechaARealizar(),p.getFechaLimit(), p.getRetorno(), p.getCategoria(), LDA);
                 DP.setProponenteActivo(propo.isActivo());
-                DP.setImagenLocal(p.getImagenLocal());
+                DP.setImagenLocal(p.getImagen());
                 return DP;
             }
         }
@@ -907,7 +915,7 @@ public class Controlador implements IControlador{
                 }else if (u instanceof Colaborador){
                   du.setTipo("Colaborador");
                 }
-                du.setImagen(u.getImagenWeb());
+                du.setImagen(u.getImagen());
                 seguidores.add(du);
             }
         }
@@ -932,7 +940,7 @@ public class Controlador implements IControlador{
                 
                 DataUsuario usuario = new DataUsuario(DProp.getNickname(),DProp.getNombre(),DProp.getApellido(),"Proponente",propuestasFiltradas,this.getSeguidores(p),p.getDtUSeguidos());
                 usuario.setEmail(DProp.getEmail());
-                usuario.setImagen(p.getImagenWeb());
+                usuario.setImagen(p.getImagen());
                 usuario.setDireccion(DProp.getDireccion());
                 usuario.setBiografia(DProp.getBiografia());
                 usuario.setSitioWeb(DProp.getSitioWeb());
@@ -950,7 +958,7 @@ public class Controlador implements IControlador{
         
         DataUsuario usuario = new DataUsuario(DCola.getNickname(),DCola.getNombre(),DCola.getApellido(),"Colaborador",DCola.getPropuestas(),this.getSeguidores(c),c.getDtUSeguidos());
         usuario.setEmail(DCola.getEmail());
-        usuario.setImagen(c.getImagenWeb());
+        usuario.setImagen(c.getImagen());
         
         usuario.setBiografia("");
         
@@ -1483,4 +1491,36 @@ public class Controlador implements IControlador{
         lista.add(ConfigManager.getTrelloBase());
         return lista;
     }
+    
+    
+    public void procesarFoto(String nombre, String base64){
+        String rutaEstacion = this.getPhotosSCPath();
+
+        byte[] bytes = Base64.getDecoder().decode(base64);
+        Path destino = Paths.get(rutaEstacion,nombre);
+        try {
+            Files.write(destino,bytes);
+        } catch (IOException ex) {
+            Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     
+    }
+    
+    public String getPhotosSCPath(){
+        return ConfigManager.getPhotosPath();
+    }
+    
+    public String guardarImagen(File foto) {
+        String basePath = this.getPhotosSCPath();
+        String nombre = foto.getName().replace(" ", "_");
+        File destino = new File(basePath, nombre);
+        try {
+            Files.copy(foto.toPath(), destino.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("Imagen copiada en: " + destino.getAbsolutePath());
+        } catch (IOException ex) {
+            Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return nombre;
+    }
+
 }    

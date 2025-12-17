@@ -37,16 +37,27 @@ public class LogicaWS {
     private Endpoint endpoint;
 
     IControlador ic = Fabrica.getInstancia().getIControlador();
+    
+    private String host;
+    private int port;
+    private String context;
 
+    public LogicaWS(String host, int port, String context) {
+        this.host = host;
+        this.port = port;
+        this.context = context;
+    }
+    
     public LogicaWS() {
     }
-
+    
     @WebMethod(exclude = true)
     public void publicar() {
-        this.endpoint = Endpoint.publish("http://localhost:9128/logicaWS", this);
+        String url = "http://" + host + ":" + port + context;
+        this.endpoint = Endpoint.publish(url, this);
         //this.endpoint = Endpoint.publish("../service", this);
-        System.out.println("Servicio publicado en " + this.endpoint.toString());
-        System.out.println("Servicio publicado en " + this.endpoint.getEndpointReference().toString());
+        //System.out.println("Servicio publicado en " + this.endpoint.toString());
+        //System.out.println("Servicio publicado en " + this.endpoint.getEndpointReference().toString());
     }
 
     @WebMethod(exclude = true)
@@ -60,13 +71,13 @@ public class LogicaWS {
 //        return du.getApellido();
 //    }
     @WebMethod(operationName = "añadirUsuarioP")
-    public int añadirUsuarioP(@WebParam(name = "nick") String nick, @WebParam(name = "nombre") String nombre, @WebParam(name = "apellido") String apellido, @WebParam(name = "correo") String correo, @WebParam(name = "fecNac") String fecNac, @WebParam(name = "imagen") String imagen, @WebParam(name = "contraseña") String contraseña, @WebParam(name = "direccion") String direccion, @WebParam(name = "bio") String bio, @WebParam(name = "sitioWeb") String sitioWeb, @WebParam(name = "imagenWeb") String imagenWeb) {
-        return ic.añadirUsuario(nick, nombre, apellido, correo, fecNac, imagen, contraseña, direccion, bio, sitioWeb, imagenWeb);
+    public int añadirUsuarioP(@WebParam(name = "nick") String nick, @WebParam(name = "nombre") String nombre, @WebParam(name = "apellido") String apellido, @WebParam(name = "correo") String correo, @WebParam(name = "fecNac") String fecNac, @WebParam(name = "imagen") String imagen, @WebParam(name = "contraseña") String contraseña, @WebParam(name = "direccion") String direccion, @WebParam(name = "bio") String bio, @WebParam(name = "sitioWeb") String sitioWeb) {
+        return ic.añadirUsuario(nick, nombre, apellido, correo, fecNac, imagen, contraseña, direccion, bio, sitioWeb);
     }
 
     @WebMethod(operationName = "añadirUsuarioC")
-    public int añadirUsuarioC(@WebParam(name = "nick") String nick, @WebParam(name = "nombre") String nombre, @WebParam(name = "apellido") String apellido, @WebParam(name = "correo") String correo, @WebParam(name = "fecNac") String fecNac, @WebParam(name = "imagen") String imagen, @WebParam(name = "contraseña") String contraseña, @WebParam(name = "imagenWeb") String imagenWeb) {
-        return ic.añadirUsuario(nick, nombre, apellido, correo, fecNac, imagen, contraseña, imagenWeb);
+    public int añadirUsuarioC(@WebParam(name = "nick") String nick, @WebParam(name = "nombre") String nombre, @WebParam(name = "apellido") String apellido, @WebParam(name = "correo") String correo, @WebParam(name = "fecNac") String fecNac, @WebParam(name = "imagen") String imagen, @WebParam(name = "contraseña") String contraseña) {
+        return ic.añadirUsuario(nick, nombre, apellido, correo, fecNac, imagen, contraseña);
     }
 
     @WebMethod(operationName = "altaAporte")
@@ -288,5 +299,10 @@ public class LogicaWS {
     @WebMethod(operationName = "getTrello")
     public List<String> getTrello(){
         return ic.getTrello();
+    }
+    
+    @WebMethod(operationName = "subirFoto")
+    public void subirFotoAlCentral(String nombre, String base64) {
+        ic.procesarFoto(nombre,base64);
     }
 }

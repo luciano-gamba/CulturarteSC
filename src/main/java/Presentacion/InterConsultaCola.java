@@ -242,8 +242,8 @@ public class InterConsultaCola extends javax.swing.JInternalFrame {
             this.txtFecha.setText(DA.getFechaHora().format(DateTimeFormatter.ISO_DATE));
             this.txtRetorno.setText(DA.getRetorno().toString());
             
-            ImageIcon icon = new ImageIcon(DA.getImagenLocal());
-            Image imagenEscalada = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+            ImageIcon icon = new ImageIcon(ic.getPhotosSCPath() + "/" + DA.getImagen());
+            Image imagenEscalada = icon.getImage().getScaledInstance(130, 130, Image.SCALE_SMOOTH);
             this.txtImagen.setIcon(new ImageIcon(imagenEscalada));
             this.jProgressBar1.setMinimum(0);
             this.jProgressBar1.setMaximum(DA.getNecesaria().intValue());

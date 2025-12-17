@@ -455,12 +455,7 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
             return;
         }
         
-        String imagenWeb;
-        if(!this.txtImagen.isBlank()){
-            imagenWeb = "fotos" + File.separator + this.txtImagen.substring(this.txtImagen.lastIndexOf(File.separator), this.txtImagen.length());
-        }else{
-            imagenWeb = "";
-        }
+        
         
         if(rbProponente.isSelected()){
             String direccion = textoDireccion.getText().trim();
@@ -473,7 +468,7 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
             }            
             
             String passHash = BCrypt.hashpw(pass, BCrypt.gensalt());
-            int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, this.txtImagen, passHash, direccion, biografia , sitioWeb, imagenWeb);
+            int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, this.txtImagen, passHash, direccion, biografia , sitioWeb);
 
             switch(resultado){
                 case 0 : JOptionPane.showMessageDialog(this, "Nickname ya existe!", "Error", HEIGHT); break;
@@ -485,7 +480,7 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
             }
         }else if(rbColaborador.isSelected()){
             String passHash = BCrypt.hashpw(pass, BCrypt.gensalt());
-            int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, this.txtImagen, passHash, imagenWeb);
+            int resultado = this.ic.añadirUsuario(nickname, nombre, apellido, email, fecNac, this.txtImagen, passHash);
 
             switch(resultado){
             case 0 : JOptionPane.showMessageDialog(this, "Nickname ya existe!", "Error", HEIGHT);break;
@@ -519,23 +514,11 @@ public class InterAltaUsuario extends javax.swing.JInternalFrame {
         fc.setDialogTitle("Buscar imagen");
         FileNameExtensionFilter filtro = new FileNameExtensionFilter("Imágenes JPG & PNG", "jpg", "png");
         fc.setFileFilter(filtro);
-        
-        File carpetaDestino = new File("fotos");
-        if (!carpetaDestino.exists()) {
-            carpetaDestino.mkdirs();
-        }
-        
+       
         if(fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
-            File foto = new File(fc.getSelectedFile().toString());
-            System.out.println(fc.getSelectedFile().toString());
-            File destino = new File(carpetaDestino, foto.getName());
-            try {
-                Files.copy(foto.toPath(), destino.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException ex) {
-                Logger.getLogger(InterAltaPropuesta.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            System.out.println("Imagen copiada en: " + destino.getAbsolutePath());
-            this.txtImagen = destino.getAbsolutePath();
+            File foto = fc.getSelectedFile();
+            
+            this.txtImagen = ic.guardarImagen(foto);
             this.textImagenLista.setVisible(true);
         }
     }//GEN-LAST:event_botonImagenActionPerformed

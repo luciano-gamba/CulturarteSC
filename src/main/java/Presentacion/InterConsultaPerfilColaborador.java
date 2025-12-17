@@ -275,7 +275,7 @@ public class InterConsultaPerfilColaborador extends javax.swing.JInternalFrame {
         textoFechaNac.setText(miColaborador.getFecNac().toString()); 
         
         
-        ImageIcon icon = new ImageIcon(miColaborador.getImagen());
+        ImageIcon icon = new ImageIcon(ic.getPhotosSCPath() + "/" + miColaborador.getImagen());
         Image imagenEscalada = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
         imagenPerfil.setIcon(new ImageIcon(imagenEscalada));
         

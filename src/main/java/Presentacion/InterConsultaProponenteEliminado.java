@@ -370,7 +370,7 @@ public class InterConsultaProponenteEliminado extends javax.swing.JInternalFrame
         textoFechaNac.setText(miProponente.getFecNac().toString()); 
         
         
-        ImageIcon icon = new ImageIcon(miProponente.getImagen());
+        ImageIcon icon = new ImageIcon(ic.getPhotosSCPath() + "/" + miProponente.getImagen());
         Image imagenEscalada = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
         imagenPerfil.setIcon(new ImageIcon(imagenEscalada));
        

@@ -137,35 +137,35 @@ public class InterCancelarCola extends javax.swing.JInternalFrame {
                                 .addComponent(Cancelar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(Mantener))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(txtFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-                                            .addComponent(txtAporte, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtCantidad, javax.swing.GroupLayout.Alignment.LEADING)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtRetorno))))
                             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel15)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txt$aporte, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
                                 .addComponent(jLabel14)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt$necesaria, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(txt$necesaria, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(txtFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+                                            .addComponent(txtAporte, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtCantidad, javax.swing.GroupLayout.Alignment.LEADING)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtRetorno)))))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -212,7 +212,7 @@ public class InterCancelarCola extends javax.swing.JInternalFrame {
                             .addComponent(txt$necesaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel14))
                         .addGap(1, 1, 1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -244,34 +244,52 @@ public class InterCancelarCola extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_ColaboradoresActionPerformed
 
     private void PropuestasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PropuestasActionPerformed
-        if (this.Propuestas.getSelectedIndex()!=0) {
-            DataAporte DA = ic.getDataAporte(this.Propuestas.getSelectedItem().toString(),this.Colaboradores.getSelectedItem().toString());
-            this.txtAporte.setText(DA.getAporte().toString());
-            this.txtCantidad.setText(DA.getCantidad()+"");
-            this.txtFecha.setText(DA.getFechaHora().format(DateTimeFormatter.ISO_DATE));
-            this.txtRetorno.setText(DA.getRetorno().toString());
-            
-            ImageIcon icon = new ImageIcon(DA.getImagenLocal());
-            Image imagenEscalada = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-            this.txtImagen.setIcon(new ImageIcon(imagenEscalada));
-            this.jProgressBar1.setMinimum(0);
-            this.jProgressBar1.setMaximum(DA.getNecesaria().intValue());
-            if(DA.getAporte().intValue() >= DA.getNecesaria().intValue()){
-                this.jProgressBar1.setValue(DA.getNecesaria().intValue());
-            }else{
-                this.jProgressBar1.setValue(DA.getAporte().intValue());
-            }                   
-        }else{
-            this.txtAporte.setText("");//DA.getAporte().toString());
-            this.txtCantidad.setText("");//DA.getCantidad()+"");
-            this.txtFecha.setText("");//DA.getFechaHora().format(DateTimeFormatter.ISO_DATE));
-            this.txtRetorno.setText("");//DP.getRetorno().toString());
-            this.jProgressBar1.setMinimum(0);
-            this.jProgressBar1.setMaximum(100);
-            this.jProgressBar1.setValue(0);
-            this.txtImagen.setIcon(null);
+        
+        if (!Propuestas.isEnabled()) return;
+        if (Propuestas.getSelectedIndex() <= 0) {
+            limpiarDatos();
+            return;
         }
+        if (Colaboradores.getSelectedIndex() <= 0) {
+            limpiarDatos();
+            return;
+        }
+
+        DataAporte DA = ic.getDataAporte(this.Propuestas.getSelectedItem().toString(),this.Colaboradores.getSelectedItem().toString());
+
+        if (DA == null) {
+            limpiarDatos();
+            return;
+        }
+        
+        this.txtAporte.setText(DA.getAporte().toString());
+        this.txtCantidad.setText(DA.getCantidad()+"");
+        this.txtFecha.setText(DA.getFechaHora().format(DateTimeFormatter.ISO_DATE));
+        this.txtRetorno.setText(DA.getRetorno().toString());
+
+        ImageIcon icon = new ImageIcon(ic.getPhotosSCPath() + "/" + DA.getImagen());
+        Image imagenEscalada = icon.getImage().getScaledInstance(130, 130, Image.SCALE_SMOOTH);
+        this.txtImagen.setIcon(new ImageIcon(imagenEscalada));
+        this.jProgressBar1.setMinimum(0);
+        this.jProgressBar1.setMaximum(DA.getNecesaria().intValue());
+        if(DA.getAporte().intValue() >= DA.getNecesaria().intValue()){
+            this.jProgressBar1.setValue(DA.getNecesaria().intValue());
+        }else{
+            this.jProgressBar1.setValue(DA.getAporte().intValue());
+        }                   
+        
     }//GEN-LAST:event_PropuestasActionPerformed
+    private void limpiarDatos() {
+        txtAporte.setText("");
+        txtCantidad.setText("");
+        txtFecha.setText("");
+        txtRetorno.setText("");
+        txtImagen.setIcon(null);
+
+        jProgressBar1.setMinimum(0);
+        jProgressBar1.setMaximum(100);
+        jProgressBar1.setValue(0);
+    }
 
     private void txtRetornoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRetornoActionPerformed
         // TODO add your handling code here:

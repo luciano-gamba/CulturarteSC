@@ -350,7 +350,7 @@ public class InterConsultaPropuesta extends javax.swing.JInternalFrame {
             
            DP = ic.consultaDePropuesta(titulo);
         
-           ImageIcon icon = new ImageIcon(DP.getImagenLocal());
+           ImageIcon icon = new ImageIcon(ic.getPhotosSCPath() + "/" + DP.getImagenLocal());
 
            Image imagenEscalada = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
            lblFoto.setIcon(new ImageIcon(imagenEscalada));

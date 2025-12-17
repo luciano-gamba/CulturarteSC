@@ -17,6 +17,7 @@ import DataTypes.EnumTarjeta;
 import Logica.Colaborador;
 import Logica.Proponente;
 import Logica.Usuario;
+import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,11 +25,11 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 public interface IControlador {
     
-    int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String contraseña, String direccion, String bio, String sitioWeb, String imagenWeb);
-    int añadirUsuario(String nick, String nombre, String apellido, String correo, String fecNac, String imagen, String contraseña, String direccion, String bio, String sitioWeb, String imagenWeb);
+    int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String contraseña, String direccion, String bio, String sitioWeb);
+    int añadirUsuario(String nick, String nombre, String apellido, String correo, String fecNac, String imagen, String contraseña, String direccion, String bio, String sitioWeb);
     
-    int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String contraseña, String imagenWeb);
-    int añadirUsuario(String nick, String nombre, String apellido, String correo, String fecNac, String imagen, String contraseña, String imagenWeb);
+    int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String contraseña);
+    int añadirUsuario(String nick, String nombre, String apellido, String correo, String fecNac, String imagen, String contraseña);
     
     int altaCategoria(String nombreCat);
     
@@ -167,4 +168,10 @@ public interface IControlador {
     List<DataRegistro> getRegistroSesion();
     
     public List<String> getTrello();
+    
+    public void procesarFoto(String nombre, String base64);
+    
+    public String getPhotosSCPath();
+    
+    public String guardarImagen(File foto);
 }

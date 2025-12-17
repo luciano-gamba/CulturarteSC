@@ -417,21 +417,10 @@ public class InterAltaPropuesta extends javax.swing.JInternalFrame {
         FileNameExtensionFilter filtro = new FileNameExtensionFilter("Imágenes JPG & PNG", "jpg", "png");
         fc.setFileFilter(filtro);
         
-        File carpetaDestino = new File("fotos");
-        if (!carpetaDestino.exists()) {
-            carpetaDestino.mkdirs();
-        }
-        
         if(fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
-            File foto = new File(fc.getSelectedFile().toString());
-            File destino = new File(carpetaDestino, foto.getName());
-            try {
-                Files.copy(foto.toPath(), destino.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                JOptionPane.showMessageDialog(this, "Imagen ingresada con exito!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
-            } catch (IOException ex) {
-                Logger.getLogger(InterAltaPropuesta.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            this.txtImagen = destino.getAbsolutePath();
+            File foto = fc.getSelectedFile();
+            
+            this.txtImagen = ic.guardarImagen(foto);
         }
     }//GEN-LAST:event_btnFotoActionPerformed
 

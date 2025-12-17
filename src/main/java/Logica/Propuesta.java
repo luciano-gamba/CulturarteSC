@@ -26,7 +26,6 @@ public class Propuesta implements Serializable {
     @Column(name = "descripcion", length = 1000)
     private String descrip;
     private String imagen = "";
-    private String imagenLocal = "";
     private String lugar;
     private LocalDate fecha;//Fecha de publicación
     private double montoEntrada;
@@ -308,14 +307,6 @@ public class Propuesta implements Serializable {
 
     public void setProponenteActivo(boolean ProponenteActivo) {
         this.ProponenteActivo = ProponenteActivo;
-    }
-
-    public String getImagenLocal() {
-        return imagenLocal;
-    }
-
-    public void setImagenLocal(String imagenLocal) {
-        this.imagenLocal = imagenLocal;
     }
 
 }

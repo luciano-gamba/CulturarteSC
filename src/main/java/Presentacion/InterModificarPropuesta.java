@@ -397,8 +397,8 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
             this.botonEditar.setEnabled(true);
             DP = ic.consultaDePropuesta(titulo);
 
-            ImageIcon icon = new ImageIcon(DP.getImagenLocal());
-
+            ImageIcon icon = new ImageIcon(ic.getPhotosSCPath() +  File.separator  + DP.getImagenLocal());
+            
             if(!"".equals(DP.getImagenLocal())){
                 Image imagenEscalada = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
                 labelFoto.setIcon(new ImageIcon(imagenEscalada));
@@ -549,24 +549,16 @@ public class InterModificarPropuesta extends javax.swing.JInternalFrame {
         FileNameExtensionFilter filtro = new FileNameExtensionFilter("Imágenes JPG & PNG", "jpg", "png");
         fc.setFileFilter(filtro);
         
-        File carpetaDestino = new File("fotos");
-        if (!carpetaDestino.exists()) {
-            carpetaDestino.mkdirs();
-        }
-        
         if(fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
-            File foto = new File(fc.getSelectedFile().toString());
-            System.out.println(fc.getSelectedFile().toString());
-            File destino = new File(carpetaDestino, foto.getName());
-            try {
-                Files.copy(foto.toPath(), destino.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException ex) {
-                Logger.getLogger(InterAltaPropuesta.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            System.out.println("Imagen copiada en: " + destino.getAbsolutePath());
-            this.txtImagen = destino.getAbsolutePath();
+            //Archivo seleccionada por el usuario
+            File foto = fc.getSelectedFile();
             
-            ImageIcon icon = new ImageIcon(this.txtImagen);
+            System.out.println(fc.getSelectedFile().toString());
+            
+            this.txtImagen = ic.guardarImagen(foto);;
+            
+            File Imagen = new File (ic.getPhotosSCPath(),this.txtImagen);
+            ImageIcon icon = new ImageIcon(Imagen.getAbsolutePath());
 
             Image imagenEscalada = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
             labelFoto.setIcon(new ImageIcon(imagenEscalada));
