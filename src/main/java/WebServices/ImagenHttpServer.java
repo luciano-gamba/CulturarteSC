@@ -15,16 +15,16 @@ public class ImagenHttpServer {
     
     private Integer port;
     
-    public ImagenHttpServer(Integer port){
-        port = port;
+    public ImagenHttpServer(Integer puerto){
+        port = puerto;
     }
     
     public void iniciar() {
         try {
-            
-            server = HttpServer.create(new InetSocketAddress(9129), 0);
+            String context = ConfigManager.getPhotosContext();
+            server = HttpServer.create(new InetSocketAddress(port), 0);
 
-            server.createContext("/imagenes", new ImagenHandler());
+            server.createContext(context, new ImagenHandler());
 
             server.setExecutor(null); // default
             server.start();

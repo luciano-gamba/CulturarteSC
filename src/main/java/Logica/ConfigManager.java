@@ -91,6 +91,7 @@ public class ConfigManager {
 
         //Puerto de fotos 
         defaultProps.setProperty("photos.port","9129");
+        defaultProps.setProperty("photos.context","/imagenes");
         
         try (OutputStream output = new FileOutputStream(filePath.toFile())) {
             defaultProps.store(output, "Archivo de configuración de Culturarte");
@@ -105,13 +106,13 @@ public class ConfigManager {
 
         ok &= validarObligatoria("jdbc.url");
         ok &= validarObligatoria("jdbc.user");
-        ok &= validarObligatoria("jdbc.password");
-
+        
         validarOpcional("trello.key");
         validarOpcional("trello.token");
         validarOpcional("trello.api_base");
         validarOpcional("photos.path");
         validarOpcional("photos.port");
+        validarOpcional("photos.context");
         
         if (ok) {
             System.out.println("Configuración OK [OK]️");
@@ -188,5 +189,8 @@ public class ConfigManager {
             return null;
         }
         return Integer.parseInt(port);
+    }
+    public static String getPhotosContext() {
+        return props.getProperty("photos.context");
     }
 }

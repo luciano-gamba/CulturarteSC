@@ -12,19 +12,15 @@ import DataTypes.DataRegistro;
 import DataTypes.DataUsuario;
 import DataTypes.DataSugerencias;
 import DataTypes.EnumRetorno;
-import DataTypes.EnumPago;
 import DataTypes.EnumTarjeta;
 import Interfaces.Fabrica;
 import Interfaces.IControlador;
 import Logica.Proponente;
 import Logica.Usuario;
-import Logica.Aporte;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
 import jakarta.xml.ws.Endpoint;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -304,5 +300,15 @@ public class LogicaWS {
     @WebMethod(operationName = "subirFoto")
     public void subirFotoAlCentral(String nombre, String base64) {
         ic.procesarFoto(nombre,base64);
+    }
+    
+    @WebMethod(operationName = "getPhotosPortAndContext")
+    public String getPhotosPortAndContext(){
+        return ic.getPhotosPortAndContext();
+    }
+    
+    @WebMethod(operationName = "ping")
+    public String ping(){
+        return "OK";
     }
 }

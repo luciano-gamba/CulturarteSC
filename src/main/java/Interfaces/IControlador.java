@@ -174,4 +174,6 @@ public interface IControlador {
     public String getPhotosSCPath();
     
     public String guardarImagen(File foto);
+    
+    public String getPhotosPortAndContext();
 }

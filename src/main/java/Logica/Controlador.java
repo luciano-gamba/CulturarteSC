@@ -1522,5 +1522,15 @@ public class Controlador implements IControlador{
         }
         return nombre;
     }
-
+     public String getPhotosPortAndContext(){
+        Integer port = ConfigManager.getPhotosPort();
+        String context = ConfigManager.getPhotosContext();
+        
+        if(port == null || context == null || context.isBlank()) {
+            return null;
+        }
+         
+         
+        return ":" + port + context;
+    }
 }    
